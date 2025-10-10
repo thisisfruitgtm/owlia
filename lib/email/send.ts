@@ -1,4 +1,4 @@
-import { resend, FROM_EMAIL, isResendConfigured } from './resend';
+import { getResend, FROM_EMAIL, isResendConfigured } from './resend';
 import { welcomeEmail } from './templates/welcome';
 import { guideDownloadEmail } from './templates/guideDownload';
 
@@ -15,6 +15,7 @@ export async function sendEmail({ to, subject, html }: SendEmailParams) {
       return { success: false, error: 'Resend not configured' };
     }
 
+    const resend = getResend();
     const data = await resend.emails.send({
       from: FROM_EMAIL,
       to,
