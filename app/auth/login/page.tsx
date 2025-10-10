@@ -32,20 +32,11 @@ export default function LoginPage() {
         return;
       }
 
-      // Fetch session to get user role
-      const sessionResponse = await fetch("/api/auth/session");
-      const session = await sessionResponse.json();
-
-      // Redirect based on role
-      if (session?.user?.role === "ADMIN") {
-        router.push("/admin");
-      } else if (session?.user?.role === "CLIENT" && session?.user?.clientId) {
-        router.push(`/client/${session.user.clientId}`);
-      } else {
-        router.push("/");
+      if (result?.ok) {
+        const redirectResponse = await fetch("/api/auth/redirect");
+        const { redirectUrl } = await redirectResponse.json();
+        window.location.href = redirectUrl;
       }
-      
-      router.refresh();
     } catch (err) {
       setError("A apărut o eroare. Te rugăm să încerci din nou.");
       setIsLoading(false);
