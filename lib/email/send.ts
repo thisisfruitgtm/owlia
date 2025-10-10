@@ -1,4 +1,4 @@
-import { resend, FROM_EMAIL } from './resend';
+import { resend, FROM_EMAIL, isResendConfigured } from './resend';
 import { welcomeEmail } from './templates/welcome';
 import { guideDownloadEmail } from './templates/guideDownload';
 
@@ -10,6 +10,11 @@ interface SendEmailParams {
 
 export async function sendEmail({ to, subject, html }: SendEmailParams) {
   try {
+    if (!isResendConfigured()) {
+      console.warn('⚠️ RESEND_API_KEY not configured. Email will not be sent.');
+      return { success: false, error: 'Resend not configured' };
+    }
+
     const data = await resend.emails.send({
       from: FROM_EMAIL,
       to,
