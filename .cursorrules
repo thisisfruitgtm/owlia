@@ -1,0 +1,365 @@
+# Owlia Platform - Cursor AI Rules
+
+## Tech Stack
+- **Framework:** Next.js 15.5.4 (App Router + Turbopack)
+- **Language:** TypeScript (strict mode)
+- **Database:** PostgreSQL + Prisma ORM
+- **Auth:** NextAuth.js v5 (beta)
+- **Styling:** Tailwind CSS v4
+- **Email:** Resend
+- **PDF:** Puppeteer
+- **Validation:** Zod
+- **Deployment:** Coolify (Docker)
+
+## Code Style & Conventions
+
+### General
+- Use TypeScript for all files (strict mode enabled)
+- Use functional components with React hooks
+- Prefer `const` over `let`, avoid `var`
+- Use async/await over promises chains
+- Use template literals for string interpolation
+- Use optional chaining (`?.`) and nullish coalescing (`??`)
+- Keep functions small and focused (max 50 lines)
+- Use descriptive variable names (avoid abbreviations)
+
+### File Naming
+- Components: PascalCase (e.g., `Button.tsx`, `ClientCard.tsx`)
+- Utilities: camelCase (e.g., `formatDate.ts`, `validateEmail.ts`)
+- API routes: lowercase with hyphens (e.g., `route.ts` in `api/auth/register/`)
+- Types: PascalCase with `.d.ts` extension (e.g., `next-auth.d.ts`)
+
+### Component Structure
+```tsx
+"use client"; // Only if needed (client-side state/hooks)
+
+import { useState } from "react";
+import { ComponentProps } from "@/types";
+
+interface Props {
+  // Props definition
+}
+
+export default function ComponentName({ prop }: Props) {
+  // Hooks first
+  const [state, setState] = useState();
+  
+  // Event handlers
+  const handleClick = () => {};
+  
+  // Render
+  return <div></div>;
+}
+```
+
+### Prisma
+- Use `prisma` singleton from `@/lib/db/prisma`
+- Always include relevant relations in queries
+- Use transactions for multiple operations
+- Handle errors gracefully with try/catch
+
+### NextAuth v5 (Beta)
+- Import from `@/lib/auth/config`: `{ auth, signIn, signOut, handlers }`
+- Use `getToken` from `next-auth/jwt` for middleware
+- Session type defined in `types/next-auth.d.ts`
+- Pages in `/auth/login` and `/auth/register`
+
+### API Routes
+- Use Zod for validation (`error.issues[0].message`)
+- Return proper HTTP status codes
+- Use `NextResponse.json()` for responses
+- Handle errors with try/catch
+- Log errors with `console.error()`
+
+### Styling (Tailwind v4)
+- Use utility classes directly in JSX
+- Custom colors: `navy`, `cream`, `gray-dark`, `gray`, `gray-light`
+- Use CSS variables from `:root` for non-utility styles
+- Responsive: mobile-first approach with `md:`, `lg:` prefixes
+- Custom utilities in `globals.css` under `@layer utilities`
+
+### Forms
+- Use controlled components (useState)
+- Validate on submit, not on change
+- Show errors below inputs
+- Disable submit button while loading
+- Use `Input` and `Button` components from `@/components/ui`
+
+### Security
+- Never expose `NEXTAUTH_SECRET` in client code
+- Validate all user input with Zod
+- Use bcrypt for password hashing (12 rounds)
+- Check user permissions in API routes
+- Use middleware for route protection
+- Sanitize file uploads (type, size, name)
+
+## Project Structure
+
+```
+/app
+  /(public)           # Public routes (landing, ghid)
+  /admin              # Admin dashboard (protected)
+  /client/[id]        # Client portal (protected)
+  /auth               # Login/register
+  /api                # API routes
+/components
+  /ui                 # Reusable UI components
+  /admin              # Admin-specific components
+  /client             # Client-specific components
+/lib
+  /db                 # Prisma client
+  /auth               # NextAuth config
+  /email              # Resend templates
+  /contracts          # PDF generation
+  /storage            # File management
+/prisma
+  schema.prisma       # Database schema
+  seed.ts             # Seed data
+/public
+  /uploads            # File storage (volume mount)
+  /templates          # HTML templates
+```
+
+## Database Guidelines
+
+### Prisma Schema
+- Use `cuid()` for IDs
+- Use enums for fixed values (Role, Status, etc.)
+- Add `createdAt` and `updatedAt` to all models
+- Use `onDelete: Cascade` for dependent relations
+- Index foreign keys for performance
+
+### Migrations
+- Run `npm run prisma:migrate` for new migrations
+- Never edit migrations manually
+- Test migrations locally before deploy
+- Run `prisma migrate deploy` on production
+
+## Component Guidelines
+
+### UI Components (`/components/ui`)
+- Accept `className` prop for extensibility
+- Use `forwardRef` for components that need refs
+- Support all native HTML props via `...props`
+- Include TypeScript interface for props
+- Add JSDoc comments for complex components
+
+### Admin Components
+- Check user role in server components
+- Use `auth()` from NextAuth to get session
+- Redirect if not authorized
+- Show loading states
+- Handle errors with error boundaries
+
+### Client Components
+- Mark with `"use client"` directive
+- Minimize client-side JavaScript
+- Use React Server Components when possible
+- Fetch data on server, not client
+
+## API Route Guidelines
+
+### Structure
+```ts
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { prisma } from "@/lib/db/prisma";
+import { auth } from "@/lib/auth/config";
+
+const schema = z.object({
+  field: z.string().min(1),
+});
+
+export async function POST(request: NextRequest) {
+  try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    
+    const body = await request.json();
+    const data = schema.parse(body);
+    
+    // Business logic
+    const result = await prisma.model.create({ data });
+    
+    return NextResponse.json(result, { status: 201 });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: error.issues[0].message },
+        { status: 400 }
+      );
+    }
+    
+    console.error("API error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## File Management
+
+### Upload Rules
+- Max size: 10MB
+- Allowed types: PDF, JPG, PNG, DOCX
+- Store in `/app/uploads/[clientId]/`
+- Generate unique filenames (timestamp + random)
+- Save metadata in `File` model
+
+### Download Rules
+- Check user ownership (userId === file.clientId OR role === ADMIN)
+- Use signed URLs for security
+- Set proper Content-Type headers
+- Log downloads for audit trail
+
+## Email Guidelines (Resend)
+
+### Templates
+- Store in `/lib/email/templates/`
+- Use HTML with inline CSS
+- Include plain text alternative
+- Test with different email clients
+
+### Sending
+```ts
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+await resend.emails.send({
+  from: "Owlia <noreply@owlia.ro>",
+  to: user.email,
+  subject: "Subject",
+  html: htmlTemplate,
+});
+```
+
+## Contract Generation
+
+### Process
+1. Load HTML template from `/public/templates/`
+2. Replace placeholders: `{{clientName}}`, `{{packageName}}`, etc.
+3. Use Puppeteer to render PDF
+4. Save to volume: `/app/uploads/contracts/[clientId]/`
+5. Create `Contract` record in database
+6. Send notification email
+
+### Puppeteer Config
+```ts
+const browser = await puppeteer.launch({
+  headless: true,
+  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+});
+```
+
+## Deployment (Coolify)
+
+### Build
+- Run `prisma generate` before build
+- Use standalone output mode
+- Include `.next/static` in Docker image
+- Mount volume for `/app/uploads`
+
+### Environment Variables
+- Never commit `.env` files
+- Use Coolify UI for secrets
+- Validate required vars on startup
+- Use `.env.example` as template
+
+### Post-Deploy
+1. Run `prisma migrate deploy`
+2. Run `prisma db seed` (if needed)
+3. Test authentication
+4. Verify file uploads work
+5. Check logs for errors
+
+## Testing Guidelines
+
+### Manual Testing Checklist
+- [ ] Login/logout works
+- [ ] Admin can access /admin
+- [ ] Client can access /client/[id] (only their ID)
+- [ ] Forms validate correctly
+- [ ] File upload works
+- [ ] Emails send (check Resend dashboard)
+- [ ] PDF generation works
+- [ ] Mobile responsive
+- [ ] No console errors
+
+## Performance
+
+### Optimization Tips
+- Use `loading.tsx` for route loading states
+- Implement pagination for large lists
+- Cache static data with `unstable_cache`
+- Use `Image` component for images
+- Lazy load heavy components
+- Minimize client-side JavaScript
+- Use server components by default
+
+## Accessibility
+
+- Use semantic HTML (`<header>`, `<nav>`, `<main>`, `<footer>`)
+- Add `aria-label` for icon buttons
+- Ensure keyboard navigation works
+- Use proper heading hierarchy (h1 → h6)
+- Add alt text for images
+- Use sufficient color contrast (WCAG AA)
+
+## Git Workflow
+
+### Commit Messages
+```
+feat: add new feature
+fix: bug fix
+chore: maintenance (deps, config)
+docs: documentation changes
+style: code style (no logic change)
+refactor: code refactoring
+test: add/update tests
+```
+
+### Before Commit
+- Run `npm run build` to test
+- Fix linting errors
+- Test locally
+- Update README if needed
+
+## Common Pitfalls
+
+### Avoid
+- ❌ Using `any` type in TypeScript
+- ❌ Mutating props directly
+- ❌ Forgetting error handling in API routes
+- ❌ Hardcoding secrets in code
+- ❌ Using `.env` in production (use Coolify vars)
+- ❌ Not validating user input
+- ❌ Exposing internal errors to users
+- ❌ Using `console.log` in production (use proper logging)
+
+### Prefer
+- ✅ Strict TypeScript types
+- ✅ Immutable data patterns
+- ✅ Proper error boundaries
+- ✅ Environment variables for config
+- ✅ Zod validation for all inputs
+- ✅ Generic error messages for users
+- ✅ Structured logging with context
+
+## Resources
+
+- Next.js Docs: https://nextjs.org/docs
+- Prisma Docs: https://www.prisma.io/docs
+- NextAuth.js v5: https://authjs.dev
+- Tailwind CSS: https://tailwindcss.com
+- Resend Docs: https://resend.com/docs
+
+## Questions?
+
+Check README.md or COOLIFY_SETUP.md for deployment details.
+
