@@ -21,21 +21,9 @@ export default function StartUpNationPage() {
   return (
     <>
       <Navigation />
-
-      {/* Breadcrumb */}
-      <div className="mt-20 pt-6 bg-white border-b border-gray-light">
-        <div className="max-w-7xl mx-auto px-6 pb-4">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-gray hover:text-navy transition-smooth"
-          >
-            ← Înapoi la Homepage
-          </Link>
-        </div>
-      </div>
       
       {/* Hero Section */}
-      <section className="pt-16 pb-20 bg-gradient-to-b from-cream to-white">
+      <section className="mt-20 pt-24 pb-20 bg-gradient-to-b from-cream to-white">
         <div className="max-w-7xl mx-auto px-6">
           <h1 className="text-5xl md:text-6xl font-bold text-navy leading-tight tracking-tight mb-6">
             Urmează să primești Start-Up Nation?

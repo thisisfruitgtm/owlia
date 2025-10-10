@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Navigation from "@/components/ui/Navigation";
 import CTASection from "@/components/ui/CTASection";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "VipBebe.ro - Caz de Succes | OWLIA",
@@ -22,13 +21,6 @@ export default function VipBebePage() {
       {/* Hero */}
       <section className="mt-20 pt-24 pb-20 bg-gradient-to-b from-cream to-white">
         <div className="max-w-7xl mx-auto px-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-navy hover:underline mb-8"
-          >
-            ← Înapoi la Homepage
-          </Link>
-
           <div className="flex items-center gap-4 mb-6">
             <div className="text-8xl">👶</div>
             <div>

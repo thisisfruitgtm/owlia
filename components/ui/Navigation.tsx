@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "./Logo";
@@ -8,15 +9,29 @@ import Button from "./Button";
 
 export default function Navigation() {
   const { data: session, status } = useSession();
+  const pathname = usePathname();
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const isHomepage = pathname === "/";
 
   return (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-light z-50">
       <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-        <Link href="/" className="flex items-center">
-          <Logo className="h-10 w-auto" />
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center">
+            <Logo className="h-10 w-auto" />
+          </Link>
+          
+          {!isHomepage && (
+            <Link
+              href="/"
+              className="hidden md:inline-flex items-center gap-2 text-sm text-gray hover:text-navy transition-smooth"
+            >
+              ← Înapoi la Homepage
+            </Link>
+          )}
+        </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
