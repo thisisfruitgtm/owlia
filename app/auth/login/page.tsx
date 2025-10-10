@@ -33,9 +33,15 @@ export default function LoginPage() {
       }
 
       if (result?.ok) {
+        // Wait a bit for session cookie to be set
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
         const redirectResponse = await fetch("/api/auth/redirect");
         const { redirectUrl } = await redirectResponse.json();
-        window.location.href = redirectUrl;
+        
+        // Use router.push with full page refresh
+        router.push(redirectUrl);
+        router.refresh();
       }
     } catch (err) {
       setError("A apărut o eroare. Te rugăm să încerci din nou.");
