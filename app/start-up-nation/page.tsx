@@ -1,23 +1,16 @@
+"use client";
+
+import { useState } from "react";
 import Navigation from "@/components/ui/Navigation";
 import Calculator from "@/components/ui/Calculator";
 import PricingSection from "@/components/ui/PricingSection";
 import BreakdownSection from "@/components/ui/BreakdownSection";
 import FAQ from "@/components/ui/FAQ";
+import GuideModal from "@/components/ui/GuideModal";
 import Link from "next/link";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Start-Up Nation | OWLIA - Marketing pentru Fonduri Europene",
-  description:
-    "Pachete complete Start-Up Nation. Calculator buget, implementare 12 luni, rapoarte pentru evaluatori. Peste 50 de beneficiari ajutați.",
-  openGraph: {
-    title: "Start-Up Nation | OWLIA",
-    description: "Pachete complete Start-Up Nation cu management 12 luni.",
-    images: ["/og-image.jpg"],
-  },
-};
 
 export default function StartUpNationPage() {
+  const [isGuideModalOpen, setIsGuideModalOpen] = useState(false);
   return (
     <>
       <Navigation />
@@ -340,14 +333,13 @@ export default function StartUpNationPage() {
             ))}
           </div>
           
-          <a
-            href="/ghid-buget-marketing-startup-nation.html"
-            target="_blank"
+          <button
+            onClick={() => setIsGuideModalOpen(true)}
             className="inline-flex items-center gap-3 bg-white text-navy px-10 py-5 rounded-xl font-semibold text-lg hover:-translate-y-1 hover:shadow-2xl transition-smooth"
           >
             <span>📥</span>
             Descarcă Ghidul (Gratis)
-          </a>
+          </button>
           
           <p className="text-sm mt-4 text-white/60">
             sau contactează-ne pe{" "}
@@ -389,6 +381,12 @@ export default function StartUpNationPage() {
           <p className="text-xs mt-2">Acest model este proprietatea OWLIA și nu poate fi replicat fără consimțământ. Publicat: 8 Octombrie 2025</p>
         </div>
       </footer>
+
+      {/* Guide Modal */}
+      <GuideModal
+        isOpen={isGuideModalOpen}
+        onClose={() => setIsGuideModalOpen(false)}
+      />
     </>
   );
 }

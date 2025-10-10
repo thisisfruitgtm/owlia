@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
 import { headers } from "next/headers";
+import { sendGuideDownloadEmail } from "@/lib/email/send";
 
 const guideAccessSchema = z.object({
   email: z.string().email(),
@@ -50,12 +51,27 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    // TODO: Send email with PDF using Resend
-    // This will be implemented in the next step
+    // Generate download URL
+    const downloadUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/guide/download/${guideAccess.id}`;
+    
+    // Send email with download link
+    try {
+      await sendGuideDownloadEmail(data.email, downloadUrl);
+      
+      // Mark email as sent
+      await prisma.guideAccess.update({
+        where: { id: guideAccess.id },
+        data: { emailSent: true },
+      });
+    } catch (emailError) {
+      console.error("Failed to send guide email:", emailError);
+      // Don't fail the request if email fails
+    }
     
     return NextResponse.json({ 
       success: true,
-      guideAccessId: guideAccess.id 
+      guideAccessId: guideAccess.id,
+      downloadUrl,
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
