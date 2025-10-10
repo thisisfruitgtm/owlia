@@ -1,0 +1,156 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+enum ClientStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+  COMPLETED
+}
+
+enum ContractStatus {
+  DRAFT
+  SENT
+  SIGNED
+  CANCELLED
+}
+
+enum TimelineStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  DELAYED
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  password      String
+  role          Role           @default(CLIENT)
+  name          String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  client        Client?
+  notifications Notification[]
+}
+
+model Client {
+  id            String       @id @default(cuid())
+  userId        String       @unique
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  phone         String?
+  industry      String
+  revenue       Int
+  targetClients Int
+  packageId     String?
+  package       Package?     @relation(fields: [packageId], references: [id])
+  status        ClientStatus @default(ACTIVE)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  timeline      Timeline[]
+  contracts     Contract[]
+  files         File[]
+  leads         Lead[]
+}
+
+model Package {
+  id            String   @id @default(cuid())
+  name          String
+  price         Int
+  priceMonthly  Int?
+  description   String?
+  features      Json // Array of strings
+  timeline      Json // Timeline template
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  clients       Client[]
+}
+
+model Contract {
+  id         String         @id @default(cuid())
+  clientId   String
+  client     Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  templateId String?
+  data       Json // Contract data (placeholders filled)
+  pdfUrl     String?
+  status     ContractStatus @default(DRAFT)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+}
+
+model File {
+  id         String   @id @default(cuid())
+  clientId   String
+  client     Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  name       String
+  path       String
+  type       String
+  size       Int
+  uploadedBy String // userId
+  createdAt  DateTime @default(now())
+}
+
+model Timeline {
+  id          String         @id @default(cuid())
+  clientId    String
+  client      Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  month       Int // 1-12
+  milestone   String
+  description String?
+  status      TimelineStatus @default(PENDING)
+  dueDate     DateTime?
+  completedAt DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Setting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String // JSON string for complex values
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Lead {
+  id            String   @id @default(cuid())
+  email         String
+  name          String?
+  phone         String?
+  industry      String?
+  revenue       Int?
+  targetClients Int?
+  source        String? // calculator, contact-form, ghid-download
+  converted     Boolean  @default(false)
+  clientId      String?
+  client        Client?  @relation(fields: [clientId], references: [id])
+  createdAt     DateTime @default(now())
+}
