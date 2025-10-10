@@ -3,7 +3,7 @@ export default function Logo({ className = "" }: { className?: string }) {
     <img
       src="/logo_owlia_blue.svg"
       alt="OWLIA - Marketing Nonconventional"
-      className={className}
+      className={className || "h-[60px] w-auto"}
     />
   );
 }
