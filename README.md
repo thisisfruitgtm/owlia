@@ -74,7 +74,11 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ```
 /app
-  /(public)/page.tsx          # Landing page
+  /page.tsx                   # Homepage (general Owlia)
+  /start-up-nation/page.tsx   # Start-Up Nation landing page
+  /servicii/*                 # Service pages (marketing, web, branding)
+  /cazuri-de-succes/*         # Case study pages (vipbebe, ladada, atelier)
+  /despre/page.tsx            # About page
   /auth/login                 # Login page
   /auth/register              # Register page
   /admin/*                    # Admin dashboard (protected)
@@ -87,7 +91,8 @@ Open [http://localhost:3000](http://localhost:3000)
   /contracts                  # Contract generation
   /storage                    # File management
 /components
-  /ui                         # Reusable components
+  /ui                         # Reusable components (Button, Navigation, etc)
+  /home                       # Homepage-specific components
   /admin                      # Admin-specific
   /client                     # Client-specific
 /prisma
@@ -190,14 +195,60 @@ npm run prisma:seed
 - [x] Landing page hero section
 - [x] Dockerfile for Coolify deployment
 
-### 🚧 Phase 2: Landing Page (IN PROGRESS)
-- [ ] Problem section with pain points
-- [ ] Calculator buget (interactive)
-- [ ] Pricing section with toggle (annual/monthly)
-- [ ] FAQ accordion
-- [ ] Lead capture forms + API routes
-- [ ] Convert ghid HTML to Next.js page
-- [ ] Download ghid tracking
+### ✅ Phase 2: Website Structure (COMPLETED)
+
+**General Homepage (/):**
+- [x] Hero section with value proposition
+- [x] Problem section (3 challenges for new businesses)
+- [x] Solution section (3-step process)
+- [x] Services grid (Marketing Digital, Web Design, Branding)
+- [x] Process steps (4-step methodology)
+- [x] Case studies preview (3 spotlight cases)
+- [x] Why Owlia (4 differentiators)
+- [x] Industries section (flexible positioning)
+- [x] Final CTA
+
+**Start-Up Nation Page (/start-up-nation):**
+- [x] Problem section with pain points
+- [x] Calculator buget (interactive with email capture)
+- [x] Pricing section with toggle (annual/monthly)
+- [x] Package breakdown section
+- [x] FAQ accordion
+- [x] Solution section with benefits + process
+- [x] About section with team info
+- [x] Guarantees section
+- [x] Lead magnet section
+- [x] Final CTA
+
+**Service Pages (/servicii/*):**
+- [x] Marketing Digital page
+- [x] Web Design & Development page
+- [x] Branding page
+
+**Case Study Pages (/cazuri-de-succes/*):**
+- [x] VipBebe.ro (E-commerce - 4M lei vânzări)
+- [x] LaDaDa.ro (HoReCa - Dublu trafic)
+- [x] Atelierul de Business (Consultanță - +45% conversie)
+
+**About Page (/despre):**
+- [x] Team story & founder intro
+- [x] Company structure (Owlia, Fruit Creative, Omnisfera)
+- [x] Team roles & expertise
+- [x] Values & differentiators
+- [x] Statistics
+
+**Navigation & Components:**
+- [x] Updated Navigation with dropdowns
+- [x] Reusable components (CTASection, ServiceCard, CaseStudyCard)
+- [x] Homepage-specific components
+- [x] Mobile responsive menu
+
+**Lead Capture System:**
+- [x] Calculator email capture + API
+- [x] Package modal with phone/email + GDPR
+- [x] Lead database tracking (source, package interest)
+- [ ] Guide email gate + download tracking
+- [ ] Resend email integration (send PDF on email)
 
 ### 📋 Phase 3: Admin Dashboard
 - [ ] Admin layout (sidebar + header)
