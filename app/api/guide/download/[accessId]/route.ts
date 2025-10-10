@@ -5,10 +5,10 @@ import path from "path";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { accessId: string } }
+  { params }: { params: Promise<{ accessId: string }> }
 ) {
   try {
-    const { accessId } = params;
+    const { accessId } = await params;
 
     // Verify guide access exists
     const guideAccess = await prisma.guideAccess.findUnique({

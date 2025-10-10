@@ -15,7 +15,7 @@ const updateClientSchema = z.object({
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -24,8 +24,10 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
+
     const client = await prisma.client.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         user: { select: { id: true, email: true, name: true, createdAt: true } },
         package: true,
@@ -54,7 +56,7 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -63,11 +65,12 @@ export async function PATCH(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
     const body = await request.json();
     const data = updateClientSchema.parse(body);
 
     const client = await prisma.client.update({
-      where: { id: params.id },
+      where: { id },
       data,
       include: {
         user: { select: { email: true } },
@@ -94,7 +97,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -103,9 +106,11 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
+
     // Delete client (will cascade delete user due to onDelete: Cascade)
     await prisma.client.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });
