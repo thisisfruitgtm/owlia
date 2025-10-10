@@ -1,6 +1,8 @@
 import { getResend, FROM_EMAIL, isResendConfigured } from './resend';
 import { welcomeEmail } from './templates/welcome';
 import { guideDownloadEmail } from './templates/guideDownload';
+import { calculatorResultEmail } from './templates/calculatorResult';
+import { packageInterestEmail } from './templates/packageInterest';
 
 interface SendEmailParams {
   to: string;
@@ -43,6 +45,35 @@ export async function sendGuideDownloadEmail(to: string, guideUrl: string) {
     to,
     subject: '📥 Ghidul tău: Cât Buget să Aloci pentru Marketing',
     html: guideDownloadEmail(guideUrl),
+  });
+}
+
+export async function sendCalculatorResultEmail(
+  to: string,
+  minBudget: number,
+  maxBudget: number,
+  packageName: string,
+  packageInfo: string,
+  industry: string,
+  revenue: number
+) {
+  return sendEmail({
+    to,
+    subject: '📊 Bugetul tău de marketing recomandat',
+    html: calculatorResultEmail(minBudget, maxBudget, packageName, packageInfo, industry, revenue),
+  });
+}
+
+export async function sendPackageInterestEmail(
+  to: string,
+  packageName: string,
+  packagePrice: string,
+  phone?: string | null
+) {
+  return sendEmail({
+    to,
+    subject: '🎉 Mulțumim pentru interesul tău!',
+    html: packageInterestEmail(packageName, packagePrice, phone),
   });
 }
 

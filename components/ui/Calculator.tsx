@@ -81,13 +81,17 @@ export default function Calculator() {
       whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau o ofertă PREMIUM + Campanii de publicitate.`;
     }
     
-    // Update lead with recommended package
+    // Update lead with recommended package and send email
     await fetch('/api/leads/calculator', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         leadId,
         recommendedPackage,
+        packageName,
+        packageInfo,
+        minBudget,
+        maxBudget,
       }),
     });
     

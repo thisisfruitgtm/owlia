@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
+import { sendPackageInterestEmail } from "@/lib/email/send";
 
 const packageLeadSchema = z.object({
   leadId: z.string().optional(),
@@ -43,6 +44,14 @@ export async function POST(request: NextRequest) {
         },
       });
     }
+    
+    // Send email to user
+    await sendPackageInterestEmail(
+      data.email,
+      data.packageName,
+      data.packagePrice,
+      data.phone
+    );
     
     // Generate WhatsApp URL
     const phoneNumber = "40123456789"; // Replace with actual number

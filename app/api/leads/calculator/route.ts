@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
+import { sendCalculatorResultEmail } from "@/lib/email/send";
 
 const createLeadSchema = z.object({
   email: z.string().email(),
@@ -13,6 +14,10 @@ const createLeadSchema = z.object({
 const updateLeadSchema = z.object({
   leadId: z.string(),
   recommendedPackage: z.string(),
+  packageName: z.string().optional(),
+  packageInfo: z.string().optional(),
+  minBudget: z.number().optional(),
+  maxBudget: z.number().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -55,12 +60,25 @@ export async function PATCH(request: NextRequest) {
     const data = updateLeadSchema.parse(body);
     
     // Update lead with recommended package
-    await prisma.lead.update({
+    const lead = await prisma.lead.update({
       where: { id: data.leadId },
       data: {
         recommendedPackage: data.recommendedPackage,
       },
     });
+    
+    // Send email with calculator result
+    if (data.packageName && data.packageInfo && data.minBudget && data.maxBudget && lead.industry && lead.revenue) {
+      await sendCalculatorResultEmail(
+        lead.email,
+        data.minBudget,
+        data.maxBudget,
+        data.packageName,
+        data.packageInfo,
+        lead.industry,
+        lead.revenue
+      );
+    }
     
     return NextResponse.json({ success: true });
   } catch (error) {
