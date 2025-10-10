@@ -15,7 +15,8 @@
 
 @layer base {
   body {
-    @apply font-sans text-gray-dark bg-white;
+    color: var(--color-gray-dark);
+    background-color: var(--color-white);
     -webkit-font-smoothing: antialiased;
   }
 }

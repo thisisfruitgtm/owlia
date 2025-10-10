@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ro">
-      <body className={`${instrumentSans.variable} font-sans antialiased`}>
+      <body className={`${instrumentSans.className} antialiased`}>
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

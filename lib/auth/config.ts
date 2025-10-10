@@ -1,9 +1,9 @@
-import { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 import { prisma } from "@/lib/db/prisma";
 
-export const authOptions: NextAuthOptions = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -11,14 +11,17 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<any> {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Email și parola sunt obligatorii");
         }
 
+        const email = credentials.email as string;
+        const password = credentials.password as string;
+
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email.toLowerCase(),
+            email: email.toLowerCase(),
           },
           include: {
             client: true,
@@ -29,7 +32,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email sau parolă incorectă");
         }
 
-        const isPasswordValid = await compare(credentials.password, user.password);
+        const isPasswordValid = await compare(password, user.password);
 
         if (!isPasswordValid) {
           throw new Error("Email sau parolă incorectă");
@@ -71,5 +74,5 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
-};
+});
 

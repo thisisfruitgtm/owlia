@@ -18,9 +18,6 @@ const config: Config = {
           light: "#E5E5E5",
         },
       },
-      fontFamily: {
-        sans: ['Instrument Sans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-      },
     },
   },
   plugins: [],
