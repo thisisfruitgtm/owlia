@@ -4,6 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { ChartLine, Monitor, Palette, ChevronDown, ArrowLeft, Menu, X } from "lucide-react";
 import Logo from "./Logo";
 import Button from "./Button";
 
@@ -28,7 +29,8 @@ export default function Navigation() {
               href="/"
               className="hidden md:inline-flex items-center gap-2 text-sm text-gray hover:text-navy transition-smooth"
             >
-              ← Înapoi la Homepage
+              <ArrowLeft size={16} />
+              Înapoi la Homepage
             </Link>
           )}
         </div>
@@ -43,27 +45,30 @@ export default function Navigation() {
           >
             <button className="text-sm font-semibold text-navy hover:opacity-75 transition-smooth flex items-center gap-1">
               Servicii
-              <span className="text-xs">▼</span>
+              <ChevronDown size={14} />
             </button>
             {servicesOpen && (
               <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-light rounded-xl shadow-xl py-2">
                 <Link
                   href="/servicii/marketing-digital"
-                  className="block px-6 py-3 text-sm font-semibold text-navy hover:bg-cream transition-smooth"
+                  className="flex items-center gap-3 px-6 py-3 text-sm font-semibold text-navy hover:bg-cream transition-smooth"
                 >
-                  📊 Marketing Digital
+                  <ChartLine size={18} className="text-navy/70" />
+                  Marketing Digital
                 </Link>
                 <Link
                   href="/servicii/web-design"
-                  className="block px-6 py-3 text-sm font-semibold text-navy hover:bg-cream transition-smooth"
+                  className="flex items-center gap-3 px-6 py-3 text-sm font-semibold text-navy hover:bg-cream transition-smooth"
                 >
-                  💻 Web Design & Development
+                  <Monitor size={18} className="text-navy/70" />
+                  Web Design & Development
                 </Link>
                 <Link
                   href="/servicii/branding"
-                  className="block px-6 py-3 text-sm font-semibold text-navy hover:bg-cream transition-smooth"
+                  className="flex items-center gap-3 px-6 py-3 text-sm font-semibold text-navy hover:bg-cream transition-smooth"
                 >
-                  🎨 Branding
+                  <Palette size={18} className="text-navy/70" />
+                  Branding
                 </Link>
               </div>
             )}
@@ -133,28 +138,7 @@ export default function Navigation() {
           className="md:hidden text-navy"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            {mobileMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
@@ -169,24 +153,27 @@ export default function Navigation() {
               <div className="pl-4 space-y-2">
                 <Link
                   href="/servicii/marketing-digital"
-                  className="block text-sm font-semibold text-navy hover:opacity-75"
+                  className="flex items-center gap-2 text-sm font-semibold text-navy hover:opacity-75"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  📊 Marketing Digital
+                  <ChartLine size={16} className="text-navy/70" />
+                  Marketing Digital
                 </Link>
                 <Link
                   href="/servicii/web-design"
-                  className="block text-sm font-semibold text-navy hover:opacity-75"
+                  className="flex items-center gap-2 text-sm font-semibold text-navy hover:opacity-75"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  💻 Web Design
+                  <Monitor size={16} className="text-navy/70" />
+                  Web Design
                 </Link>
                 <Link
                   href="/servicii/branding"
-                  className="block text-sm font-semibold text-navy hover:opacity-75"
+                  className="flex items-center gap-2 text-sm font-semibold text-navy hover:opacity-75"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  🎨 Branding
+                  <Palette size={16} className="text-navy/70" />
+                  Branding
                 </Link>
               </div>
             </div>
