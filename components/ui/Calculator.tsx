@@ -3,23 +3,28 @@
 import { useState, FormEvent } from "react";
 
 interface CalculatorResult {
+  leadId: string;
   minBudget: number;
   maxBudget: number;
   packageName: string;
   packageInfo: string;
   whatsappMessage: string;
+  email: string;
 }
 
 export default function Calculator() {
   const [result, setResult] = useState<CalculatorResult | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     
     const formData = new FormData(e.currentTarget);
     const industry = formData.get("industry") as string;
     const revenue = parseFloat(formData.get("revenue") as string);
     const clients = parseInt(formData.get("clients") as string);
+    const email = formData.get("email") as string;
     
     const industrySelect = e.currentTarget.querySelector('select[name="industry"]') as HTMLSelectElement;
     const industryName = industrySelect.options[industrySelect.selectedIndex].text;
@@ -29,35 +34,96 @@ export default function Calculator() {
     const maxBudget = Math.round((revenue * (marketingPercent + 1)) / 100);
     const avgBudget = Math.round((minBudget + maxBudget) / 2);
     
+    // Save lead to database
+    try {
+      const response = await fetch('/api/leads/calculator', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          industry: industryName,
+          revenue,
+          targetClients: clients,
+          recommendedBudget: `${minBudget}-${maxBudget}`,
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to save lead');
+      }
+      
+      const { leadId } = await response.json();
+    
     let packageName = '';
     let packageInfo = '';
     let whatsappMessage = '';
+    let recommendedPackage = '';
     
     if (avgBudget < 42000) {
       packageName = 'Recomandăm Pachetul PERSONALIZAT';
+      recommendedPackage = 'CUSTOM';
       packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei, bugetul tău optim este ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei. Îți recomandăm un pachet personalizat adaptat bugetului tău, care include elementele esențiale pentru Start-Up Nation.`;
       whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau o ofertă PERSONALIZATĂ adaptată bugetului meu.`;
     } else if (avgBudget >= 42000 && avgBudget < 55000) {
       packageName = 'Pachet SMART recomandat';
+      recommendedPackage = 'SMART';
       packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, pachetul SMART (42.000 lei) oferă focus digital optim și ROI maxim - perfect pentru bugetul tău.`;
       whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau informații despre Pachetul SMART (42.000 lei).`;
     } else if (avgBudget >= 55000 && avgBudget < 70000) {
       packageName = 'Pachet PREMIUM recomandat';
+      recommendedPackage = 'PREMIUM';
       packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, pachetul PREMIUM (55.000 lei) include tot ce ai nevoie: brand complet, digital și materiale fizice - ideal pentru bugetul tău.`;
       whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau informații despre Pachetul PREMIUM (55.000 lei).`;
     } else {
       packageName = 'Pachet PREMIUM + Campanii recomandat';
+      recommendedPackage = 'PREMIUM_PLUS';
       packageInfo = `Pentru ${industryName} cu CA ambițioasă de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, recomandăm pachetul PREMIUM (55.000 lei) plus campanii Google/Facebook Ads susținute pentru a maximiza rezultatele.`;
       whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau o ofertă PREMIUM + Campanii de publicitate.`;
     }
     
+    // Update lead with recommended package
+    await fetch('/api/leads/calculator', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        leadId,
+        recommendedPackage,
+      }),
+    });
+    
     setResult({
+      leadId,
       minBudget,
       maxBudget,
       packageName,
       packageInfo,
-      whatsappMessage
+      whatsappMessage,
+      email
     });
+    
+    setLoading(false);
+    
+    // Scroll to pricing section after showing result
+    setTimeout(() => {
+      const pricingSection = document.getElementById('pricing');
+      if (pricingSection) {
+        pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Trigger pricing unlock event
+        window.dispatchEvent(new CustomEvent('unlockPricing', { 
+          detail: { 
+            recommendedPackage,
+            email,
+            leadId
+          } 
+        }));
+      }
+    }, 500);
+    
+    } catch (error) {
+      console.error('Error saving lead:', error);
+      setLoading(false);
+      alert('A apărut o eroare. Te rugăm să încerci din nou.');
+    }
   };
 
   return (
@@ -120,11 +186,28 @@ export default function Calculator() {
               />
             </div>
             
+            <div className="mb-8">
+              <label className="block text-sm font-semibold text-navy mb-2 uppercase tracking-wide">
+                Email (pentru rezultatul personalizat)
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="email@exemplu.ro"
+                className="w-full px-5 py-4 text-base border-2 border-gray-light rounded-xl focus:outline-none focus:border-navy transition-smooth"
+              />
+              <p className="text-xs text-gray mt-2">
+                💡 Vei primi rezultatul calculat și pe email
+              </p>
+            </div>
+            
             <button
               type="submit"
-              className="w-full py-5 bg-navy text-white rounded-xl text-base font-semibold hover:-translate-y-0.5 hover:shadow-xl transition-smooth"
+              disabled={loading}
+              className="w-full py-5 bg-navy text-white rounded-xl text-base font-semibold hover:-translate-y-0.5 hover:shadow-xl transition-smooth disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              📊 Calculează Bugetul
+              {loading ? '⏳ Se calculează...' : '📊 Calculează Bugetul'}
             </button>
           </form>
           

@@ -141,16 +141,44 @@ model Notification {
 }
 
 model Lead {
-  id            String   @id @default(cuid())
-  email         String
-  name          String?
-  phone         String?
-  industry      String?
-  revenue       Int?
-  targetClients Int?
-  source        String? // calculator, contact-form, ghid-download
-  converted     Boolean  @default(false)
-  clientId      String?
-  client        Client?  @relation(fields: [clientId], references: [id])
-  createdAt     DateTime @default(now())
+  id                 String        @id @default(cuid())
+  email              String
+  name               String?
+  phone              String?
+  industry           String?
+  revenue            Int?
+  targetClients      Int?
+  recommendedBudget  String? // "42000-50000"
+  recommendedPackage String? // "SMART", "PREMIUM", "CUSTOM"
+  source             String? // "calculator", "package-modal", "guide"
+  packageInterest    String? // Which package clicked
+  converted          Boolean       @default(false)
+  clientId           String?
+  client             Client?       @relation(fields: [clientId], references: [id])
+  createdAt          DateTime      @default(now())
+  guideAccess        GuideAccess[]
+}
+
+model GuideAccess {
+  id          String          @id @default(cuid())
+  leadId      String
+  lead        Lead            @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  email       String
+  downloaded  Boolean         @default(false)
+  emailSent   Boolean         @default(false)
+  gdprConsent Boolean         @default(false)
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime        @default(now())
+  tracking    GuideTracking[]
+}
+
+model GuideTracking {
+  id            String      @id @default(cuid())
+  guideAccessId String
+  guideAccess   GuideAccess @relation(fields: [guideAccessId], references: [id], onDelete: Cascade)
+  section       String // "intro", "calculator", "industries", etc
+  timeSpent     Int // seconds
+  scrollDepth   Int // percentage 0-100
+  timestamp     DateTime    @default(now())
 }
