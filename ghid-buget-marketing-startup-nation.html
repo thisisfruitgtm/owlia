@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghid: Cât Buget să Aloci pentru Marketing în Primul An - Start-Up Nation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #00288B;
+            --color-cream: #F5F5F0;
+            --color-gray-dark: #1A1A1A;
+            --color-gray: #666666;
+            --color-navy: #00288B;
+        }
+
+        body {
+            font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background: var(--color-white);
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cover {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 60px 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .cover h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .cover p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 32px;
+        }
+
+        .cover .badge {
+            display: inline-block;
+            background: var(--color-navy);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 48px;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--color-navy);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--color-gray);
+            margin-bottom: 24px;
+        }
+
+        .industry-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            background: var(--color-cream);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .industry-table th {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .industry-table td {
+            padding: 16px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .industry-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .industry-table .percent {
+            font-weight: 700;
+            color: var(--color-navy);
+            font-size: 18px;
+        }
+
+        .calculator-box {
+            background: var(--color-cream);
+            padding: 32px;
+            border-radius: 16px;
+            margin: 24px 0;
+        }
+
+        .calculator-box h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--color-black);
+        }
+
+        .calc-row {
+            margin-bottom: 20px;
+        }
+
+        .calc-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .calc-formula {
+            background: var(--color-white);
+            padding: 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            border: 2px solid var(--color-navy);
+        }
+
+        .example-box {
+            background: #E8F4FF;
+            padding: 24px;
+            border-radius: 12px;
+            margin: 16px 0;
+            border-left: 4px solid var(--color-navy);
+        }
+
+        .example-box h4 {
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-navy);
+        }
+
+        .mistake-list {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .mistake-list li {
+            padding: 20px;
+            background: var(--color-cream);
+            margin-bottom: 16px;
+            border-radius: 12px;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .mistake-list .icon {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+        }
+
+        .mistake-list h4 {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--color-black);
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .checklist li {
+            padding: 16px;
+            background: var(--color-white);
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 2px solid var(--color-cream);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .checklist .check {
+            color: #22c55e;
+            font-weight: 700;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .checklist .cross {
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .highlight-box {
+            background: var(--color-navy);
+            color: var(--color-white);
+            padding: 32px;
+            border-radius: 16px;
+            margin: 32px 0;
+        }
+
+        .highlight-box h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .allocation-table {
+            width: 100%;
+            margin: 24px 0;
+            border-collapse: collapse;
+        }
+
+        .allocation-table th {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .allocation-table td {
+            padding: 12px;
+            border-bottom: 1px solid #E5E5E5;
+            background: var(--color-cream);
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid var(--color-gray);
+            text-align: center;
+        }
+
+        .footer h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer p {
+            font-size: 16px;
+            color: var(--color-gray);
+            margin-bottom: 24px;
+        }
+
+        .footer .cta {
+            display: inline-block;
+            background: var(--color-navy);
+            color: var(--color-white);
+            padding: 16px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        @media print {
+            body {
+                padding: 20px;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover -->
+    <div class="cover">
+        <h1>Cât Buget să Aloci<br>pentru Marketing<br>în Primul An</h1>
+        <p>Ghid complet pentru beneficiarii Start-Up Nation</p>
+        <div class="badge">OWLIA - Echipa ta de Marketing</div>
+    </div>
+
+    <!-- Introducere -->
+    <div class="section">
+        <h2 class="section-title">Introducere</h2>
+        <p>Ai primit finanțarea Start-Up Nation dar nu știi exact cât să investești în marketing? Nu ești singur!</p>
+        <p style="margin-top: 16px;">Peste 70% dintre beneficiarii Start-Up Nation alocă greșit bugetul de marketing - fie prea puțin (și nu sunt vizibili), fie prea mult (și consumă inutil din capital).</p>
+        <p style="margin-top: 16px;">Acest ghid îți arată exact cât trebuie să investești pe baza industriei tale și te ajută să eviți greșelile comune.</p>
+    </div>
+
+    <!-- Secțiunea 1: Cât alocă fiecare industrie -->
+    <div class="section">
+        <h2 class="section-title">1. Cât Alocă Fiecare Industrie</h2>
+        <p class="section-subtitle">Procente recomandate din cifra de afaceri pentru primul an</p>
+
+        <table class="industry-table">
+            <thead>
+                <tr>
+                    <th>Industrie</th>
+                    <th>% din CA</th>
+                    <th>Exemplu CA 500k</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>IT & Software</strong></td>
+                    <td class="percent">7-9%</td>
+                    <td>35.000 - 45.000 lei</td>
+                </tr>
+                <tr>
+                    <td><strong>HoReCa</strong><br><small>Restaurant, Cafenea, Hotel</small></td>
+                    <td class="percent">6-8%</td>
+                    <td>30.000 - 40.000 lei</td>
+                </tr>
+                <tr>
+                    <td><strong>Servicii B2C</strong><br><small>Salon, Fitness, Wellness</small></td>
+                    <td class="percent">6-8%</td>
+                    <td>30.000 - 40.000 lei</td>
+                </tr>
+                <tr>
+                    <td><strong>Educație & Training</strong></td>
+                    <td class="percent">6-8%</td>
+                    <td>30.000 - 40.000 lei</td>
+                </tr>
+                <tr>
+                    <td><strong>Retail & Comerț</strong></td>
+                    <td class="percent">5-7%</td>
+                    <td>25.000 - 35.000 lei</td>
+                </tr>
+                <tr>
+                    <td><strong>Servicii B2B</strong><br><small>Consultanță, Contabilitate</small></td>
+                    <td class="percent">5-7%</td>
+                    <td>25.000 - 35.000 lei</td>
+                </tr>
+                <tr>
+                    <td><strong>Sănătate & Wellness</strong></td>
+                    <td class="percent">5-7%</td>
+                    <td>25.000 - 35.000 lei</td>
+                </tr>
+                <tr>
+                    <td><strong>Construcții & Instalații</strong></td>
+                    <td class="percent">4-6%</td>
+                    <td>20.000 - 30.000 lei</td>
+                </tr>
+                <tr>
+                    <td><strong>Producție & Manufacturing</strong></td>
+                    <td class="percent">4-6%</td>
+                    <td>20.000 - 30.000 lei</td>
+                </tr>
+                <tr>
+                    <td><strong>Transport & Logistică</strong></td>
+                    <td class="percent">3-5%</td>
+                    <td>15.000 - 25.000 lei</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="example-box">
+            <h4>📊 Exemplu Practic: Restaurant în Iași</h4>
+            <p><strong>Cifră de afaceri proiectată An 1:</strong> 600.000 lei</p>
+            <p><strong>Procent recomandat HoReCa:</strong> 6-8%</p>
+            <p><strong>Buget marketing optim:</strong> 36.000 - 48.000 lei</p>
+            <p style="margin-top: 12px;"><strong>Include:</strong> Logo, website, Google Business, social media, fotografii profesionale meniu, materiale print (meniuri, flyere), campanii locale</p>
+        </div>
+    </div>
+
+    <!-- Secțiunea 2: Calculator Simplu -->
+    <div class="section">
+        <h2 class="section-title">2. Calculator Simplu</h2>
+        <p class="section-subtitle">Calculează-ți bugetul în 3 pași simpli</p>
+
+        <div class="calculator-box">
+            <h3>Pasul 1: Identifică industria ta</h3>
+            <p>Găsește industria ta în tabelul de mai sus și notează procentul recomandat.</p>
+            <p style="margin-top: 8px;"><strong>Exemplu:</strong> Servicii B2B = 5-7%</p>
+        </div>
+
+        <div class="calculator-box">
+            <h3>Pasul 2: Calculează bugetul minim și maxim</h3>
+            <div class="calc-row">
+                <span class="calc-label">Buget MINIM =</span>
+                <div class="calc-formula">Cifra Afaceri × Procent Minim / 100</div>
+            </div>
+            <div class="calc-row">
+                <span class="calc-label">Buget MAXIM =</span>
+                <div class="calc-formula">Cifra Afaceri × Procent Maxim / 100</div>
+            </div>
+        </div>
+
+        <div class="calculator-box">
+            <h3>Pasul 3: Ajustează în funcție de obiective</h3>
+            <p><strong>Crește cu 20-30% dacă:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Piața este foarte competitivă</li>
+                <li>Ești nou pe piață (brand necunoscut)</li>
+                <li>Vrei creștere rapidă în primul an</li>
+            </ul>
+            <p style="margin-top: 16px;"><strong>Scade cu 10-20% dacă:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Ai deja clienți existenți</li>
+                <li>Lucrezi mult pe recomandări</li>
+                <li>Ai buget limitat și trebuie prioritizare</li>
+            </ul>
+        </div>
+
+        <div class="example-box">
+            <h4>💡 Exemplu Complet: Salon de înfrumusețare</h4>
+            <p><strong>CA proiectată:</strong> 400.000 lei</p>
+            <p><strong>Industrie:</strong> Servicii B2C (6-8%)</p>
+            <p><strong>Calcul:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Minim: 400.000 × 6% = 24.000 lei</li>
+                <li>Maxim: 400.000 × 8% = 32.000 lei</li>
+            </ul>
+            <p style="margin-top: 12px;"><strong>Decizie:</strong> Salon nou, piață competitivă → Alocă 32.000 lei (partea de sus)</p>
+        </div>
+    </div>
+
+    <!-- Secțiunea 3: Greșeli de evitat -->
+    <div class="section">
+        <h2 class="section-title">3. Greșeli de Evitat</h2>
+        <p class="section-subtitle">Top 7 greșeli costisitoare ale beneficiarilor Start-Up Nation</p>
+
+        <ul class="mistake-list">
+            <li>
+                <span class="icon">❌</span>
+                <h4>Greșeala #1: "Bag tot ce pot în marketing"</h4>
+                <p>Cheltuiești 80.000 lei când afacerea ta necesită 35.000 lei. Rezultat: capital consumat inutil, cash-flow problematic în lunile 6-12.</p>
+            </li>
+            <li>
+                <span class="icon">❌</span>
+                <h4>Greșeala #2: "E suficient logo și un site"</h4>
+                <p>Aloci doar 15.000 lei când industria ta necesită 45.000 lei. Rezultat: invizibil online, nu atragi clienți, business-ul stagnează.</p>
+            </li>
+            <li>
+                <span class="icon">❌</span>
+                <h4>Greșeala #3: "Fac totul deodată în prima lună"</h4>
+                <p>Cheltuiești tot bugetul în lunile 1-2 și nu mai ai fonduri pentru actualizări, campanii, ajustări. Marketing-ul trebuie eșalonat pe 12 luni.</p>
+            </li>
+            <li>
+                <span class="icon">❌</span>
+                <h4>Greșeala #4: "Lucrez cu 5 furnizori diferiți"</h4>
+                <p>Logo de undeva, site de altundeva, social media de aiurea. Rezultat: branding inconsistent, coordonare haotică, costuri ascunse.</p>
+            </li>
+            <li>
+                <span class="icon">❌</span>
+                <h4>Greșeala #5: "Nu urmăresc rezultatele"</h4>
+                <p>Cheltuiești 40.000 lei dar nu știi câte telefoane, vizite, clienți ai primit. Imposibil să optimizezi sau să justifici investiția.</p>
+            </li>
+            <li>
+                <span class="icon">❌</span>
+                <h4>Greșeala #6: "Aleg cel mai ieftin furnizor"</h4>
+                <p>Economisești 10.000 lei dar primești un website care nu convertește și materiale amatoristice. Trebuie refăcut totul = pierdere dublă.</p>
+            </li>
+            <li>
+                <span class="icon">❌</span>
+                <h4>Greșeala #7: "Nu păstrez documentația"</h4>
+                <p>La raportare nu ai facturi corecte, justificări, dovezi. Riști să pierzi eligibilitatea sau să fii nevoit să returnezi fondurile.</p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Secțiunea 4: Ce e eligibil -->
+    <div class="section">
+        <h2 class="section-title">4. Ce E Eligibil și Ce Nu</h2>
+        <p class="section-subtitle">Ghid complet pentru cheltuieli Start-Up Nation</p>
+
+        <h3 style="font-size: 24px; font-weight: 700; margin: 24px 0 16px; color: #22c55e;">✓ ELIGIBIL - Poți cheltui fondurile pe:</h3>
+        
+        <ul class="checklist">
+            <li>
+                <span class="check">✓</span>
+                <div>
+                    <strong>Branding complet:</strong> Logo, manual identitate vizuală, ghid de utilizare
+                </div>
+            </li>
+            <li>
+                <span class="check">✓</span>
+                <div>
+                    <strong>Website profesional:</strong> Design, dezvoltare, optimizare SEO, hosting anul 1
+                </div>
+            </li>
+            <li>
+                <span class="check">✓</span>
+                <div>
+                    <strong>Materiale print:</strong> Cărți vizită, flyere, broșuri, cataloage, roll-up-uri, bannere
+                </div>
+            </li>
+            <li>
+                <span class="check">✓</span>
+                <div>
+                    <strong>Materiale promoționale:</strong> Uniforme personalizate, wrapping autovehicul, obiecte promoționale
+                </div>
+            </li>
+            <li>
+                <span class="check">✓</span>
+                <div>
+                    <strong>Consultanță marketing:</strong> Strategie, analiză piață, planificare campanii (max 20% din buget)
+                </div>
+            </li>
+            <li>
+                <span class="check">✓</span>
+                <div>
+                    <strong>Salariu angajați marketing:</strong> Costuri cu personalul dedicat marketing (în limita bugetului alocat)
+                </div>
+            </li>
+            <li>
+                <span class="check">✓</span>
+                <div>
+                    <strong>Conținut profesional:</strong> Fotografie produse/servicii, filmări video, copywriting
+                </div>
+            </li>
+            <li>
+                <span class="check">✓</span>
+                <div>
+                    <strong>Prezență online:</strong> Setup Google Business, profiluri social media, optimizare listări
+                </div>
+            </li>
+            <li>
+                <span class="check">✓</span>
+                <div>
+                    <strong>Training echipă:</strong> Formare utilizare instrumente marketing (limitat)
+                </div>
+            </li>
+        </ul>
+
+        <h3 style="font-size: 24px; font-weight: 700; margin: 32px 0 16px; color: #ef4444;">✗ NU E ELIGIBIL - Nu poți cheltui pe:</h3>
+        
+        <ul class="checklist">
+            <li>
+                <span class="cross">✗</span>
+                <div>
+                    <strong>Publicitate plătită:</strong> Google Ads, Facebook Ads, Instagram Ads, bannere online
+                </div>
+            </li>
+            <li>
+                <span class="cross">✗</span>
+                <div>
+                    <strong>Reclame TV/Radio:</strong> Spoturi publicitare, mențiuni plătite
+                </div>
+            </li>
+            <li>
+                <span class="cross">✗</span>
+                <div>
+                    <strong>Sponsorizări:</strong> Evenimente, echipe sportive, cauze sociale
+                </div>
+            </li>
+            <li>
+                <span class="cross">✗</span>
+                <div>
+                    <strong>Abonamente recurente:</strong> CRM, email marketing, tool-uri SaaS (doar anul 1 eligibil)
+                </div>
+            </li>
+            <li>
+                <span class="cross">✗</span>
+                <div>
+                    <strong>Comisioane afiliere:</strong> Scheme de marketing pe bază de comisioane
+                </div>
+            </li>
+            <li>
+                <span class="cross">✗</span>
+                <div>
+                    <strong>Influencer marketing:</strong> Plăți către influenceri, colaborări plătite
+                </div>
+            </li>
+        </ul>
+
+        <div class="highlight-box">
+            <h3>⚠️ ATENȚIE - Zona Gri</h3>
+            <p style="margin-bottom: 12px;">Unele cheltuieli pot fi eligibile DOAR cu documentație specifică:</p>
+            <ul style="margin-left: 20px;">
+                <li>Video profesional (doar producție, nu distribuție plătită)</li>
+                <li>Participare târguri (doar stand/materiale, nu taxa de participare)</li>
+                <li>Conținut SEO (doar creare, nu tools/abonamente)</li>
+            </ul>
+            <p style="margin-top: 16px;"><strong>Recomandare:</strong> Consultă întotdeauna evaluatorul înainte de a achiziționa servicii din zona gri!</p>
+        </div>
+    </div>
+
+    <!-- Secțiunea 5: Alocarea corectă -->
+    <div class="section">
+        <h2 class="section-title">5. Alocarea Corectă a Bugetului</h2>
+        <p class="section-subtitle">Cum să împarți bugetul de marketing pe categorii</p>
+
+        <p>După ce ai calculat bugetul total, iată cum să-l distribui corect:</p>
+
+        <table class="allocation-table">
+            <thead>
+                <tr>
+                    <th>Categorie</th>
+                    <th>% din Buget</th>
+                    <th>Exemplu 45k lei</th>
+                    <th>Include</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Brand Identity</strong></td>
+                    <td>15-20%</td>
+                    <td>6.750 - 9.000 lei</td>
+                    <td>Logo, manual, template-uri</td>
+                </tr>
+                <tr>
+                    <td><strong>Website & SEO</strong></td>
+                    <td>25-30%</td>
+                    <td>11.250 - 13.500 lei</td>
+                    <td>Site complet, optimizare, conținut</td>
+                </tr>
+                <tr>
+                    <td><strong>Materiale Print</strong></td>
+                    <td>15-20%</td>
+                    <td>6.750 - 9.000 lei</td>
+                    <td>Cărți vizită, flyere, roll-up, bannere</td>
+                </tr>
+                <tr>
+                    <td><strong>Conținut Vizual</strong></td>
+                    <td>15-20%</td>
+                    <td>6.750 - 9.000 lei</td>
+                    <td>Fotografie, video, grafică</td>
+                </tr>
+                <tr>
+                    <td><strong>Materiale Promo</strong></td>
+                    <td>10-15%</td>
+                    <td>4.500 - 6.750 lei</td>
+                    <td>Uniforme, wrapping, obiecte promo</td>
+                </tr>
+                <tr>
+                    <td><strong>Consultanță & Management</strong></td>
+                    <td>10-15%</td>
+                    <td>4.500 - 6.750 lei</td>
+                    <td>Strategie, coordonare, raportări</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="example-box">
+            <h4>💼 Exemplu Complet: Servicii B2B - 840k CA</h4>
+            <p><strong>Buget total marketing:</strong> 50.400 lei (6% din 840k)</p>
+            <br>
+            <p><strong>Distribuție recomandată:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li><strong>Brand Identity (20%):</strong> 10.080 lei - Logo premium, manual complet, template-uri profesionale</li>
+                <li><strong>Website & SEO (30%):</strong> 15.120 lei - Site 10 pagini, blog, optimizare SEO local</li>
+                <li><strong>Materiale Print (15%):</strong> 7.560 lei - Cărți vizită premium, broșuri A4, prezentare PowerPoint</li>
+                <li><strong>Conținut Vizual (15%):</strong> 7.560 lei - Fotografie profesională, video prezentare 2 min</li>
+                <li><strong>Materiale Promo (10%):</strong> 5.040 lei - Uniforme business, obiecte promoționale clienți</li>
+                <li><strong>Consultanță (10%):</strong> 5.040 lei - Strategie, management 12 luni, raportări lunare</li>
+            </ul>
+            <p style="margin-top: 16px;"><strong>Rezultat:</strong> Prezență profesională completă, credibilitate maximă în piața B2B</p>
+        </div>
+
+        <div class="calculator-box">
+            <h3>Eșalonare Temporală (12 luni)</h3>
+            <p style="margin-bottom: 16px;">Nu cheltui tot bugetul în primele 2 luni! Distribuie așa:</p>
+            <ul style="margin-left: 20px;">
+                <li><strong>Lunile 1-2 (60%):</strong> Brand, website, materiale esențiale</li>
+                <li><strong>Lunile 3-6 (25%):</strong> Conținut suplimentar, optimizări, materiale noi</li>
+                <li><strong>Lunile 7-12 (15%):</strong> Actualizări, ajustări, materiale sezoniere</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Checklist Final -->
+    <div class="section">
+        <h2 class="section-title">Checklist Final</h2>
+        <p class="section-subtitle">Verifică că ai făcut toate acestea înainte să finalizezi bugetul:</p>
+
+        <ul class="checklist">
+            <li>
+                <span class="check">☐</span>
+                <div>Am identificat corect industria mea și procentul recomandat</div>
+            </li>
+            <li>
+                <span class="check">☐</span>
+                <div>Am calculat bugetul minim și maxim pe baza CA proiectate</div>
+            </li>
+            <li>
+                <span class="check">☐</span>
+                <div>Am ajustat bugetul în funcție de competiție și obiective</div>
+            </li>
+            <li>
+                <span class="check">☐</span>
+                <div>Am verificat că toate cheltuielile sunt eligibile Start-Up Nation</div>
+            </li>
+            <li>
+                <span class="check">☐</span>
+                <div>Am distribuit bugetul pe categorii (brand, web, print, etc.)</div>
+            </li>
+            <li>
+                <span class="check">☐</span>
+                <div>Am planificat eșalonarea pe 12 luni (nu tot în lunile 1-2)</div>
+            </li>
+            <li>
+                <span class="check">☐</span>
+                <div>Am un furnizor care să coordoneze totul sau un plan clar</div>
+            </li>
+            <li>
+                <span class="check">☐</span>
+                <div>Știu cum voi măsura rezultatele (telefoane, vizite, clienți)</div>
+            </li>
+            <li>
+                <span class="check">☐</span>
+                <div>Am un sistem pentru documentație și raportări lunare</div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="footer">
+        <h3>Ai nevoie de ajutor să implementezi tot ce ai învățat?</h3>
+        <p>Echipa OWLIA te ajută să calculezi bugetul exact pentru industria ta<br>și implementăm totul în următoarele 12 luni.</p>
+        <a href="template-startup.html" class="cta" style="margin-right: 16px;">
+            Vezi Pachetele Noastre
+        </a>
+        <a href="https://wa.me/40123456789?text=Bună!%20Am%20citit%20ghidul%20și%20vreau%20o%20consultanță%20gratuită%20pentru%20Start-Up%20Nation." class="cta" style="background: var(--color-black);">
+            Solicită Consultanță Gratuită
+        </a>
+        <p style="margin-top: 32px; font-size: 14px;">
+            <strong>OWLIA - Echipa ta de Marketing</strong><br>
+            Specializați în marketing pentru Start-Up Nation<br>
+            📞 WhatsApp: +40 123 456 789
+        </p>
+        <p style="margin-top: 24px; font-size: 12px; color: var(--color-gray);">
+            &copy; 2025 OWLIA. Toate drepturile rezervate.<br>
+            Acest model este proprietatea OWLIA și nu poate fi replicat fără consimțământ.<br>
+            Data publicării: 8 Octombrie 2025
+        </p>
+    </div>
+</body>
+</html>
+

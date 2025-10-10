@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start-Up Nation - Pachet Marketing An 1 | Analiză & Implementare Completă</title>
+    <meta name="description" content="Ai primit Start-Up Nation dar nu știi cât buget să aloci pentru marketing? Calculăm bugetul optim pentru industria ta și implementăm totul în 12 luni.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #00288B;
+            --color-cream: #F5F5F0;
+            --color-gray-dark: #1A1A1A;
+            --color-gray: #666666;
+            --color-gray-light: #E5E5E5;
+            --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-narrow {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-gray-light);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo svg {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-cta {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 100px 0 80px;
+            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-white) 100%);
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            line-height: 1.1;
+            font-weight: 800;
+            color: var(--color-black);
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .subheadline {
+            font-size: 22px;
+            line-height: 1.5;
+            color: var(--color-gray);
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 18px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            color: var(--color-black);
+            padding: 18px 40px;
+            border-radius: 12px;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 6px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .hero-cta-secondary:hover {
+            background: var(--color-cream);
+        }
+
+        .trust-indicators {
+            display: flex;
+            gap: 48px;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--color-gray-light);
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .trust-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 4px;
+        }
+
+        .trust-label {
+            font-size: 14px;
+            color: var(--color-gray);
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 80px 0;
+            background: var(--color-white);
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--color-gray);
+            margin-bottom: 48px;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .problem-card {
+            padding: 32px;
+            background: var(--color-cream);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .problem-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .problem-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--color-black);
+            margin-bottom: 12px;
+        }
+
+        .problem-card p {
+            color: var(--color-gray);
+            font-size: 15px;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 80px 0;
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .solution .section-title {
+            color: var(--color-white);
+        }
+
+        .solution .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .checkmark {
+            color: var(--color-white);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .step {
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--color-white);
+            color: var(--color-black);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 15px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: var(--color-white);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .about-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--color-gray);
+            margin-bottom: 16px;
+        }
+
+        .about-companies {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .company-item {
+            padding: 32px;
+            background: var(--color-cream);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .company-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .company-item h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 12px;
+        }
+
+        .company-item p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--color-gray);
+        }
+
+        .about-why {
+            padding: 48px 0;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .why-item {
+            position: relative;
+            padding-top: 60px;
+        }
+
+        .why-number {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--color-cream);
+            line-height: 1;
+        }
+
+        .why-item h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-black);
+            margin-bottom: 8px;
+        }
+
+        .why-item p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--color-gray);
+        }
+
+        .about-proof {
+            margin-top: 60px;
+            padding: 32px;
+            background: var(--color-black);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .proof-text {
+            font-size: 16px;
+            color: var(--color-white);
+            line-height: 1.8;
+        }
+
+        /* Calculator Section */
+        .calculator {
+            padding: 80px 0;
+            background: var(--color-cream);
+        }
+
+        .calculator-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--color-white);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .calculator h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 32px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-black);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-select,
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 16px;
+            border: 2px solid var(--color-gray-light);
+            border-radius: 12px;
+            font-family: var(--font-sans);
+            transition: var(--transition);
+            background: var(--color-white);
+        }
+
+        .form-select:focus,
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-black);
+        }
+
+        .calc-button {
+            width: 100%;
+            padding: 18px;
+            background: var(--color-black);
+            color: var(--color-white);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .calc-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .calc-result {
+            display: none;
+            margin-top: 40px;
+            padding: 40px;
+            background: var(--color-cream);
+            border-radius: 16px;
+            border: 2px solid var(--color-black);
+        }
+
+        .calc-result.show {
+            display: block;
+            animation: slideIn 0.4s ease-out;
+            text-align: center;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: var(--color-gray);
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .result-value {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--color-black);
+            margin-bottom: 16px;
+        }
+
+        .result-package {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--color-black);
+            color: var(--color-white);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .result-explanation {
+            font-size: 16px;
+            color: var(--color-gray);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .result-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .result-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background: var(--color-white);
+        }
+
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin: 40px 0;
+        }
+
+        .pricing-toggle-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-gray);
+            transition: var(--transition);
+        }
+
+        .pricing-toggle-label.active {
+            color: var(--color-black);
+        }
+
+        .pricing-switch {
+            position: relative;
+            width: 60px;
+            height: 32px;
+            background: var(--color-gray-light);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pricing-switch.annual {
+            background: var(--color-black);
+        }
+
+        .pricing-switch-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 24px;
+            height: 24px;
+            background: var(--color-white);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .pricing-switch.annual .pricing-switch-slider {
+            transform: translateX(28px);
+        }
+
+        .pricing-discount {
+            display: inline-block;
+            background: #22c55e;
+            color: var(--color-white);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .pricing-card {
+            padding: 48px 40px;
+            background: var(--color-cream);
+            border: 2px solid transparent;
+            border-radius: 24px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-black);
+        }
+
+        .pricing-card.featured {
+            background: var(--color-black);
+            color: var(--color-white);
+            border-color: var(--color-black);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            right: 40px;
+            background: var(--color-white);
+            color: var(--color-black);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .featured h3 {
+            color: var(--color-white);
+        }
+
+        .pricing-description {
+            font-size: 15px;
+            color: var(--color-gray);
+            margin-bottom: 24px;
+        }
+
+        .pricing-card.featured .pricing-description {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-price {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .pricing-period {
+            font-size: 14px;
+            color: var(--color-gray);
+            margin-bottom: 32px;
+        }
+
+        .pricing-card.featured .pricing-period {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-gray-light);
+            font-size: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .pricing-features li .checkmark {
+            color: #00288B;
+        }
+
+        .pricing-card.featured .pricing-features li {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-card.featured .pricing-features li .checkmark {
+            color: var(--color-white);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-cta {
+            display: block;
+            text-align: center;
+            padding: 16px;
+            background: var(--color-black);
+            color: var(--color-white);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: var(--color-white);
+            color: var(--color-black);
+        }
+
+        .pricing-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Breakdown Section */
+        .breakdown {
+            padding: 80px 0;
+            background: var(--color-cream);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--color-gray-light);
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 16px 32px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-gray);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .tab-button.active {
+            color: var(--color-black);
+            border-bottom-color: var(--color-black);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .breakdown-list {
+            list-style: none;
+            display: grid;
+            gap: 16px;
+        }
+
+        .breakdown-item {
+            padding: 24px;
+            background: var(--color-white);
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .breakdown-item h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .breakdown-subitems {
+            list-style: none;
+            margin-top: 12px;
+            padding-left: 0;
+        }
+
+        .breakdown-subitems li {
+            padding: 8px 0;
+            color: var(--color-gray);
+            font-size: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .breakdown-subitems li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--color-black);
+        }
+
+        /* Guarantees Section */
+        .guarantees {
+            padding: 80px 0;
+            background: var(--color-white);
+        }
+
+        .guarantees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .guarantee-card {
+            padding: 32px;
+            background: var(--color-cream);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .guarantee-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .guarantee-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .guarantee-card p {
+            color: var(--color-gray);
+            font-size: 15px;
+        }
+
+        /* Lead Magnet Section */
+        .lead-magnet {
+            padding: 80px 0;
+            background: var(--color-black);
+            color: var(--color-white);
+            text-align: center;
+        }
+
+        .lead-magnet .section-title {
+            color: var(--color-white);
+        }
+
+        .lead-magnet-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .magnet-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .magnet-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .magnet-feature span {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .magnet-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--color-white);
+            color: var(--color-black);
+            padding: 18px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .magnet-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(255, 255, 255, 0.2);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background: var(--color-cream);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 48px auto 0;
+        }
+
+        .faq-item {
+            background: var(--color-white);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 24px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-black);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--color-gray);
+        }
+
+        .faq-icon {
+            font-size: 24px;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-answer-content {
+            padding: 0 24px 24px;
+            color: var(--color-gray);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            padding: 100px 0;
+            background: var(--color-white);
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--color-black);
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            color: var(--color-gray);
+            margin-bottom: 40px;
+        }
+
+        .final-cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 20px 48px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .final-cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            background: var(--color-gray-dark);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .subheadline {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .trust-indicators {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .about-text {
+                font-size: 16px;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .proof-text {
+                font-size: 14px;
+            }
+
+            .calculator-container {
+                padding: 32px 24px;
+            }
+
+            .result-value {
+                font-size: 36px;
+            }
+
+            .pricing-card {
+                padding: 32px 24px;
+            }
+
+            .tabs {
+                flex-wrap: nowrap;
+            }
+
+            .final-cta h2 {
+                font-size: 32px;
+            }
+
+            nav .logo svg {
+                height: 32px;
+            }
+
+            .nav-cta {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-cta, .hero-cta-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <svg viewBox="0 0 887 253" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.34424 14.9732C10.0234 16.1653 11.8018 17.3141 13.5862 18.3412C14.7182 21.5582 27.7604 28.8014 31.2013 30.422C67.3063 47.4271 100.577 35.4709 135.636 64.1583C140.179 67.8844 147.236 74.8235 149.833 80.0069C142.309 86.2954 139.382 90.4443 134.829 98.5734L134.231 97.4982C134.055 92.1378 129.647 84.8572 126.828 80.3448C114.266 60.2343 91.4137 54.9989 69.6803 50.7508C46.2677 46.1749 21.6825 35.655 8.34424 14.9732Z" fill="#00288B"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.000144269 0C0.79667 0.677226 1.98424 2.12662 2.85073 2.96094C13.5978 13.3072 29.9363 20.1651 44.3029 24.3984C63.4337 30.0353 83.4675 30.8069 102.846 35.1025C112.494 37.2344 120.739 40.6117 129.651 44.7295C135.821 32.8039 150.922 24.014 163.56 20.7236C156.055 35.8137 157.451 57.9104 161.938 73.4971C167.004 91.0976 171.613 100.319 162.446 118.474C172.047 135.432 167.557 152.394 157.895 168.386C157.026 169.823 154.997 172.984 153.917 174.186C153.756 168.511 153.466 161.076 150.863 156.003C149.383 159.686 146.638 164.396 144.845 168.232C137.672 183.585 132.672 197.448 132.759 214.513C132.364 230.835 137.484 238.988 141.622 253C139.04 251.79 135.284 249.439 132.654 247.99L111.545 236.435C93.4936 226.711 75.1564 217.7 57.8937 206.485C41.5327 195.857 19.3431 178.049 8.74428 161.453C-0.0903759 147.619 -1.79156 145.871 2.68081 131.043C10.7047 104.443 22.0774 89.1254 39.8742 69.3857C13.3299 59.959 -0.050685 26.0992 0.000144269 0ZM109.118 151.149C108.002 151.987 107.103 152.568 105.99 153.495C105.629 154.595 104.534 156.633 103.936 157.69C92.0093 178.78 100.86 205.264 112.271 224.505C113.117 225.932 114.558 228.018 115.212 229.436C117.658 231.256 122.246 233.552 125.169 235.31C124.149 232.207 121.336 228.09 119.668 224.989C108.145 203.564 97.6273 174.558 109.118 151.149ZM13.5862 18.3412C14.7182 21.5582 27.7604 28.8014 31.2013 30.422C67.3063 47.4271 100.577 35.4709 135.636 64.1583C140.179 67.8844 147.236 74.8235 149.833 80.0069C142.309 86.2954 139.382 90.4443 134.829 98.5734L134.231 97.4982C130.54 89.3112 122.302 79.9898 115.042 74.7998C83.3468 52.1431 46.368 64.1034 13.5861 30.7588C18.8514 41.479 23.1485 49.1245 33.1457 56.7207C44.3806 65.257 54.2284 65.6524 67.5138 66.7539C102.772 69.6757 119.254 84.6313 136.235 113.373C131.41 109.991 125.25 104.7 120.521 100.729C105.481 125.617 72.3673 116.192 69.6554 88.8594C69.4533 86.8209 69.5021 84.9719 69.5236 82.9531C64.824 83.2061 55.3312 80.8562 49.4093 80.7695C65.5641 75.2023 92.5649 80.0576 107.891 85.5723C84.6045 68.8567 71.1508 73.7153 47.0011 70.7051C40.5106 76.1928 30.8757 87.5678 26.5216 94.8633C26.124 97.974 25.3029 101.107 24.9035 104.203C20.2225 140.487 38.2063 172.75 63.2531 197.593C62.8387 194.17 63.2078 190.419 64.299 187.157C69.5434 171.483 103.011 146.709 119.751 138.382C105.495 163.529 112.269 194.791 125.169 218.966C124.144 198.395 135.644 170.004 150.863 155.383C146.213 145.822 129.449 137.503 119.061 134.936C130.299 125.89 138.843 118.193 145.197 104.522C148.463 97.4984 152.384 85.5628 160.358 82.9531C157.949 74.3492 148.315 62.8735 141.137 57.54C120.836 42.4564 102.029 39.5967 78.2999 36.3281C59.4889 33.7675 29.9353 29.1588 13.5862 18.3412ZM161.604 88.4121C156.258 93.0716 152.783 96.6795 150.144 103.505C151.88 105.24 153.815 107.101 155.474 108.887C156.911 110.511 157.712 111.505 158.792 113.373C160.406 108.797 165.638 92.7153 161.604 88.4121ZM75.6281 83.8906C75.1589 108.52 104.333 118.414 115.739 97.498C113.449 96.1729 109.987 94.3438 107.891 92.9834C106.165 97.0276 105.068 99.7972 100.697 101.595C92.1611 105.105 83.9903 95.916 89.7716 86.0605C85.1128 85.462 80.3067 84.1197 75.6281 83.8906ZM155.474 28.9922L155.38 29.1768C154.49 30.8702 153.061 32.2921 152.22 33.9082C147.247 43.4611 148.186 48.5566 147.725 58.1387C150.001 60.4475 152.42 62.7358 154.739 65.0195C153.241 52.3362 151.433 45.5321 155.046 31.9795C155.184 31.4618 155.916 29.1903 155.833 28.8672L155.474 28.9922Z" fill="#00288B"/>
+                <path d="M134.828 48.4724C138.154 40.3122 147.506 32.5886 155.474 28.9922L155.38 29.1768C154.49 30.8702 153.061 32.2921 152.22 33.9082C147.247 43.4611 148.186 48.5566 147.725 58.1387C143.425 54.9819 139.205 51.6513 134.828 48.4724Z" fill="#00288B"/>
+                <path d="M291.68 63.16C307.381 63.16 320.437 65.3787 330.848 69.816C341.259 74.2533 349.067 80.3547 354.272 88.12C359.477 95.8853 362.08 104.803 362.08 114.872C362.08 120.333 361.269 125.624 359.648 130.744C358.027 135.779 355.467 140.515 351.968 144.952C348.469 149.304 343.947 153.144 338.4 156.472C332.853 159.715 326.197 162.232 318.432 164.024C310.752 165.901 301.835 166.84 291.68 166.84C284.427 166.84 277.771 166.328 271.712 165.304C265.739 164.365 260.32 163.043 255.456 161.336C250.592 159.544 246.283 157.411 242.528 154.936C238.859 152.461 235.659 149.731 232.928 146.744C230.283 143.672 228.064 140.429 226.272 137.016C224.565 133.603 223.285 130.019 222.432 126.264C221.664 122.509 221.28 118.712 221.28 114.872C221.28 109.837 221.92 105.059 223.2 100.536C224.565 96.0133 226.528 91.832 229.088 87.992C231.733 84.152 234.976 80.7387 238.816 77.752C242.741 74.68 247.307 72.0773 252.512 69.944C257.717 67.7253 263.563 66.0613 270.048 64.952C276.619 63.7573 283.829 63.16 291.68 63.16ZM291.808 103.864C288.821 103.864 286.261 104.205 284.128 104.888C282.08 105.485 280.416 106.339 279.136 107.448C277.941 108.472 277.045 109.667 276.448 111.032C275.936 112.312 275.68 113.635 275.68 115C275.68 116.792 276.192 118.541 277.216 120.248C278.24 121.955 279.947 123.363 282.336 124.472C284.725 125.581 287.883 126.136 291.808 126.136C294.112 126.136 296.117 125.923 297.824 125.496C299.616 125.069 301.109 124.515 302.304 123.832C303.584 123.064 304.608 122.211 305.376 121.272C306.229 120.248 306.827 119.224 307.168 118.2C307.509 117.091 307.68 115.981 307.68 114.872C307.68 113.592 307.381 112.312 306.784 111.032C306.272 109.752 305.419 108.6 304.224 107.576C303.029 106.467 301.408 105.571 299.36 104.888C297.312 104.205 294.795 103.864 291.808 103.864Z" fill="#00288B"/>
+                <path d="M495.85 67H547.69C545.813 75.0213 543.935 83.0427 542.058 91.064C540.266 99 538.431 106.979 536.554 115C534.677 123.021 532.799 131.043 530.922 139.064C529.13 147 527.338 154.979 525.546 163H466.026L458.346 114.872C458.346 114.787 458.303 114.744 458.218 114.744C458.218 114.659 458.218 114.616 458.218 114.616C458.218 114.616 458.175 114.616 458.09 114.616C458.09 114.616 458.047 114.659 457.962 114.744C457.962 114.744 457.962 114.787 457.962 114.872L450.41 163H394.858C393.322 156.6 391.786 150.2 390.25 143.8C388.714 137.4 387.135 131 385.514 124.6C383.978 118.2 382.442 111.8 380.906 105.4C379.37 99 377.791 92.6 376.17 86.2C374.634 79.8 373.098 73.4 371.562 67H426.09C426.773 71.352 427.413 75.7467 428.01 80.184C428.693 84.536 429.333 88.888 429.93 93.24C430.613 97.592 431.295 101.987 431.978 106.424C432.661 110.776 433.301 115.128 433.898 119.48C433.898 119.48 433.941 119.48 434.026 119.48C434.111 119.48 434.197 119.48 434.282 119.48C434.367 119.48 434.41 119.48 434.41 119.48C434.495 119.48 434.538 119.48 434.538 119.48L441.706 67H480.234L487.786 119.48C487.871 119.48 487.914 119.48 487.914 119.48C487.999 119.48 488.042 119.48 488.042 119.48C489.322 110.691 490.602 101.944 491.882 93.24C493.247 84.536 494.57 75.7893 495.85 67Z" fill="#00288B"/>
+                <path d="M616.655 125.112C616.655 125.197 616.655 125.283 616.655 125.368C616.74 125.368 616.826 125.368 616.911 125.368H666.831V163H563.535C563.535 157.709 563.535 152.419 563.535 147.128C563.535 141.837 563.535 136.547 563.535 131.256C563.535 125.88 563.535 120.547 563.535 115.256C563.535 109.965 563.535 104.675 563.535 99.384C563.535 94.008 563.535 88.632 563.535 83.256C563.535 77.7947 563.535 72.376 563.535 67H616.655C616.655 71.864 616.655 76.728 616.655 81.592C616.655 86.3707 616.655 91.192 616.655 96.056C616.655 100.92 616.655 105.784 616.655 110.648C616.655 115.427 616.655 120.248 616.655 125.112Z" fill="#00288B"/>
+                <path d="M683.835 163C683.835 156.856 683.835 150.712 683.835 144.568C683.835 138.424 683.835 132.28 683.835 126.136C683.835 119.992 683.835 113.848 683.835 107.704C683.835 101.56 683.835 95.416 683.835 89.272C683.835 85.5173 683.835 81.8053 683.835 78.136C683.835 74.3813 683.835 70.6693 683.835 67H736.955C736.955 75.2773 736.955 83.5547 736.955 91.832C736.955 100.024 736.955 108.259 736.955 116.536C736.955 121.656 736.955 126.819 736.955 132.024C736.955 137.144 736.955 142.307 736.955 147.512C736.955 152.632 736.955 157.795 736.955 163H683.835Z" fill="#00288B"/>
+                <path d="M858.949 67C860.485 72.2907 861.978 77.624 863.429 83C864.965 88.2907 866.458 93.624 867.909 99C869.445 104.291 870.981 109.624 872.517 115C874.053 120.291 875.546 125.624 876.997 131C878.533 136.291 880.026 141.624 881.477 147C883.013 152.291 884.549 157.624 886.085 163H828.997L826.821 150.456C826.48 150.456 826.181 150.456 825.925 150.456C825.669 150.456 825.37 150.456 825.029 150.456H810.949C810.693 150.456 810.437 150.456 810.181 150.456C809.925 150.456 809.669 150.456 809.413 150.456L807.237 163H752.581C754.117 157.624 755.61 152.291 757.061 147C758.597 141.624 760.09 136.291 761.541 131C763.077 125.624 764.57 120.291 766.021 115C767.557 109.624 769.05 104.291 770.501 99C772.037 93.624 773.53 88.2907 774.981 83C776.517 77.624 778.01 72.2907 779.461 67H858.949ZM810.949 141.368C810.949 141.453 810.949 141.496 810.949 141.496C810.949 141.496 810.992 141.496 811.077 141.496H825.157C825.242 141.496 825.285 141.496 825.285 141.496C825.285 141.411 825.285 141.368 825.285 141.368C825.285 141.368 825.114 140.344 824.773 138.296C824.432 136.163 823.962 133.517 823.365 130.36C822.853 127.117 822.298 123.704 821.701 120.12C821.104 116.451 820.549 112.995 820.037 109.752C819.525 106.509 819.056 103.864 818.629 101.816C818.288 99.768 818.117 98.744 818.117 98.744C818.117 98.744 818.074 98.744 817.989 98.744C817.989 98.744 817.818 99.768 817.477 101.816C817.136 103.864 816.666 106.509 816.069 109.752C815.557 112.995 815.002 116.451 814.405 120.12C813.808 123.704 813.253 127.117 812.741 130.36C812.229 133.517 811.802 136.163 811.461 138.296C811.12 140.344 810.949 141.368 810.949 141.368Z" fill="#00288B"/>
+                <path d="M307.05 191.412L310.014 219H300.172L299.564 199.316L295.764 219H285.808L281.932 199.468L281.362 219H271.52L274.484 191.412H287.404L290.71 209.386L293.598 191.412H307.05Z" fill="#00288B"/>
+                <path d="M337.023 219C336.542 217.556 335.896 215.745 335.085 213.566H322.963L321.063 219H311.525L322.165 191.412H336.149L346.865 219H337.023ZM332.919 207.638C331.957 204.978 330.969 202.318 329.955 199.658L329.043 197.188C328.157 199.493 326.852 202.977 325.129 207.638H332.919Z" fill="#00288B"/>
+                <path d="M379.407 200.608C379.407 202.812 378.862 204.674 377.773 206.194C376.709 207.714 374.872 208.816 372.263 209.5C372.567 209.905 372.782 210.222 372.909 210.45L379.065 219H368.729C367.614 216.923 365.854 213.984 363.447 210.184H357.861V219H348.893C349.096 214.085 349.197 209.487 349.197 205.206C349.197 200.925 349.096 196.327 348.893 191.412H357.861V191.45H365.651C370.768 191.45 374.34 192.273 376.367 193.92C378.394 195.567 379.407 197.796 379.407 200.608ZM357.861 198.746V203.078H362.991C365.144 203.078 366.766 203.015 367.855 202.888C368.97 202.736 369.742 202.508 370.173 202.204C370.604 201.9 370.819 201.457 370.819 200.874C370.819 200.317 370.616 199.886 370.211 199.582C369.806 199.278 369.046 199.063 367.931 198.936C366.816 198.809 365.17 198.746 362.991 198.746H357.861Z" fill="#00288B"/>
+                <path d="M402.276 219C401.085 216.847 399.109 213.553 396.348 209.12L391.902 213.528V219H382.44C382.643 214.085 382.744 209.487 382.744 205.206C382.744 200.925 382.643 196.327 382.44 191.412H391.902V202.546C396.563 197.935 399.882 194.224 401.858 191.412H414.17L402.2 203.268C403.973 205.751 405.962 208.449 408.166 211.362C410.395 214.275 412.409 216.821 414.208 219H402.276Z" fill="#00288B"/>
+                <path d="M426.217 212.046C435.843 211.995 442.823 211.856 447.155 211.628C446.977 212.667 446.863 213.743 446.813 214.858C446.787 215.947 446.775 217.328 446.775 219H417.249C417.451 214.085 417.553 209.487 417.553 205.206C417.553 200.925 417.451 196.327 417.249 191.412H446.775V198.29H426.217V201.938C427.433 201.963 429.231 201.976 431.613 201.976C435.641 201.976 439.808 201.9 444.115 201.748V208.284C439.808 208.132 435.641 208.056 431.613 208.056C429.231 208.056 427.433 208.069 426.217 208.094V212.046Z" fill="#00288B"/>
+                <path d="M480.951 199.392C476.974 199.265 473.11 199.189 469.361 199.164V219H459.861V199.164C456.086 199.189 452.236 199.265 448.309 199.392V191.412H480.951V199.392Z" fill="#00288B"/>
+                <path d="M506.086 198.974C503.072 198.822 500.842 198.733 499.398 198.708V211.704C500.868 211.679 503.097 211.59 506.086 211.438V219H484.008V211.438C486.922 211.59 489.138 211.679 490.658 211.704V198.708C489.138 198.733 486.922 198.822 484.008 198.974V191.412H506.086V198.974Z" fill="#00288B"/>
+                <path d="M541.013 191.45C540.836 195.731 540.747 200.317 540.747 205.206C540.747 210.121 540.836 214.719 541.013 219H527.409L518.213 198.252L518.897 219H509.131C509.334 214.085 509.435 209.487 509.435 205.206C509.435 200.95 509.334 196.365 509.131 191.45H523.115L532.349 212.768L531.703 191.45H541.013Z" fill="#00288B"/>
+                <path d="M559.707 203.268H575.933V219H569.245L568.447 212.274C567.687 214.681 566.332 216.467 564.381 217.632C562.431 218.797 560.049 219.38 557.237 219.38C554.679 219.38 552.399 218.81 550.397 217.67C548.421 216.53 546.863 214.896 545.723 212.768C544.609 210.64 544.051 208.157 544.051 205.32C544.051 200.785 545.407 197.201 548.117 194.566C550.828 191.931 555.046 190.614 560.771 190.614C564.039 190.614 566.915 191.146 569.397 192.21C571.905 193.274 574.033 194.921 575.781 197.15C574.641 197.733 572.412 198.898 569.093 200.646L568.143 201.178C567.155 200.19 566.003 199.455 564.685 198.974C563.368 198.467 561.975 198.214 560.505 198.214C558.073 198.214 556.262 198.86 555.071 200.152C553.881 201.419 553.285 202.989 553.285 204.864C553.285 206.891 553.919 208.525 555.185 209.766C556.477 211.007 558.441 211.628 561.075 211.628C562.215 211.628 563.317 211.463 564.381 211.134C565.471 210.805 566.383 210.235 567.117 209.424H559.707V203.268Z" fill="#00288B"/>
+                <path d="M618.461 191.45C618.283 195.731 618.195 200.317 618.195 205.206C618.195 210.121 618.283 214.719 618.461 219H604.857L595.661 198.252L596.345 219H586.579C586.781 214.085 586.883 209.487 586.883 205.206C586.883 200.95 586.781 196.365 586.579 191.45H600.563L609.797 212.768L609.151 191.45H618.461Z" fill="#00288B"/>
+                <path d="M638.409 219.38C632.607 219.38 628.339 218.126 625.603 215.618C622.867 213.085 621.499 209.538 621.499 204.978C621.499 200.469 622.854 196.947 625.565 194.414C628.301 191.881 632.582 190.614 638.409 190.614C644.261 190.614 648.542 191.881 651.253 194.414C653.989 196.947 655.357 200.469 655.357 204.978C655.357 209.563 654.001 213.11 651.291 215.618C648.58 218.126 644.286 219.38 638.409 219.38ZM638.409 211.628C641.221 211.628 643.247 211.096 644.489 210.032C645.73 208.943 646.351 207.258 646.351 204.978C646.351 202.749 645.73 201.089 644.489 200C643.247 198.911 641.221 198.366 638.409 198.366C635.622 198.366 633.608 198.911 632.367 200C631.125 201.089 630.505 202.749 630.505 204.978C630.505 207.233 631.125 208.905 632.367 209.994C633.608 211.083 635.622 211.628 638.409 211.628Z" fill="#00288B"/>
+                <path d="M690.267 191.45C690.09 195.731 690.001 200.317 690.001 205.206C690.001 210.121 690.09 214.719 690.267 219H676.663L667.467 198.252L668.151 219H658.385C658.588 214.085 658.689 209.487 658.689 205.206C658.689 200.95 658.588 196.365 658.385 191.45H672.369L681.603 212.768L680.957 191.45H690.267Z" fill="#00288B"/>
+                <path d="M700.913 215.732C701.774 214.44 702.483 213.237 703.041 212.122C703.623 211.007 704.181 209.715 704.713 208.246C706.511 209.285 708.601 210.095 710.983 210.678C713.364 211.261 715.581 211.552 717.633 211.552C719.735 211.552 721.217 211.375 722.079 211.02C722.94 210.64 723.371 210.235 723.371 209.804C723.371 208.259 721.015 207.486 716.303 207.486C711.135 207.486 707.385 206.954 705.055 205.89C702.724 204.801 701.559 203.053 701.559 200.646C701.559 197.226 702.977 194.705 705.815 193.084C708.652 191.463 712.338 190.652 716.873 190.652C719.507 190.652 722.205 190.994 724.967 191.678C727.753 192.337 730.261 193.249 732.491 194.414C731.756 196.086 730.983 198.125 730.173 200.532C730.021 201.039 729.894 201.419 729.793 201.672C728.501 200.633 726.55 199.772 723.941 199.088C721.331 198.379 719.026 198.024 717.025 198.024C714.618 198.024 712.997 198.189 712.161 198.518C711.325 198.822 710.907 199.278 710.907 199.886C710.907 200.494 711.477 200.988 712.617 201.368C713.782 201.723 715.454 201.9 717.633 201.9C723.003 201.9 726.905 202.521 729.337 203.762C731.769 204.978 732.985 206.853 732.985 209.386C732.985 212.933 731.693 215.491 729.109 217.062C726.525 218.607 722.611 219.38 717.367 219.38C714.555 219.38 711.692 219.076 708.779 218.468C705.865 217.835 703.243 216.923 700.913 215.732Z" fill="#00288B"/>
+                <path d="M767.139 199.392C763.161 199.265 759.298 199.189 755.549 199.164V219H746.049V199.164C742.274 199.189 738.423 199.265 734.497 199.392V191.412H767.139V199.392Z" fill="#00288B"/>
+                <path d="M784.842 219.38C779.041 219.38 774.772 218.126 772.036 215.618C769.3 213.085 767.932 209.538 767.932 204.978C767.932 200.469 769.287 196.947 771.998 194.414C774.734 191.881 779.015 190.614 784.842 190.614C790.694 190.614 794.975 191.881 797.686 194.414C800.422 196.947 801.79 200.469 801.79 204.978C801.79 209.563 800.435 213.11 797.724 215.618C795.013 218.126 790.719 219.38 784.842 219.38ZM784.842 211.628C787.654 211.628 789.681 211.096 790.922 210.032C792.163 208.943 792.784 207.258 792.784 204.978C792.784 202.749 792.163 201.089 790.922 200C789.681 198.911 787.654 198.366 784.842 198.366C782.055 198.366 780.041 198.911 778.8 200C777.559 201.089 776.938 202.749 776.938 204.978C776.938 207.233 777.559 208.905 778.8 209.994C780.041 211.083 782.055 211.628 784.842 211.628Z" fill="#00288B"/>
+                <path d="M822.071 191.45C827.112 191.45 830.621 192.349 832.597 194.148C834.573 195.921 835.561 198.429 835.561 201.672C835.561 203.901 835.168 205.801 834.383 207.372C833.597 208.917 832.217 210.133 830.241 211.02C828.265 211.881 825.541 212.312 822.071 212.312H814.167V219H804.819C805.022 214.085 805.123 209.487 805.123 205.206C805.123 200.925 805.022 196.327 804.819 191.412H814.167V191.45H822.071ZM819.411 204.978C821.513 204.978 823.084 204.902 824.123 204.75C825.187 204.573 825.922 204.269 826.327 203.838C826.758 203.407 826.973 202.774 826.973 201.938C826.973 201.102 826.77 200.481 826.365 200.076C825.985 199.645 825.263 199.354 824.199 199.202C823.16 199.05 821.564 198.974 819.411 198.974H814.167V204.978H819.411Z" fill="#00288B"/>
+                </svg>
+            </div>
+            <a href="https://wa.me/40123456789?text=Bună!%20Vreau%20informații%20despre%20pachetele%20Start-Up%20Nation." class="nav-cta">Contactează-ne</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Urmează să primești Start-Up Nation?<br>Te ajutăm să aloci corect<br>bugetul de marketing</h1>
+            <p class="subheadline">Îți calculăm exact cât să investești pe baza industriei tale, apoi implementăm totul pentru tine în următoarele 12 luni. Primești rapoarte lunare pregătite pentru evaluatori - fără stres, fără confuzie.</p>
+            <div class="hero-ctas">
+                <a href="#pricing" class="hero-cta">
+                    Vreau să vă ocupați voi
+                </a>
+                <a href="#calculator" class="hero-cta-secondary">
+                    <span>📊</span>
+                    Calculează bugetul necesar
+                </a>
+            </div>
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <div class="trust-number">50+</div>
+                    <div class="trust-label">Beneficiari Start-Up Nation</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">2.5M+</div>
+                    <div class="trust-label">Lei fonduri gestionate</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">100%</div>
+                    <div class="trust-label">Raportări aprobate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <h2 class="section-title">De ce majoritatea pierd bani pe marketing?</h2>
+            <p class="section-subtitle">Ai fondurile aprobate, dar nu știi concret ce să faci cu ele</p>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">⚠️</div>
+                    <h3>Cât să pui în marketing?</h3>
+                    <p>30.000 lei? 50.000 lei? Nimeni nu-ți spune exact cât e normal pentru un business ca al tău.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">⏰</div>
+                    <h3>Ai termene limită</h3>
+                    <p>Banii trebuie cheltuiți în timp - dacă întârzii sau greșești, îi pierzi pe toți.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📋</div>
+                    <h3>Hârtii peste hârtii</h3>
+                    <p>Trebuie să trimiți rapoarte lunare la evaluatori - dacă nu-s bune, ai probleme mari.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🎯</div>
+                    <h3>5 furnizori diferiți</h3>
+                    <p>Logo de undeva, site de aiurea, social media de altundeva - te înnebunești cu coordonarea.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">💸</div>
+                    <h3>Cheltuieli neeligibile</h3>
+                    <p>Pui bani în Google Ads sau Facebook Ads și descoperi că nu sunt eligibile - fondurile irosite.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🤷</div>
+                    <h3>Nu știi cum să măsori</h3>
+                    <p>Ai cheltuit 50.000 lei dar nu știi câți clienți au venit de aici - nu poți dovedi ROI-ul.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <h2 class="section-title">Cum funcționează colaborarea?</h2>
+            <p class="section-subtitle">Simplu: Ne spui ce afacere ai, îți calculăm bugetul optim și implementăm totul</p>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <span class="checkmark">✓</span>
+                    <span class="benefit-text"><strong>Îți calculăm bugetul exact:</strong> Pe baza industriei tale și a cifrei de afaceri proiectate în primul an</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="checkmark">✓</span>
+                    <span class="benefit-text"><strong>Totul într-un singur loc:</strong> Logo, website, materiale, rapoarte - nu mai alergi după mai mulți furnizori</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="checkmark">✓</span>
+                    <span class="benefit-text"><strong>Respectăm termenele:</strong> Știm când trebuie făcut fiecare lucru ca să nu pierzi fondurile</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="checkmark">✓</span>
+                    <span class="benefit-text"><strong>Rapoarte gata făcute:</strong> Primești lunar tot ce trebuie trimis la evaluatori, fără stres</span>
+                </div>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Analiza afacerii tale</h3>
+                    <p>Analizăm planul tău și concurența din piață. Îți calculăm exact cât trebuie să investești în marketing și cum să aloce bugetul în 12 luni.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Implementare rapidă</h3>
+                    <p>Logo, website, materiale pentru print, prezență online - totul gata în primele 1-2 luni.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Management 12 luni</h3>
+                    <p>Primești rapoarte lunare, actualizăm site-ul, răspundem la întrebări - ești acoperit tot anul.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container-narrow">
+            <h2 class="section-title" style="text-align: center;">Cine suntem și de ce să ai încredere?</h2>
+            <div class="about-content">
+                <div class="about-intro">
+                    <p class="about-text">Bună! Sunt <strong>Mihail Petru Marincea</strong>, fondator și coordonator al echipei. Facem marketing digital și website-uri de 16 ani. Actual și formator pentru Start-Up Nation pregătind companiile cu noțiuni de competențe Antreprenoriale.</p>
+                    <p class="about-text">Am început în domeniu la 15 ani, când am dezvoltat primul sistem pentru compania în care lucram. De atunci, echipa noastră a livrat peste <strong>100 de proiecte</strong> - de la tech și retail, la restaurante, saloane, construcții - toate industriile pe care le vezi aici.</p>
+                </div>
+                <div class="about-companies">
+                    <div class="company-item">
+                        <h3>Owlia - Agenție de Marketing - Finanțat pe fornduri europene</h3>
+                        <p>Pentru companiile la inceput de drum, divizia noastră pentru companiile la inceput de drum. Specialiști in marketing digital și strategie de marketing offline.</p>
+                    </div>
+                    <div class="company-item">
+                        <h3>Fruit Creative</h3>
+                        <p>Compania noastră principală unde lucrăm cu companiile care sunt mature pe piață și au o afacere stabilă.</p>
+                    </div>
+                    <div class="company-item">
+                        <h3>Omnisfera</h3>
+                        <p>Rețea de antreprenori din mai multe țări unde colaborăm la proiecte internaționale și oferim consultanță strategică.</p>
+                    </div>
+                </div>
+                <div class="about-why">
+                    <h3 style="font-size: 24px; margin-bottom: 24px; text-align: center;">De ce să lucrezi cu echipa noastră?</h3>
+                    <div class="why-grid">
+                        <div class="why-item">
+                            <span class="why-number">01</span>
+                            <h4>Experiență Start-Up Nation</h4>
+                            <p>Am lucrat cu peste 50 de beneficiari Start-Up Nation. Știm exact ce trebuie făcut, când și cum, pentru a respecta toate cerințele.</p>
+                        </div>
+                        <div class="why-item">
+                            <span class="why-number">02</span>
+                            <h4>Implementare rapidă</h4>
+                            <p>Logo, site, materiale - totul gata în 4-6 săptămâni, nu în 3-4 luni. Avem procesele rodate.</p>
+                        </div>
+                        <div class="why-item">
+                            <span class="why-number">03</span>
+                            <h4>Rezultate măsurabile</h4>
+                            <p>Primești raportări clare lunare: câți vizitatori pe site, câte apeluri primești, ce funcționează și ce nu.</p>
+                        </div>
+                        <div class="why-item">
+                            <span class="why-number">04</span>
+                            <h4>Comunicare directă</h4>
+                            <p>Lucrezi direct cu echipa noastră, nu te direcționăm către juniori. Răspundem în 24h, avem o oră de consultanță lunară.</p>
+                        </div>
+                        <div class="why-item">
+                            <span class="why-number">05</span>
+                            <h4>Portofoliu variat</h4>
+                            <p>Avem clienți din toate brașele - de la instituții și firme mari, la afaceri mici și start-up-uri. Știm ce funcționează în fiecare industrie.</p>
+                        </div>
+                        <div class="why-item">
+                            <span class="why-number">06</span>
+                            <h4>Echipă completă internă</h4>
+                            <p>Nu subcontractăm nimic. Design, development, copywriting, strategie - toți oamenii sunt în echipa noastră, totul e coordonat perfect.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-proof">
+                    <p class="proof-text"><strong>100+ proiecte livrate</strong> · <strong>16+ ani experiență</strong> · <strong>3 companii fondate</strong> · <strong>50+ beneficiari Start-Up Nation</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator" id="calculator">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">Cât ar trebui să investești în marketing?</h2>
+            <p class="section-subtitle" style="text-align: center;">Completează 3 câmpuri și îți calculăm bugetul optim</p>
+            <div class="calculator-container">
+                <form id="calculator-form">
+                    <div class="form-group">
+                        <label class="form-label">Ce faci? (industria)</label>
+                        <select class="form-select" id="industry" required>
+                            <option value="">Alege ce faci</option>
+                            <option value="constructii" data-percent="5">Construcții & Instalații</option>
+                            <option value="horeca" data-percent="7">Restaurant / Cafenea / Hotel</option>
+                            <option value="it" data-percent="8">IT & Software</option>
+                            <option value="retail" data-percent="6">Magazin / Comerț</option>
+                            <option value="servicii-b2b" data-percent="6">Servicii pentru firme (consultanță, contabilitate)</option>
+                            <option value="servicii-b2c" data-percent="7">Servicii pentru oameni (salon, fitness, etc)</option>
+                            <option value="productie" data-percent="5">Producție</option>
+                            <option value="sanatate" data-percent="6">Sănătate & Wellness</option>
+                            <option value="educatie" data-percent="7">Educație & Training</option>
+                            <option value="transport" data-percent="4">Transport & Logistică</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cifra de afaceri proiectată (primul an, în lei)</label>
+                        <input type="number" class="form-input" id="revenue" placeholder="Ex: 840.000 lei" required min="0" step="1000">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Câți clienți/contracte vizezi în primul an?</label>
+                        <input type="number" class="form-input" id="clients" placeholder="Ex: 30 clienți" required min="1">
+                    </div>
+                    <button type="submit" class="calc-button">📊 Calculează Bugetul</button>
+                </form>
+                <div class="calc-result" id="result">
+                    <div class="result-package" id="result-package"></div>
+                    <div class="result-label">Bugetul tău recomandat de marketing:</div>
+                    <div class="result-value" id="result-budget"></div>
+                    <p class="result-explanation" id="result-explanation"></p>
+                    <a href="#" class="result-cta" id="result-whatsapp">
+                        <span>💬</span>
+                        Vreau Analiză Detaliată
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">Cât costă?</h2>
+            <p class="section-subtitle" style="text-align: center;">3 variante - alegi ce ți se potrivește</p>
+            
+            <div class="pricing-toggle">
+                <span class="pricing-toggle-label" id="monthly-label">Plată la 6 luni</span>
+                <div class="pricing-switch annual" id="pricing-switch" onclick="togglePricing()">
+                    <div class="pricing-switch-slider"></div>
+                </div>
+                <span class="pricing-toggle-label active" id="annual-label">
+                    Plată anuală
+                    <span class="pricing-discount">-5%</span>
+                </span>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>SMART</h3>
+                    <p class="pricing-description">Doar digital (fără print)</p>
+                    <div class="pricing-price">
+                        <span class="price-annual">42.000<span style="font-size: 24px;"> lei</span></span>
+                        <span class="price-monthly" style="display: none;">22.105<span style="font-size: 24px;"> lei</span></span>
+                    </div>
+                    <div class="pricing-period">
+                        <span class="period-annual">Tot anul 1 (o plată)</span>
+                        <span class="period-monthly" style="display: none;">per 6 luni (2 plăți = 44.210 lei)</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="checkmark">✓</span> <span>Îți calculăm bugetul</span></li>
+                        <li><span class="checkmark">✓</span> <span>Logo digital</span></li>
+                        <li><span class="checkmark">✓</span> <span>Website 8-10 pagini</span></li>
+                        <li><span class="checkmark">✓</span> <span>Google Business</span></li>
+                        <li><span class="checkmark">✓</span> <span>Strategie social media</span></li>
+                        <li><span class="checkmark">✓</span> <span>Management 12 luni</span></li>
+                        <li><span class="checkmark">✓</span> <span>Rapoarte lunare</span></li>
+                    </ul>
+                    <a href="https://wa.me/40123456789?text=Bună!%20Vreau%20informații%20despre%20Pachetul%20SMART%20(42.000%20lei)%20pentru%20Start-Up%20Nation." class="pricing-cta">Vreau SMART</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Cel mai ales</div>
+                    <h3>PREMIUM</h3>
+                    <p class="pricing-description">Totul inclus (digital + print)</p>
+                    <div class="pricing-price">
+                        <span class="price-annual">55.000<span style="font-size: 24px;"> lei</span></span>
+                        <span class="price-monthly" style="display: none;">28.947<span style="font-size: 24px;"> lei</span></span>
+                    </div>
+                    <div class="pricing-period">
+                        <span class="period-annual">Tot anul 1 (o plată)</span>
+                        <span class="period-monthly" style="display: none;">per 6 luni (2 plăți = 57.894 lei)</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="checkmark">✓</span> <span>Tot ce e la SMART +</span></li>
+                        <li><span class="checkmark">✓</span> <span>Logo complet + manual</span></li>
+                        <li><span class="checkmark">✓</span> <span>Uniforme (6 seturi)</span></li>
+                        <li><span class="checkmark">✓</span> <span>Folie pe mașină</span></li>
+                        <li><span class="checkmark">✓</span> <span>Cărți vizită, flyere</span></li>
+                        <li><span class="checkmark">✓</span> <span>Roll-up + Banner</span></li>
+                        <li><span class="checkmark">✓</span> <span>Training 3 ore pentru echipa ta</span></li>
+                    </ul>
+                    <a href="https://wa.me/40123456789?text=Bună!%20Vreau%20informații%20despre%20Pachetul%20PREMIUM%20(55.000%20lei)%20pentru%20Start-Up%20Nation." class="pricing-cta">Vreau PREMIUM</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>PERSONALIZAT</h3>
+                    <p class="pricing-description">Calculat special pentru tine</p>
+                    <div class="pricing-price" style="font-size: 48px;">La cerere</div>
+                    <div class="pricing-period">Cost analiză: 1.500 lei</div>
+                    <ul class="pricing-features">
+                        <li><span class="checkmark">✓</span> <span>Analiză detaliată a planului tău (1.500 lei)</span></li>
+                        <li><span class="checkmark">✓</span> <span>Research competiție în nișă</span></li>
+                        <li><span class="checkmark">✓</span> <span>Calcul buget exact pentru industria ta</span></li>
+                        <li><span class="checkmark">✓</span> <span>Ofertă personalizată adaptată</span></li>
+                        <li><span class="checkmark">✓</span> <span>Flexibilitate 100%</span></li>
+                        <li><span class="checkmark">✓</span> <span>Adaptăm serviciile pe parcurs</span></li>
+                        <li><span class="checkmark">✓</span> <span>Documentație la cerere</span></li>
+                    </ul>
+                    <a href="https://wa.me/40123456789?text=Bună!%20Vreau%20o%20analiză%20personalizată%20(1.500%20lei)%20și%20ofertă%20PERSONALIZATĂ%20pentru%20Start-Up%20Nation." class="pricing-cta">Vreau Ofertă</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breakdown Section -->
+    <section class="breakdown">
+        <div class="container-narrow">
+            <h2 class="section-title" style="text-align: center;">Ce primești exact în pachet?</h2>
+            <p class="section-subtitle" style="text-align: center;">Detalii complete pentru fiecare etapă</p>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="etapa1">Etapa 1: Analiză & Strategie</button>
+                <button class="tab-button" data-tab="etapa2">Etapa 2: Setup Complet</button>
+                <button class="tab-button" data-tab="etapa3">Etapa 3: Management 12 Luni</button>
+            </div>
+            <div class="tab-content active" id="etapa1">
+                <ul class="breakdown-list">
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>✓ Analiza planului de afaceri</h4>
+                            <p style="color: var(--color-gray); font-size: 15px;">Studiem în detaliu planul tău pentru a înțelege obiectivele și resursele disponibile.</p>
+                        </div>
+                    </li>
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>✓ Research concurență în nișa ta</h4>
+                            <p style="color: var(--color-gray); font-size: 15px;">Analizăm competitorii din Iași/România pentru a identifica oportunități și diferențiatori.</p>
+                        </div>
+                    </li>
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>✓ Calcul buget optim marketing</h4>
+                            <p style="color: var(--color-gray); font-size: 15px;">Determinăm % ideal din CA proiectat bazat pe industrie și obiective.</p>
+                        </div>
+                    </li>
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>✓ Strategie 12 luni cu milestone-uri</h4>
+                            <p style="color: var(--color-gray); font-size: 15px;">Plan detaliat lunar cu obiective măsurabile și termene clare.</p>
+                        </div>
+                    </li>
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>✓ Bonus: Revizuire secțiune marketing</h4>
+                            <p style="color: var(--color-gray); font-size: 15px;">Dacă e înainte de depunere, îți optimizăm secțiunea de marketing din planul de afaceri.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="etapa2">
+                <ul class="breakdown-list">
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>Identitate de Brand</h4>
+                            <ul class="breakdown-subitems">
+                                <li>Logo profesional + manual identitate vizuală</li>
+                                <li>Uniformă personalizată (design + 6 seturi)</li>
+                                <li>Wrapping complet autovehicul (design + aplicare)</li>
+                                <li>Cărți vizită + flyere + roll-up (design + producție)</li>
+                                <li>Template-uri documente (oferte, contracte, rapoarte)</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>Digital Hub</h4>
+                            <ul class="breakdown-subitems">
+                                <li>Website 8-10 pagini (responsive, optimizat SEO local)</li>
+                                <li>Setup Google Business + optimizare completă</li>
+                                <li>Strategie social media (Facebook/Instagram/LinkedIn)</li>
+                                <li>Training echipă 3h (cum să folosești instrumentele)</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>Materiale Marketing</h4>
+                            <ul class="breakdown-subitems">
+                                <li>Brosură servicii A4 (design + 500 buc)</li>
+                                <li>Banner exterior (design + producție)</li>
+                                <li>Prezentare PowerPoint B2B</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="etapa3">
+                <ul class="breakdown-list">
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>Lunar (12 luni)</h4>
+                            <ul class="breakdown-subitems">
+                                <li>2 postări Google Business</li>
+                                <li>Raportare detaliată (leads, trafic, apeluri, ROI)</li>
+                                <li>Consultanță 1h (ajustări strategie)</li>
+                                <li>Răspunsuri recenzii + monitoring online</li>
+                                <li>Actualizări website (2/lună)</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>Trimestrial (4x/an)</h4>
+                            <ul class="breakdown-subitems">
+                                <li>Analiză competiție (ce fac alții nou)</li>
+                                <li>Optimizare SEO</li>
+                                <li>A/B testing mesaje marketing</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="breakdown-item">
+                        <div>
+                            <h4>Opțional (la cerere, în buget)</h4>
+                            <ul class="breakdown-subitems">
+                                <li>Campanii Google/Facebook Ads (buget separat 1.000-2.000 lei/lună)</li>
+                                <li>Fotografii profesionale șantiere/locații (3-4/an)</li>
+                                <li>Video testimoniale clienți (2-3/an)</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantees Section -->
+    <section class="guarantees">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">Ce garanții ai?</h2>
+            <p class="section-subtitle" style="text-align: center;">Nu te lăsăm în clipa 2 după ce primești fondurile</p>
+            <div class="guarantees-grid">
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">📋</div>
+                    <h3>Rapoarte gata făcute</h3>
+                    <p>Îți oferim lunar toate documentele necesare, formatate corect pentru evaluatori.</p>
+                </div>
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">📊</div>
+                    <h3>Contract clar 12 luni</h3>
+                    <p>Știi ce primești și când. Dacă după 6 luni nu merge, poți renunța.</p>
+                </div>
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">⚡</div>
+                    <h3>Răspundem repede</h3>
+                    <p>Ai o întrebare? Răspundem în maxim 24h. Garantat.</p>
+                </div>
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">✅</div>
+                    <h3>Toată documentația</h3>
+                    <p>Primești toate documentele necesare pentru raportări la Start-Up Nation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Magnet Section -->
+    <section class="lead-magnet">
+        <div class="container">
+            <div class="lead-magnet-content">
+            <h2 class="section-title">Descarcă ghidul gratuit</h2>
+            <p style="font-size: 20px; color: rgba(255,255,255,0.9); margin-bottom: 32px;">"Cât Buget să Aloci pentru Marketing în Primul An"</p>
+                <div class="magnet-features">
+                    <div class="magnet-feature">
+                        <span class="checkmark">✓</span>
+                        <span>Cât alocă fiecare industrie</span>
+                    </div>
+                    <div class="magnet-feature">
+                        <span class="checkmark">✓</span>
+                        <span>Calculator simplu</span>
+                    </div>
+                    <div class="magnet-feature">
+                        <span class="checkmark">✓</span>
+                        <span>Greșeli de evitat</span>
+                    </div>
+                    <div class="magnet-feature">
+                        <span class="checkmark">✓</span>
+                        <span>Ce e eligibil și ce nu</span>
+                    </div>
+                </div>
+                <a href="ghid-buget-marketing-startup-nation.html" target="_blank" class="magnet-cta">
+                    <span>📥</span>
+                    Descarcă Ghidul (Gratis)
+                </a>
+                <p style="font-size: 14px; margin-top: 16px; color: rgba(255,255,255,0.6);">sau contactează-ne pe <a href="https://wa.me/40123456789?text=Bună!%20Vreau%20ghidul%20gratuit%20despre%20bugetul%20de%20marketing." style="color: rgba(255,255,255,0.9); text-decoration: underline;">WhatsApp</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">Întrebări pe care le primim des</h2>
+            <p class="section-subtitle" style="text-align: center;">Probabil te întrebi și tu de astea</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Care pachet e pentru mine?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Folosește calculatorul de mai sus - îți arată automat. Sau contactează-ne pe WhatsApp și discutăm 30 min gratuit să vedem ce-ți trebuie exact.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Se califică pentru Start-Up Nation?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Da! Tot ce facem intră la Start-Up Nation: logo, site, materiale, consultanță. Îți oferim facturile împărțite cum trebuie și toate documentele pentru raportări.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Cât durează până e gata?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Logo, site, materiale - toate în prima lună-două. După aceea te urmărim 12 luni cu rapoarte și actualizări. Totul e sincronizat cu termenele Start-Up Nation.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Dacă nu-mi place ce-ați făcut?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            După 6 luni, dacă nu vezi rezultate (telefoane, vizitatori pe site, clienți), poți renunța. Plus că discutăm lunar o oră să ajustăm ce nu merge.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Pot pune și reclame pe Google/Facebook?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Da! Reclamele le adaugi separat, costă 1.000-2.000 lei/lună. Recomandăm să le pornești după lună 2-3, când ai deja site-ul și tot ce trebuie.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Ne ajutați să depunem dosarul Start-Up Nation?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Dacă nu l-ai depus încă, îți revizuim gratis partea de marketing. Pentru depunerea completă, te punem în legătură cu consultanții cu care colaborăm.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Gata să începem?</h2>
+            <p>Solicită o consultanță gratuită de 30 de minute și află exact<br>cât buget să aloci pentru marketing în primul an.</p>
+            <a href="https://wa.me/40123456789?text=Bună!%20Vreau%20o%20consultanță%20gratuită%20de%2030%20min%20pentru%20Start-Up%20Nation." class="final-cta-button">
+                <span>💬</span>
+                Solicită Consultanță Gratuită
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 OWLIA - Echipa ta de Marketing. Toate drepturile rezervate.</p>
+            <p style="margin-top: 8px; font-size: 12px;">Acest model este proprietatea OWLIA și nu poate fi replicat fără consimțământ. Publicat: 8 Octombrie 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // Calculator functionality
+        document.getElementById('calculator-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const industry = document.getElementById('industry');
+            const revenue = parseFloat(document.getElementById('revenue').value);
+            const clients = parseInt(document.getElementById('clients').value);
+            
+            const industryName = industry.options[industry.selectedIndex].text;
+            const marketingPercent = parseFloat(industry.options[industry.selectedIndex].dataset.percent);
+            
+            // Calculate budget
+            const minBudget = Math.round((revenue * (marketingPercent - 1)) / 100);
+            const maxBudget = Math.round((revenue * (marketingPercent + 1)) / 100);
+            const avgBudget = Math.round((minBudget + maxBudget) / 2);
+            
+            // Determine package
+            let packageName = '';
+            let packageInfo = '';
+            let whatsappMessage = '';
+            
+            if (avgBudget < 42000) {
+                packageName = 'Recomandăm Pachetul PERSONALIZAT';
+                packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei, bugetul tău optim este ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei. Îți recomandăm un pachet personalizat adaptat bugetului tău, care include elementele esențiale pentru Start-Up Nation.`;
+                whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau o ofertă PERSONALIZATĂ adaptată bugetului meu.`;
+            } else if (avgBudget >= 42000 && avgBudget < 55000) {
+                packageName = 'Pachet SMART recomandat';
+                packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, pachetul SMART (42.000 lei) oferă focus digital optim și ROI maxim - perfect pentru bugetul tău.`;
+                whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau informații despre Pachetul SMART (42.000 lei).`;
+            } else if (avgBudget >= 55000 && avgBudget < 70000) {
+                packageName = 'Pachet PREMIUM recomandat';
+                packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, pachetul PREMIUM (55.000 lei) include tot ce ai nevoie: brand complet, digital și materiale fizice - ideal pentru bugetul tău.`;
+                whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau informații despre Pachetul PREMIUM (55.000 lei).`;
+            } else {
+                packageName = 'Pachet PREMIUM + Campanii recomandat';
+                packageInfo = `Pentru ${industryName} cu CA ambițioasă de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, recomandăm pachetul PREMIUM (55.000 lei) plus campanii Google/Facebook Ads susținute pentru a maximiza rezultatele.`;
+                whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau o ofertă PREMIUM + Campanii de publicitate.`;
+            }
+            
+            // Display results
+            document.getElementById('result-budget').textContent = `${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei`;
+            document.getElementById('result-package').textContent = packageName;
+            document.getElementById('result-explanation').textContent = packageInfo;
+            
+            // Update WhatsApp link
+            const whatsappLink = `https://wa.me/40123456789?text=${encodeURIComponent(whatsappMessage)}`;
+            document.getElementById('result-whatsapp').href = whatsappLink;
+            
+            // Show results
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.add('show');
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Tabs functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', function() {
+                const faqItem = this.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-answer').style.maxHeight = null;
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Pricing toggle functionality
+        function togglePricing() {
+            const pricingSwitch = document.getElementById('pricing-switch');
+            const monthlyLabel = document.getElementById('monthly-label');
+            const annualLabel = document.getElementById('annual-label');
+            const isAnnual = pricingSwitch.classList.contains('annual');
+            
+            if (isAnnual) {
+                // Switch to monthly
+                pricingSwitch.classList.remove('annual');
+                monthlyLabel.classList.add('active');
+                annualLabel.classList.remove('active');
+                
+                // Show monthly prices
+                document.querySelectorAll('.price-annual').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.price-monthly').forEach(el => el.style.display = 'inline');
+                document.querySelectorAll('.period-annual').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.period-monthly').forEach(el => el.style.display = 'inline');
+            } else {
+                // Switch to annual
+                pricingSwitch.classList.add('annual');
+                monthlyLabel.classList.remove('active');
+                annualLabel.classList.add('active');
+                
+                // Show annual prices
+                document.querySelectorAll('.price-annual').forEach(el => el.style.display = 'inline');
+                document.querySelectorAll('.price-monthly').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.period-annual').forEach(el => el.style.display = 'inline');
+                document.querySelectorAll('.period-monthly').forEach(el => el.style.display = 'none');
+            }
+        }
+    </script>
+</body>
+</html>
