@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-export const FROM_EMAIL = 'contact@owlia.ro';
+export const FROM_EMAIL = 'noreply@notificari.owlia.ro';
 
 // Lazy initialization of Resend client
 let resendInstance: Resend | null = null;

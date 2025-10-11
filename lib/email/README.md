@@ -8,8 +8,8 @@ RESEND_API_KEY=re_xxxxx
 ```
 
 2. Verify domain in Resend dashboard:
-   - Domain: `owlia.ro`
-   - From email: `updates@owlia.ro`
+   - Domain: `notificari.owlia.ro`
+   - From email: `noreply@notificari.owlia.ro`
 
 ## Usage
 
