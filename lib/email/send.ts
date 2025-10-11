@@ -3,6 +3,7 @@ import { welcomeEmail } from './templates/welcome';
 import { guideDownloadEmail } from './templates/guideDownload';
 import { calculatorResultEmail } from './templates/calculatorResult';
 import { packageInterestEmail } from './templates/packageInterest';
+import { contractGeneratedEmail } from './templates/contractGenerated';
 
 interface SendEmailParams {
   to: string;
@@ -74,6 +75,19 @@ export async function sendPackageInterestEmail(
     to,
     subject: '🎉 Mulțumim pentru interesul tău!',
     html: packageInterestEmail(packageName, packagePrice, phone),
+  });
+}
+
+export async function sendContractGeneratedEmail(
+  to: string,
+  clientName: string,
+  contractNumber: string,
+  packageName: string
+) {
+  return sendEmail({
+    to,
+    subject: '📄 Contractul tău OWLIA este gata!',
+    html: contractGeneratedEmail(clientName, contractNumber, packageName),
   });
 }
 

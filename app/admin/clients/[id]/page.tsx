@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, Edit, Trash2, Mail, Phone, Briefcase, DollarSign } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
+import ContractsSection from "@/components/admin/ContractsSection";
 
 interface ClientDetail {
   id: string;
@@ -247,10 +248,7 @@ export default function ClientDetailPage() {
         <p className="text-gray">Timeline va fi implementat în Faza 5</p>
       </div>
 
-      <div className="bg-white rounded-xl p-6 border border-gray-light">
-        <h2 className="text-xl font-bold text-navy mb-4">Contracte</h2>
-        <p className="text-gray">Contracte vor fi implementate în Faza 4</p>
-      </div>
+      <ContractsSection clientId={client.id} contracts={client.contracts || []} />
 
       <div className="bg-white rounded-xl p-6 border border-gray-light">
         <h2 className="text-xl font-bold text-navy mb-4">Fișiere</h2>
