@@ -38,7 +38,12 @@ export default function LoginPage() {
       }
 
       if (result?.ok) {
-        console.log("4. Login successful, redirecting...");
+        console.log("4. Login successful, waiting for cookie...");
+        
+        // Wait for cookie to be set properly
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        console.log("5. Cookie should be set, redirecting...");
         
         // Force full page reload to /admin
         window.location.href = "/admin";
