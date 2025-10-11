@@ -4,15 +4,16 @@ Platformă completă de management clienți pentru Owlia, construită cu Next.js
 
 ## 🚀 Features
 
-- **Autentificare securizată** - NextAuth.js cu role-based access (ADMIN/CLIENT)
-- **Management clienți** - CRUD complet pentru clienți și proiecte
-- **Generare contracte** - Template HTML → PDF automat cu Puppeteer
-- **File management** - Upload/download securizat în Coolify volumes
-- **Timeline tracking** - 12 luni milestone-uri pentru fiecare pachet
-- **Notificări email** - Resend pentru notificări automate
-- **Landing page** - Calculator buget și pachete editabile
-- **Admin dashboard** - Module toggle, statistici, rapoarte
-- **Client portal** - Acces la contracte, files, timeline
+- ✅ **Autentificare securizată** - NextAuth.js v5 cu role-based access (ADMIN/CLIENT)
+- ✅ **Management clienți** - CRUD complet pentru clienți și proiecte
+- ✅ **Notificări email** - Resend pentru calculator results & package interest
+- ✅ **Landing page** - Calculator buget cu email capture + pricing interactiv
+- ✅ **Admin dashboard** - Stats, client management, settings
+- ✅ **Lead tracking** - Capture & tracking pentru toate lead sources
+- 🚧 **Generare contracte** - Template HTML → PDF automat cu Puppeteer
+- 🚧 **File management** - Upload/download securizat în Coolify volumes
+- 🚧 **Timeline tracking** - 12 luni milestone-uri pentru fiecare pachet
+- 🚧 **Client portal** - Acces la contracte, files, timeline
 
 ## 📋 Prerequisites
 
@@ -133,15 +134,15 @@ npm run prisma:seed            # Seed database
 
 ## 🎨 Tech Stack
 
-- **Framework:** Next.js 14 (App Router + Turbopack)
-- **Language:** TypeScript
+- **Framework:** Next.js 15.5.4 (App Router + Turbopack)
+- **Language:** TypeScript (strict mode)
 - **Database:** PostgreSQL + Prisma ORM
-- **Auth:** NextAuth.js v5
+- **Auth:** NextAuth.js v5 (beta) - AuthGuard pattern
 - **Email:** Resend
-- **PDF:** Puppeteer
 - **Styling:** Tailwind CSS v4
 - **Validation:** Zod
 - **Deployment:** Coolify (Docker)
+- **PDF:** Puppeteer (planned)
 
 ## 🚢 Deployment (Coolify)
 
@@ -257,6 +258,11 @@ npm run prisma:seed
 - [x] Client details page
 - [x] Add/Edit client forms
 - [x] Settings page with module toggles
+- [x] NextAuth v5 authentication flow
+- [x] AuthGuard pattern (no middleware for Edge compatibility)
+- [x] Email notifications for leads
+- [x] Calculator result emails
+- [x] Package interest confirmation emails
 
 ### 📄 Phase 4: Contract System
 - [ ] HTML contract templates
@@ -313,12 +319,23 @@ npm run prisma:seed
 ## 🔐 Security
 
 - Passwords hashed with bcrypt (12 rounds)
-- JWT sessions with NextAuth.js
-- Role-based access control (middleware)
-- File ownership verification
+- JWT sessions with NextAuth.js v5
+- Role-based access control (AuthGuard in layout)
+- Server-side session validation
 - SQL injection prevention (Prisma)
 - XSS protection (Next.js auto-escape)
 - CSRF tokens (NextAuth)
+- Input validation with Zod
+
+## 🐛 Known Issues & Solutions
+
+### NextAuth v5 (Beta) + Edge Runtime
+**Issue:** Middleware with Prisma doesn't work in Edge Runtime.  
+**Solution:** Use `AuthGuard` component in layout for server-side auth checks instead of middleware.
+
+### Session Cookie After Login
+**Issue:** Redirect too fast after login, before cookie is set.  
+**Solution:** 1 second delay before redirect to allow cookie propagation.
 
 ## 📧 Support
 
