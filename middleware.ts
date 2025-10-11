@@ -1,19 +1,19 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { auth } from "@/lib/auth/config";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const session = await auth();
   const path = req.nextUrl.pathname;
 
-  // If no token, redirect to login
-  if (!token) {
+  // If no session, redirect to login
+  if (!session?.user) {
     return NextResponse.redirect(new URL("/auth/login", req.url));
   }
 
   // Admin routes - only ADMIN role
   if (path.startsWith("/admin")) {
-    if (token.role !== "ADMIN") {
+    if (session.user.role !== "ADMIN") {
       return NextResponse.redirect(new URL("/auth/login", req.url));
     }
   }
@@ -22,11 +22,11 @@ export async function middleware(req: NextRequest) {
   if (path.startsWith("/client")) {
     const clientId = path.split("/")[2];
     
-    if (token.role === "ADMIN") {
+    if (session.user.role === "ADMIN") {
       return NextResponse.next();
     }
     
-    if (token.role === "CLIENT" && token.clientId === clientId) {
+    if (session.user.role === "CLIENT" && session.user.clientId === clientId) {
       return NextResponse.next();
     }
     
