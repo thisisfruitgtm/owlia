@@ -1,17 +1,9 @@
-import { auth } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
-import { redirect } from "next/navigation";
 import { Users, Briefcase, Mail, DollarSign, Plus, Eye } from "lucide-react";
 import StatsCard from "@/components/admin/StatsCard";
 import Link from "next/link";
 
 export default async function AdminDashboard() {
-  const session = await auth();
-
-  if (!session || session.user.role !== "ADMIN") {
-    redirect("/auth/login");
-  }
-
   // Fetch stats
   const [totalClients, activeProjects, newLeads, packages] = await Promise.all([
     prisma.client.count(),
@@ -26,7 +18,7 @@ export default async function AdminDashboard() {
     include: { package: true },
   });
 
-  const totalRevenue = activeClients.reduce((sum, client) => {
+  const totalRevenue = activeClients.reduce((sum: number, client: typeof activeClients[0]) => {
     return sum + (client.package?.price || 0);
   }, 0);
 
@@ -132,7 +124,7 @@ export default async function AdminDashboard() {
                   </td>
                 </tr>
               ) : (
-                recentClients.map((client) => (
+                recentClients.map((client: typeof recentClients[0]) => (
                   <tr key={client.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 text-sm font-medium text-navy">
                       {client.name}
