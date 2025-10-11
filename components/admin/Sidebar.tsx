@@ -8,6 +8,7 @@ import Logo from "@/components/ui/Logo";
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Clienți", href: "/admin/clients", icon: Users },
+  { name: "Contracte", href: "/admin/contracts", icon: FileText },
   { name: "Setări", href: "/admin/settings", icon: Settings },
 ];
 

@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db/prisma";
-import { Users, Briefcase, Mail, DollarSign, Plus, Eye } from "lucide-react";
+import { Users, Briefcase, Mail, DollarSign, Plus, Eye, FileText } from "lucide-react";
 import StatsCard from "@/components/admin/StatsCard";
 import Link from "next/link";
 
@@ -29,6 +29,20 @@ export default async function AdminDashboard() {
     include: {
       user: { select: { email: true } },
       package: { select: { name: true } },
+    },
+  });
+
+  // Get recent contracts
+  const recentContracts = await prisma.contract.findMany({
+    take: 5,
+    orderBy: { createdAt: "desc" },
+    include: {
+      client: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   });
 
@@ -164,6 +178,102 @@ export default async function AdminDashboard() {
               )}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* Recent Contracts */}
+      <div className="bg-white rounded-xl border border-gray-light overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-light flex items-center justify-between">
+          <h2 className="text-xl font-bold text-navy">Contracte Recente</h2>
+          <Link
+            href="/admin/contracts"
+            className="text-sm text-navy hover:underline font-semibold"
+          >
+            Vezi toate →
+          </Link>
+        </div>
+        <div className="overflow-x-auto">
+          {recentContracts.length === 0 ? (
+            <div className="text-center py-12 text-gray">
+              <FileText size={48} className="mx-auto mb-4 opacity-30" />
+              <p className="text-lg mb-2">Niciun contract generat încă</p>
+              <p className="text-sm">Generează contracte din paginile clientului</p>
+            </div>
+          ) : (
+            <table className="w-full">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray uppercase tracking-wider">
+                    Contract
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray uppercase tracking-wider">
+                    Client
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray uppercase tracking-wider">
+                    Data
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray uppercase tracking-wider">
+                    Acțiuni
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-light">
+                {recentContracts.map((contract: typeof recentContracts[0]) => {
+                  const contractData = contract.data as any;
+                  return (
+                    <tr key={contract.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 bg-navy/10 rounded-lg">
+                            <FileText className="text-navy" size={18} />
+                          </div>
+                          <div>
+                            <div className="font-semibold text-navy text-sm">
+                              {contractData.title || "Contract"}
+                            </div>
+                            <div className="text-xs text-gray">
+                              Nr. {contractData.contractNumber || "N/A"}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-navy font-medium">
+                        {contract.client.name}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span
+                          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                            contract.status === "SIGNED"
+                              ? "bg-green-100 text-green-600"
+                              : contract.status === "SENT"
+                              ? "bg-blue-100 text-blue-600"
+                              : "bg-gray-100 text-gray-600"
+                          }`}
+                        >
+                          {contract.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray">
+                        {new Date(contract.createdAt).toLocaleDateString("ro-RO")}
+                      </td>
+                      <td className="px-6 py-4 text-sm">
+                        <Link
+                          href={`/admin/clients/${contract.client.id}`}
+                          className="text-navy hover:underline flex items-center gap-1"
+                        >
+                          <Eye size={16} />
+                          Vezi
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 
