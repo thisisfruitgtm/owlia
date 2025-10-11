@@ -20,30 +20,35 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
+      console.log("1. Starting login...");
+      
       const result = await signIn("credentials", {
         email,
         password,
         redirect: false,
       });
 
+      console.log("2. SignIn result:", result);
+
       if (result?.error) {
+        console.log("3. Login error:", result.error);
         setError(result.error);
         setIsLoading(false);
         return;
       }
 
       if (result?.ok) {
-        // Wait a bit for session cookie to be set
-        await new Promise(resolve => setTimeout(resolve, 500));
+        console.log("4. Login successful, redirecting...");
         
-        const redirectResponse = await fetch("/api/auth/redirect");
-        const { redirectUrl } = await redirectResponse.json();
-        
-        // Use router.push with full page refresh
-        router.push(redirectUrl);
-        router.refresh();
+        // Force full page reload to /admin
+        window.location.href = "/admin";
+      } else {
+        console.log("5. Unexpected result:", result);
+        setError("Login failed. Please try again.");
+        setIsLoading(false);
       }
     } catch (err) {
+      console.error("6. Exception:", err);
       setError("A apărut o eroare. Te rugăm să încerci din nou.");
       setIsLoading(false);
     }
