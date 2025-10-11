@@ -12,9 +12,12 @@ export const guideDownloadEmail = (guideUrl: string) => `
       <td align="center" style="padding: 40px 0;">
         <table role="presentation" style="width: 600px; max-width: 100%; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
           
-          <!-- Header -->
+          <!-- Header with Logo -->
           <tr>
             <td style="background-color: #00288B; padding: 40px; text-align: center;">
+              <svg width="120" height="40" viewBox="0 0 120 40" style="margin-bottom: 20px;">
+                <text x="60" y="28" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle">OWLIA</text>
+              </svg>
               <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">
                 📥 Ghidul tău este gata!
               </h1>
