@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FileText, Download, Plus, Loader2, Check, X } from "lucide-react";
 import Button from "@/components/ui/Button";
+import ContractPreviewModal from "./ContractPreviewModal";
 
 interface Contract {
   id: string;
@@ -34,6 +35,7 @@ export default function ContractsSection({ clientId, contracts: initialContracts
   const [generationStep, setGenerationStep] = useState<GenerationStep>("idle");
   const [error, setError] = useState("");
   const [generatedContract, setGeneratedContract] = useState<any>(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   const getStepMessage = (step: GenerationStep): string => {
     switch (step) {
@@ -54,60 +56,17 @@ export default function ContractsSection({ clientId, contracts: initialContracts
     }
   };
 
-  const handleGenerateContract = async () => {
-    setGenerationStep("preparing");
-    setError("");
-    setGeneratedContract(null);
+  const handleGenerateContract = () => {
+    setShowPreview(true);
+  };
 
-    try {
-      // Step 1: Prepare
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Step 2: Generate PDF
-      setGenerationStep("generating-pdf");
-      const response = await fetch("/api/admin/contracts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ clientId }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to generate contract");
-      }
-
-      const { contract } = await response.json();
-      setGeneratedContract(contract);
-
-      // Step 3: Saving (already done by API, just show message)
-      setGenerationStep("saving");
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      // Step 4: Email sent (already done by API)
-      setGenerationStep("sending-email");
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      // Step 5: Success
-      setGenerationStep("success");
-
-      // Reload contracts
-      const contractsResponse = await fetch(`/api/admin/contracts?clientId=${clientId}`);
-      const { contracts: updatedContracts } = await contractsResponse.json();
-      setContracts(updatedContracts);
-
-      // Reset after 3 seconds
-      setTimeout(() => {
-        setGenerationStep("idle");
-      }, 3000);
-    } catch (err: any) {
-      setError(err.message);
-      setGenerationStep("error");
-      
-      // Reset after 5 seconds
-      setTimeout(() => {
-        setGenerationStep("idle");
-      }, 5000);
-    }
+  const handleContractGenerated = async (contract: any) => {
+    setGeneratedContract(contract);
+    
+    // Reload contracts
+    const contractsResponse = await fetch(`/api/admin/contracts?clientId=${clientId}`);
+    const { contracts: updatedContracts } = await contractsResponse.json();
+    setContracts(updatedContracts);
   };
 
   const handleDownload = (contractId: string) => {
@@ -123,71 +82,13 @@ export default function ContractsSection({ clientId, contracts: initialContracts
         </div>
         <Button
           onClick={handleGenerateContract}
-          disabled={generationStep !== "idle" && generationStep !== "success"}
           className="flex items-center gap-2"
         >
-          {generationStep === "idle" ? (
-            <>
-              <Plus size={16} />
-              Generează Contract
-            </>
-          ) : generationStep === "success" ? (
-            <>
-              <Check size={16} />
-              Generat!
-            </>
-          ) : generationStep === "error" ? (
-            <>
-              <X size={16} />
-              Eroare
-            </>
-          ) : (
-            <>
-              <Loader2 size={16} className="animate-spin" />
-              Generare...
-            </>
-          )}
+          <Plus size={16} />
+          Generează Contract
         </Button>
       </div>
 
-      {/* Progress Messages */}
-      {generationStep !== "idle" && (
-        <div className={`mx-6 mt-4 p-4 border-l-4 text-sm rounded ${
-          generationStep === "success" 
-            ? "bg-green-50 border-green-500 text-green-700"
-            : generationStep === "error"
-            ? "bg-red-50 border-red-500 text-red-700"
-            : "bg-blue-50 border-blue-500 text-blue-700"
-        }`}>
-          <div className="flex items-center gap-3">
-            {generationStep === "success" ? (
-              <Check size={20} className="flex-shrink-0" />
-            ) : generationStep === "error" ? (
-              <X size={20} className="flex-shrink-0" />
-            ) : (
-              <Loader2 size={20} className="animate-spin flex-shrink-0" />
-            )}
-            <div>
-              <div className="font-semibold">{getStepMessage(generationStep)}</div>
-              {generationStep === "generating-pdf" && (
-                <div className="text-xs mt-1 opacity-75">
-                  Puppeteer generează PDF-ul... Te rog așteaptă.
-                </div>
-              )}
-              {generationStep === "success" && generatedContract && (
-                <div className="text-xs mt-1 opacity-75">
-                  Contract #{generatedContract.contractNumber} • Clientul a primit email
-                </div>
-              )}
-              {generationStep === "error" && error && (
-                <div className="text-xs mt-1 opacity-75">
-                  {error}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
 
       <div className="p-6">
         {contracts.length === 0 ? (
@@ -245,6 +146,15 @@ export default function ContractsSection({ clientId, contracts: initialContracts
           </div>
         )}
       </div>
+
+      {/* Preview Modal */}
+      {showPreview && (
+        <ContractPreviewModal
+          clientId={clientId}
+          onClose={() => setShowPreview(false)}
+          onContractGenerated={handleContractGenerated}
+        />
+      )}
     </div>
   );
 }

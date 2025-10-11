@@ -8,6 +8,8 @@ import { sendContractGeneratedEmail } from "@/lib/email/send";
 const generateContractSchema = z.object({
   clientId: z.string(),
   contractNumber: z.string().optional(),
+  htmlContent: z.string().optional(),
+  sendEmail: z.boolean().default(false),
 });
 
 export async function POST(request: NextRequest) {
@@ -51,7 +53,7 @@ export async function POST(request: NextRequest) {
     const contractNumber = data.contractNumber || `OWLIA-${Date.now()}`;
     const contractDate = new Date().toLocaleDateString('ro-RO');
     
-    // Generate PDF
+    // Generate PDF (using custom HTML if provided)
     const filepath = await generateContract({
       clientId: client.id,
       clientName: client.name,
@@ -65,7 +67,7 @@ export async function POST(request: NextRequest) {
       contractDate,
       legalRepName: 'Reprezentant Legal', // To be filled by client
       legalRepRole: 'Director', // To be filled by client
-    });
+    }, data.htmlContent);
     
     // Save contract to database
     const contract = await prisma.contract.create({
@@ -84,16 +86,19 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    // Send email notification to client
-    await sendContractGeneratedEmail(
-      client.user.email,
-      client.name,
-      contractNumber,
-      client.package.name
-    );
+    // Send email notification to client (only if requested)
+    if (data.sendEmail) {
+      await sendContractGeneratedEmail(
+        client.user.email,
+        client.name,
+        contractNumber,
+        client.package.name
+      );
+    }
     
     return NextResponse.json({
       success: true,
+      emailSent: data.sendEmail,
       contract: {
         id: contract.id,
         contractNumber,

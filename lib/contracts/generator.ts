@@ -19,10 +19,10 @@ interface ContractData {
   legalRepRole: string;
 }
 
-export async function generateContract(data: ContractData): Promise<string> {
+export async function generateContract(data: ContractData, customHtml?: string): Promise<string> {
   try {
-    // Generate HTML from template
-    const html = contractTemplate(data);
+    // Generate HTML from custom HTML or template
+    const html = customHtml || contractTemplate(data);
 
     // Setup Puppeteer
     const browser = await puppeteer.launch({
