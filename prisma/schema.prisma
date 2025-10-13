@@ -60,6 +60,12 @@ model Client {
   packageId     String?
   package       Package?     @relation(fields: [packageId], references: [id])
   status        ClientStatus @default(ACTIVE)
+  companyName   String?
+  cui           String?
+  regCom        String?
+  address       String?
+  legalRepName  String?
+  legalRepRole  String?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   timeline      Timeline[]

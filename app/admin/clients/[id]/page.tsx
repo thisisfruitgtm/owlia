@@ -16,6 +16,12 @@ interface ClientDetail {
   revenue: number;
   targetClients: number;
   status: string;
+  companyName: string | null;
+  cui: string | null;
+  regCom: string | null;
+  address: string | null;
+  legalRepName: string | null;
+  legalRepRole: string | null;
   createdAt: string;
   updatedAt: string;
   user: {
@@ -185,6 +191,49 @@ export default function ClientDetailPage() {
 
       {/* Client Details */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Company Info */}
+        <div className="bg-white rounded-xl p-6 border border-gray-light">
+          <h2 className="text-xl font-bold text-navy mb-4">Informații Companie</h2>
+          <div className="space-y-3">
+            <div className="flex justify-between">
+              <span className="text-gray">Denumire:</span>
+              <span className="font-semibold text-navy">
+                {client.companyName || "N/A"}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray">CUI:</span>
+              <span className="font-semibold text-navy">
+                {client.cui || "N/A"}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray">Reg. Com.:</span>
+              <span className="font-semibold text-navy">
+                {client.regCom || "N/A"}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray">Adresă:</span>
+              <span className="font-semibold text-navy text-right max-w-[60%]">
+                {client.address || "N/A"}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray">Rep. legal:</span>
+              <span className="font-semibold text-navy">
+                {client.legalRepName || "N/A"}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray">Funcție:</span>
+              <span className="font-semibold text-navy">
+                {client.legalRepRole || "N/A"}
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Business Info */}
         <div className="bg-white rounded-xl p-6 border border-gray-light">
           <h2 className="text-xl font-bold text-navy mb-4">Informații Business</h2>

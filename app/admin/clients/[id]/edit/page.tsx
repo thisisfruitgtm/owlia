@@ -29,6 +29,13 @@ export default function EditClientPage() {
     targetClients: "",
     packageId: "",
     status: "ACTIVE",
+    companyName: "",
+    cui: "",
+    regCom: "",
+    address: "",
+    legalRepName: "",
+    legalRepRole: "",
+    newPassword: "",
   });
 
   useEffect(() => {
@@ -49,6 +56,13 @@ export default function EditClientPage() {
         targetClients: data.client.targetClients?.toString() || "",
         packageId: data.client.package?.id || "",
         status: data.client.status || "ACTIVE",
+        companyName: data.client.companyName || "",
+        cui: data.client.cui || "",
+        regCom: data.client.regCom || "",
+        address: data.client.address || "",
+        legalRepName: data.client.legalRepName || "",
+        legalRepRole: data.client.legalRepRole || "",
+        newPassword: "",
       });
     } catch (error) {
       console.error("Error fetching client:", error);
@@ -81,6 +95,7 @@ export default function EditClientPage() {
           revenue: parseInt(formData.revenue) || 0,
           targetClients: parseInt(formData.targetClients) || 1,
           packageId: formData.packageId || null,
+          newPassword: formData.newPassword || undefined,
         }),
       });
 
@@ -155,6 +170,108 @@ export default function EditClientPage() {
                 }
                 disabled={saving}
               />
+            </div>
+          </div>
+        </div>
+
+        {/* Company Info */}
+        <div>
+          <h2 className="text-lg font-bold text-navy mb-4">
+            Informații Companie
+          </h2>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray mb-1">
+                Denumire companie
+              </label>
+              <Input
+                type="text"
+                value={formData.companyName}
+                onChange={(e) =>
+                  setFormData({ ...formData, companyName: e.target.value })
+                }
+                placeholder="Ex: SC EXEMPLU SRL"
+                disabled={saving}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray mb-1">
+                  CUI
+                </label>
+                <Input
+                  type="text"
+                  value={formData.cui}
+                  onChange={(e) =>
+                    setFormData({ ...formData, cui: e.target.value })
+                  }
+                  placeholder="Ex: RO12345678"
+                  disabled={saving}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray mb-1">
+                  Reg. Com.
+                </label>
+                <Input
+                  type="text"
+                  value={formData.regCom}
+                  onChange={(e) =>
+                    setFormData({ ...formData, regCom: e.target.value })
+                  }
+                  placeholder="Ex: J40/1234/2020"
+                  disabled={saving}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray mb-1">
+                Adresă
+              </label>
+              <Input
+                type="text"
+                value={formData.address}
+                onChange={(e) =>
+                  setFormData({ ...formData, address: e.target.value })
+                }
+                placeholder="Ex: Str. Exemplu nr. 10, București"
+                disabled={saving}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray mb-1">
+                  Reprezentant legal
+                </label>
+                <Input
+                  type="text"
+                  value={formData.legalRepName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, legalRepName: e.target.value })
+                  }
+                  placeholder="Ex: Ion Popescu"
+                  disabled={saving}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray mb-1">
+                  Funcție
+                </label>
+                <Input
+                  type="text"
+                  value={formData.legalRepRole}
+                  onChange={(e) =>
+                    setFormData({ ...formData, legalRepRole: e.target.value })
+                  }
+                  placeholder="Ex: Director General"
+                  disabled={saving}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -256,6 +373,32 @@ export default function EditClientPage() {
                 <option value="COMPLETED">Completed</option>
                 <option value="INACTIVE">Inactive</option>
               </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Security */}
+        <div>
+          <h2 className="text-lg font-bold text-navy mb-4">
+            Securitate
+          </h2>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray mb-1">
+                Parolă nouă
+              </label>
+              <Input
+                type="password"
+                value={formData.newPassword}
+                onChange={(e) =>
+                  setFormData({ ...formData, newPassword: e.target.value })
+                }
+                placeholder="Lasă gol pentru a păstra parola actuală"
+                disabled={saving}
+              />
+              <p className="text-xs text-gray mt-1">
+                Minimum 6 caractere. Lasă gol dacă nu vrei să schimbi parola.
+              </p>
             </div>
           </div>
         </div>

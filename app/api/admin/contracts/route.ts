@@ -56,17 +56,17 @@ export async function POST(request: NextRequest) {
     // Generate PDF (using custom HTML if provided)
     const filepath = await generateContract({
       clientId: client.id,
-      clientName: client.name,
-      clientCIF: 'RO[CUI]', // To be filled by client
-      clientAddress: 'Adresa Firmei', // To be filled by client
+      clientName: client.companyName || client.name,
+      clientCIF: client.cui || 'RO[CUI]',
+      clientAddress: client.address || 'Adresa Firmei',
       clientEmail: client.user.email,
       clientPhone: client.phone || 'N/A',
       packageName: client.package.name,
       packagePrice: client.package.price,
       contractNumber,
       contractDate,
-      legalRepName: 'Reprezentant Legal', // To be filled by client
-      legalRepRole: 'Director', // To be filled by client
+      legalRepName: client.legalRepName || 'Reprezentant Legal',
+      legalRepRole: client.legalRepRole || 'Director',
     }, data.htmlContent);
     
     // Save contract to database

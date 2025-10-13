@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
 import { auth } from "@/lib/auth/config";
+import bcrypt from "bcrypt";
 
 const updateClientSchema = z.object({
   name: z.string().min(2).optional(),
@@ -11,6 +12,13 @@ const updateClientSchema = z.object({
   targetClients: z.number().min(1).optional(),
   packageId: z.string().nullable().optional(),
   status: z.enum(["ACTIVE", "INACTIVE", "PENDING", "COMPLETED"]).optional(),
+  companyName: z.string().optional(),
+  cui: z.string().optional(),
+  regCom: z.string().optional(),
+  address: z.string().optional(),
+  legalRepName: z.string().optional(),
+  legalRepRole: z.string().optional(),
+  newPassword: z.string().min(6).optional(),
 });
 
 export async function GET(
@@ -67,16 +75,26 @@ export async function PATCH(
 
     const { id } = await params;
     const body = await request.json();
-    const data = updateClientSchema.parse(body);
+    const { newPassword, ...data } = updateClientSchema.parse(body);
 
+    // Update client
     const client = await prisma.client.update({
       where: { id },
       data,
       include: {
-        user: { select: { email: true } },
+        user: { select: { email: true, id: true } },
         package: { select: { name: true } },
       },
     });
+
+    // Update password if provided
+    if (newPassword) {
+      const hashedPassword = await bcrypt.hash(newPassword, 12);
+      await prisma.user.update({
+        where: { id: client.user.id },
+        data: { password: hashedPassword },
+      });
+    }
 
     return NextResponse.json({ success: true, client });
   } catch (error) {
