@@ -308,10 +308,10 @@ export default function PackagesPage() {
 
             <div className="mb-6">
               <h4 className="text-sm font-semibold text-navy mb-2">
-                Features ({pkg.features.length}):
+                Features ({pkg.features?.length || 0}):
               </h4>
               <ul className="space-y-1">
-                {pkg.features.slice(0, 5).map((feature, idx) => (
+                {(pkg.features || []).slice(0, 5).map((feature, idx) => (
                   <li
                     key={idx}
                     className="text-sm text-gray flex items-start gap-2"
@@ -320,9 +320,9 @@ export default function PackagesPage() {
                     <span>{feature}</span>
                   </li>
                 ))}
-                {pkg.features.length > 5 && (
+                {(pkg.features?.length || 0) > 5 && (
                   <li className="text-sm text-gray">
-                    +{pkg.features.length - 5} mai multe...
+                    +{(pkg.features?.length || 0) - 5} mai multe...
                   </li>
                 )}
               </ul>
