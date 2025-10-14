@@ -13,7 +13,8 @@
     "prisma:studio": "prisma studio",
     "prisma:seed": "prisma db seed",
     "migrate:features": "node scripts/migrate-package-features.js",
-    "fix:packages": "node scripts/fix-packages.js"
+    "fix:packages": "node scripts/fix-packages.js",
+    "check:env": "node scripts/check-env.js"
   },
   "dependencies": {
     "@prisma/client": "^6.17.1",
