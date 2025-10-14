@@ -28,7 +28,7 @@ async function main() {
       id: 'smart-package',
       name: 'SMART',
       price: 42000,
-      priceMonthly: 22105,
+      priceMonthly: 21000,
       description: 'Doar digital (fără print)',
       features: JSON.stringify([
         { title: 'Analiză & Strategie Marketing', description: 'Audit complet industrie + competiție, definire buyer persona, strategie 12 luni' },
@@ -67,7 +67,7 @@ async function main() {
       id: 'premium-package',
       name: 'PREMIUM',
       price: 55000,
-      priceMonthly: 28947,
+      priceMonthly: 27500,
       description: 'Totul inclus (digital + print)',
       features: JSON.stringify([
         // SMART Features

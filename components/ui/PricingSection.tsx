@@ -108,25 +108,25 @@ export default function PricingSection() {
             Tot ce ai nevoie pentru Start-Up Nation, într-un singur loc
           </p>
           
-          {/* Annual/Monthly Toggle */}
+          {/* Annual/Semestrial Toggle */}
           <div className="flex justify-center items-center gap-4 mb-12">
             <button
-              onClick={() => setIsAnnual(true)}
-              className={`px-8 py-4 rounded-xl font-semibold transition-smooth ${
-                isAnnual ? 'bg-navy text-white' : 'bg-cream text-gray'
-              }`}
-            >
-              Anual (o plată)
-            </button>
-            <button
               onClick={() => setIsAnnual(false)}
-              className={`px-8 py-4 rounded-xl font-semibold transition-smooth relative ${
+              className={`px-8 py-4 rounded-xl font-semibold transition-smooth ${
                 !isAnnual ? 'bg-navy text-white' : 'bg-cream text-gray'
               }`}
             >
               Semestrial (2 plăți)
-              <span className="absolute -top-2 -right-2 text-xs bg-red-500 text-white px-2 py-0.5 rounded-full">
-                -5%
+            </button>
+            <button
+              onClick={() => setIsAnnual(true)}
+              className={`px-8 py-4 rounded-xl font-semibold transition-smooth relative ${
+                isAnnual ? 'bg-navy text-white' : 'bg-cream text-gray'
+              }`}
+            >
+              Anual (o plată)
+              <span className="absolute -top-2 -right-2 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
+                Economisești
               </span>
             </button>
           </div>

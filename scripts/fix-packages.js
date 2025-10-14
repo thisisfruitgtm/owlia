@@ -8,6 +8,7 @@ async function main() {
   await prisma.package.update({
     where: { id: 'smart-package' },
     data: {
+      priceMonthly: 21000, // 21K per 6 luni (vs 42K anual)
       features: [
         { title: 'Analiză & Strategie Marketing', description: 'Audit complet industrie + competiție, definire buyer persona, strategie 12 luni' },
         { title: 'Logo Digital + Identitate Vizuală', description: 'Design logo modern, paletă culori, tipografie, ghid utilizare' },
@@ -27,6 +28,7 @@ async function main() {
   await prisma.package.update({
     where: { id: 'premium-package' },
     data: {
+      priceMonthly: 27500, // 27.5K per 6 luni (vs 55K anual)
       features: [
         // SMART Features
         { title: 'Analiză & Strategie Marketing', description: 'Audit complet industrie + competiție, definire buyer persona, strategie 12 luni' },
