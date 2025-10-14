@@ -5,6 +5,12 @@ import { Package, Plus, Edit, Trash2, Save, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Badge from "@/components/ui/Badge";
+import PackageFeatureEditor from "@/components/admin/PackageFeatureEditor";
+
+interface Feature {
+  title: string;
+  description?: string;
+}
 
 interface PackageType {
   id: string;
@@ -12,7 +18,7 @@ interface PackageType {
   price: number;
   priceMonthly: number | null;
   description: string | null;
-  features: string[];
+  features: Feature[];
   active: boolean;
   createdAt: string;
 }
@@ -22,12 +28,19 @@ export default function PackagesPage() {
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    price: string;
+    priceMonthly: string;
+    description: string;
+    features: Feature[];
+    active: boolean;
+  }>({
     name: "",
     price: "",
     priceMonthly: "",
     description: "",
-    features: "",
+    features: [],
     active: true,
   });
 
@@ -50,11 +63,6 @@ export default function PackagesPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const featuresArray = formData.features
-      .split("\n")
-      .filter((f) => f.trim())
-      .map((f) => f.trim());
-
     const packageData = {
       name: formData.name,
       price: parseInt(formData.price),
@@ -62,7 +70,7 @@ export default function PackagesPage() {
         ? parseInt(formData.priceMonthly)
         : null,
       description: formData.description || null,
-      features: featuresArray,
+      features: formData.features.filter((f) => f.title.trim()),
       active: formData.active,
     };
 
@@ -94,7 +102,7 @@ export default function PackagesPage() {
       price: pkg.price.toString(),
       priceMonthly: pkg.priceMonthly?.toString() || "",
       description: pkg.description || "",
-      features: pkg.features.join("\n"),
+      features: pkg.features || [],
       active: pkg.active,
     });
     setEditingId(pkg.id);
@@ -133,7 +141,7 @@ export default function PackagesPage() {
       price: "",
       priceMonthly: "",
       description: "",
-      features: "",
+      features: [],
       active: true,
     });
     setEditingId(null);
@@ -222,20 +230,12 @@ export default function PackagesPage() {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray mb-2">
-                Features (câte unul pe linie)
-              </label>
-              <textarea
-                value={formData.features}
-                onChange={(e) =>
-                  setFormData({ ...formData, features: e.target.value })
-                }
-                placeholder="Îți calculăm bugetul&#10;Logo digital&#10;Website 8-10 pagini&#10;Google Business&#10;..."
-                rows={8}
-                className="w-full px-4 py-3 border border-gray-light rounded-xl focus:outline-none focus:ring-2 focus:ring-navy/20 text-navy resize-none"
-              />
-            </div>
+            <PackageFeatureEditor
+              features={formData.features}
+              onChange={(features) =>
+                setFormData({ ...formData, features })
+              }
+            />
 
             <div className="flex items-center gap-2">
               <input
@@ -310,14 +310,19 @@ export default function PackagesPage() {
               <h4 className="text-sm font-semibold text-navy mb-2">
                 Features ({pkg.features?.length || 0}):
               </h4>
-              <ul className="space-y-1">
+              <ul className="space-y-2">
                 {(pkg.features || []).slice(0, 5).map((feature, idx) => (
                   <li
                     key={idx}
-                    className="text-sm text-gray flex items-start gap-2"
+                    className="text-sm flex items-start gap-2"
                   >
                     <span className="text-green-600 mt-0.5">✓</span>
-                    <span>{feature}</span>
+                    <div>
+                      <span className="text-navy font-medium">{feature.title}</span>
+                      {feature.description && (
+                        <p className="text-gray text-xs mt-0.5">{feature.description}</p>
+                      )}
+                    </div>
                   </li>
                 ))}
                 {(pkg.features?.length || 0) > 5 && (

@@ -80,7 +80,7 @@ model Package {
   price         Int
   priceMonthly  Int?
   description   String?
-  features      Json // Array of strings
+  features      Json // Array of {title: string, description?: string}
   timeline      Json // Timeline template
   active        Boolean  @default(true)
   createdAt     DateTime @default(now())

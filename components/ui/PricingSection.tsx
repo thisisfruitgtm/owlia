@@ -3,6 +3,16 @@
 import { useState, useEffect } from "react";
 import PackageModal from "./PackageModal";
 
+interface Package {
+  id: string;
+  name: string;
+  price: number;
+  priceMonthly: number | null;
+  description: string | null;
+  features: Array<{ title: string; description?: string }>;
+  active: boolean;
+}
+
 export default function PricingSection() {
   const [isAnnual, setIsAnnual] = useState(true);
   const [isLocked, setIsLocked] = useState(true);
@@ -14,7 +24,13 @@ export default function PricingSection() {
   } | null>(null);
   const [userEmail, setUserEmail] = useState<string>("");
   const [leadId, setLeadId] = useState<string>("");
+  const [packages, setPackages] = useState<Package[]>([]);
+  const [loading, setLoading] = useState(true);
   
+  useEffect(() => {
+    fetchPackages();
+  }, []);
+
   useEffect(() => {
     const handleUnlock = (event: any) => {
       setIsLocked(false);
@@ -29,6 +45,18 @@ export default function PricingSection() {
       window.removeEventListener('unlockPricing', handleUnlock);
     };
   }, []);
+
+  const fetchPackages = async () => {
+    try {
+      const response = await fetch("/api/packages");
+      const data = await response.json();
+      setPackages((data.packages || []).filter((p: Package) => p.active));
+    } catch (error) {
+      console.error("Error fetching packages:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   
   const openModal = (packageName: string, price: string) => {
     if (isLocked) return;
@@ -37,190 +65,160 @@ export default function PricingSection() {
     setModalOpen(true);
   };
 
+  const formatPrice = (price: number) => {
+    return (price / 1000).toFixed(0) + ".000";
+  };
+
+  if (loading) {
+    return (
+      <section id="pricing" className="py-20 bg-white relative">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <div className="text-gray">Se încarcă pachete...</div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <>
-      <section className="py-20 bg-white relative" id="pricing">
-        {/* Lock Overlay */}
-        {isLocked && (
-          <div className="absolute inset-0 bg-white/95 backdrop-blur-sm z-10 flex items-center justify-center">
-            <div className="text-center max-w-md px-6">
-              <div className="text-6xl mb-4">🔒</div>
-              <h3 className="text-2xl font-bold text-navy mb-3">
-                Calculează mai întâi bugetul recomandat
-              </h3>
-              <p className="text-gray mb-6">
-                Pentru a vedea pachetele potrivite pentru tine, completează calculatorul de mai sus și află cât ar trebui să investești în marketing.
-              </p>
-              <button
-                onClick={() => {
-                  const calculator = document.getElementById('calculator');
-                  calculator?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }}
-                className="inline-flex items-center gap-2 bg-navy text-white px-8 py-4 rounded-xl font-semibold hover:-translate-y-1 hover:shadow-xl transition-smooth"
-              >
-                <span>📊</span>
-                Mergi la Calculator
-              </button>
-            </div>
-          </div>
-        )}
-        
+      <section id="pricing" className="py-20 bg-white relative">
         <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-navy mb-4 text-center">Cât costă?</h2>
-        <p className="text-lg text-gray mb-10 text-center">3 variante - alegi ce ți se potrivește</p>
-        
-        <div className="flex justify-center items-center gap-4 mb-12">
-          <span className={`text-base font-semibold ${!isAnnual ? 'text-navy' : 'text-gray'} transition-smooth`}>
-            Plată la 6 luni
-          </span>
-          <button
-            onClick={() => setIsAnnual(!isAnnual)}
-            className={`relative w-15 h-8 rounded-full transition-smooth ${isAnnual ? 'bg-navy' : 'bg-gray-light'}`}
-          >
-            <div className={`absolute top-1 w-6 h-6 bg-white rounded-full transition-transform duration-300 ${isAnnual ? 'translate-x-7' : 'translate-x-1'}`} />
-          </button>
-          <span className={`text-base font-semibold ${isAnnual ? 'text-navy' : 'text-gray'} transition-smooth`}>
-            Plată anuală
-            <span className="ml-2 inline-block bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-xl">
-              -5%
-            </span>
-          </span>
-        </div>
-        
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
-          {/* SMART */}
-          <div className={`p-12 bg-cream border-2 rounded-3xl transition-smooth ${
-            !isLocked && recommendedPackage === 'SMART' 
-              ? 'border-navy ring-4 ring-navy/20 scale-105' 
-              : 'border-transparent hover:-translate-y-2 hover:border-navy'
-          }`}>
-            <h3 className="text-2xl font-bold text-navy mb-2">SMART</h3>
-            <p className="text-gray mb-6">Doar digital (fără print)</p>
-            <div className="text-5xl font-bold text-navy mb-2">
-              {isAnnual ? '42.000' : '22.105'}
-              <span className="text-2xl"> lei</span>
+          
+          {/* Lock Overlay */}
+          {isLocked && (
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-3xl">
+              <div className="text-center max-w-md">
+                <div className="text-6xl mb-4">🔒</div>
+                <h3 className="text-2xl font-bold text-navy mb-2">Prețurile sunt blocate</h3>
+                <p className="text-gray">Completează calculatorul mai jos pentru a vedea prețurile și pachetul recomandat pentru tine</p>
+                <a
+                  href="#calculator"
+                  className="inline-block mt-6 px-8 py-3 bg-navy text-white rounded-xl font-semibold hover:-translate-y-0.5 hover:shadow-xl transition-smooth"
+                >
+                  Calculează Bugetul →
+                </a>
+              </div>
             </div>
-            <div className="text-sm text-gray mb-8">
-              {isAnnual ? 'Tot anul 1 (o plată)' : 'per 6 luni (2 plăți = 44.210 lei)'}
-            </div>
-            <ul className="space-y-3 mb-8">
-              {[
-                'Îți calculăm bugetul',
-                'Logo digital',
-                'Website 8-10 pagini',
-                'Google Business',
-                'Strategie social media',
-                'Management 12 luni',
-                'Rapoarte lunare'
-              ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-gray-dark border-b border-gray-light pb-3">
-                  <span className="text-navy">✓</span>
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
+          )}
+          
+          <h2 className="text-4xl font-bold text-navy text-center mb-4">
+            Selectează pachetul potrivit
+          </h2>
+          <p className="text-lg text-gray text-center mb-10">
+            Tot ce ai nevoie pentru Start-Up Nation, într-un singur loc
+          </p>
+          
+          {/* Annual/Monthly Toggle */}
+          <div className="flex justify-center items-center gap-4 mb-12">
             <button
-              onClick={() => openModal('SMART', isAnnual ? '42.000' : '22.105')}
-              disabled={isLocked}
-              className="w-full text-center py-4 bg-navy text-white rounded-xl font-semibold hover:-translate-y-0.5 hover:shadow-xl transition-smooth disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => setIsAnnual(true)}
+              className={`px-8 py-4 rounded-xl font-semibold transition-smooth ${
+                isAnnual ? 'bg-navy text-white' : 'bg-cream text-gray'
+              }`}
             >
-              Vreau SMART
+              Anual (o plată)
+            </button>
+            <button
+              onClick={() => setIsAnnual(false)}
+              className={`px-8 py-4 rounded-xl font-semibold transition-smooth relative ${
+                !isAnnual ? 'bg-navy text-white' : 'bg-cream text-gray'
+              }`}
+            >
+              Semestrial (2 plăți)
+              <span className="absolute -top-2 -right-2 text-xs bg-red-500 text-white px-2 py-0.5 rounded-full">
+                -5%
+              </span>
             </button>
           </div>
           
-          {/* PREMIUM */}
-          <div className={`p-12 bg-navy text-white border-2 border-navy rounded-3xl transition-smooth relative ${
-            !isLocked && (recommendedPackage === 'PREMIUM' || recommendedPackage === 'PREMIUM_PLUS')
-              ? 'ring-4 ring-white/30 scale-105' 
-              : 'hover:-translate-y-2'
-          }`}>
-            <div className="absolute -top-3 right-10 bg-white text-navy px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide">
-              Cel mai ales
-            </div>
-            <h3 className="text-2xl font-bold mb-2">PREMIUM</h3>
-            <p className="text-white/70 mb-6">Totul inclus (digital + print)</p>
-            <div className="text-5xl font-bold mb-2">
-              {isAnnual ? '55.000' : '28.947'}
-              <span className="text-2xl"> lei</span>
-            </div>
-            <div className="text-sm text-white/70 mb-8">
-              {isAnnual ? 'Tot anul 1 (o plată)' : 'per 6 luni (2 plăți = 57.894 lei)'}
-            </div>
-            <ul className="space-y-3 mb-8">
-              {[
-                'Tot ce e la SMART +',
-                'Logo complet + manual',
-                'Uniforme (6 seturi)',
-                'Folie pe mașină',
-                'Cărți vizită, flyere',
-                'Roll-up + Banner',
-                'Training 3 ore pentru echipa ta'
-              ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 border-b border-white/10 pb-3">
-                  <span className="text-white">✓</span>
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => openModal('PREMIUM', isAnnual ? '55.000' : '28.947')}
-              disabled={isLocked}
-              className="w-full text-center py-4 bg-white text-navy rounded-xl font-semibold hover:-translate-y-0.5 hover:shadow-xl transition-smooth disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Vreau PREMIUM
-            </button>
-          </div>
-          
-          {/* PERSONALIZAT */}
-          <div className={`p-12 bg-cream border-2 rounded-3xl transition-smooth ${
-            !isLocked && recommendedPackage === 'CUSTOM'
-              ? 'border-navy ring-4 ring-navy/20 scale-105' 
-              : 'border-transparent hover:-translate-y-2 hover:border-navy'
-          }`}>
-            <h3 className="text-2xl font-bold text-navy mb-2">PERSONALIZAT</h3>
-            <p className="text-gray mb-6">Calculat special pentru tine</p>
-            <div className="text-5xl font-bold text-navy mb-2">La cerere</div>
-            <div className="text-sm text-gray mb-8">Cost analiză: 1.500 lei</div>
-            <ul className="space-y-3 mb-8">
-              {[
-                'Analiză detaliată a planului tău (1.500 lei)',
-                'Research competiție în nișă',
-                'Calcul buget exact pentru industria ta',
-                'Ofertă personalizată adaptată',
-                'Flexibilitate 100%',
-                'Adaptăm serviciile pe parcurs',
-                'Documentație la cerere'
-              ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-gray-dark border-b border-gray-light pb-3">
-                  <span className="text-navy">✓</span>
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => openModal('PERSONALIZAT', '1.500')}
-              disabled={isLocked}
-              className="w-full text-center py-4 bg-navy text-white rounded-xl font-semibold hover:-translate-y-0.5 hover:shadow-xl transition-smooth disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Vreau Ofertă
-            </button>
+          <div className="grid md:grid-cols-3 gap-8 mt-12">
+            {packages.map((pkg, index) => {
+              const isRecommended = !isLocked && recommendedPackage === pkg.name;
+              const isPremium = pkg.name === "PREMIUM";
+              
+              return (
+                <div
+                  key={pkg.id}
+                  className={`p-12 rounded-3xl transition-smooth relative ${
+                    isPremium
+                      ? 'bg-navy text-white border-2 border-navy'
+                      : 'bg-cream border-2 border-transparent hover:border-navy'
+                  } ${
+                    isRecommended
+                      ? 'ring-4 ring-navy/20 scale-105'
+                      : 'hover:-translate-y-2'
+                  }`}
+                >
+                  {isPremium && (
+                    <div className="absolute -top-3 right-10 bg-white text-navy px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                      Cel mai ales
+                    </div>
+                  )}
+                  
+                  <h3 className={`text-2xl font-bold mb-2 ${isPremium ? 'text-white' : 'text-navy'}`}>
+                    {pkg.name}
+                  </h3>
+                  <p className={`mb-6 ${isPremium ? 'text-white/70' : 'text-gray'}`}>
+                    {pkg.description || "Pachet servicii"}
+                  </p>
+                  
+                  <div className={`text-5xl font-bold mb-2 ${isPremium ? 'text-white' : 'text-navy'}`}>
+                    {formatPrice(isAnnual ? pkg.price : (pkg.priceMonthly || pkg.price))}
+                    <span className="text-2xl"> lei</span>
+                  </div>
+                  <div className={`text-sm mb-8 ${isPremium ? 'text-white/70' : 'text-gray'}`}>
+                    {isAnnual ? 'Tot anul 1 (o plată)' : 'per 6 luni (2 plăți)'}
+                  </div>
+                  
+                  <ul className="space-y-3 mb-8">
+                    {(pkg.features || []).map((feature, i) => (
+                      <li
+                        key={i}
+                        className={`flex items-start gap-3 pb-3 ${
+                          isPremium
+                            ? 'border-white/10 text-white'
+                            : 'text-gray-dark border-gray-light'
+                        } border-b`}
+                      >
+                        <span className={isPremium ? 'text-white' : 'text-navy'}>✓</span>
+                        <div>
+                          <span className="font-medium">{feature.title}</span>
+                          {feature.description && (
+                            <p className={`text-sm mt-1 ${isPremium ? 'text-white/60' : 'text-gray'}`}>
+                              {feature.description}
+                            </p>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <button
+                    onClick={() => openModal(pkg.name, formatPrice(isAnnual ? pkg.price : (pkg.priceMonthly || pkg.price)))}
+                    disabled={isLocked}
+                    className={`w-full text-center py-4 rounded-xl font-semibold hover:-translate-y-0.5 hover:shadow-xl transition-smooth disabled:opacity-50 disabled:cursor-not-allowed ${
+                      isPremium
+                        ? 'bg-white text-navy'
+                        : 'bg-navy text-white'
+                    }`}
+                  >
+                    Vreau {pkg.name}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
-      </div>
-    </section>
-    
-    {/* Package Modal */}
-    {selectedPackage && (
+      </section>
+
       <PackageModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        packageName={selectedPackage.name}
-        packagePrice={selectedPackage.price}
+        packageName={selectedPackage?.name || ""}
+        packagePrice={selectedPackage?.price || ""}
         prefilledEmail={userEmail}
         leadId={leadId}
       />
-    )}
     </>
   );
 }
-
