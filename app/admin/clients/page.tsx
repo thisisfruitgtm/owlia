@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Plus, Search, Eye, Edit, Trash2 } from "lucide-react";
+import { Plus, Search, Eye, Edit, Trash2, Download } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import Input from "@/components/ui/Input";
 
@@ -60,13 +60,23 @@ export default function ClientsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-navy">Clienți</h1>
-        <Link
-          href="/admin/clients/new"
-          className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy/90 transition-smooth font-semibold"
-        >
-          <Plus size={20} />
-          Adaugă Client
-        </Link>
+        <div className="flex gap-2">
+          <a
+            href="/api/admin/export/clients"
+            download
+            className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-smooth font-semibold"
+          >
+            <Download size={20} />
+            Export CSV
+          </a>
+          <Link
+            href="/admin/clients/new"
+            className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy/90 transition-smooth font-semibold"
+          >
+            <Plus size={20} />
+            Adaugă Client
+          </Link>
+        </div>
       </div>
 
       {/* Search */}

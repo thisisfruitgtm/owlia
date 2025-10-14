@@ -3,13 +3,11 @@ import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
 import { auth } from "@/lib/auth/config";
 
-const updateSettingsSchema = z.object({
+const updateSettingSchema = z.object({
   settings: z.array(
     z.object({
-      id: z.string(),
       key: z.string(),
       value: z.string(),
-      description: z.string().nullable(),
     })
   ),
 });
@@ -45,14 +43,19 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json();
-    const data = updateSettingsSchema.parse(body);
+    const data = updateSettingSchema.parse(body);
 
-    // Update each setting
-    await Promise.all(
+    // Update all settings in transaction
+    await prisma.$transaction(
       data.settings.map((setting) =>
-        prisma.setting.update({
-          where: { id: setting.id },
-          data: { value: setting.value },
+        prisma.setting.upsert({
+          where: { key: setting.key },
+          update: { value: setting.value },
+          create: {
+            key: setting.key,
+            value: setting.value,
+            description: `Setting for ${setting.key}`,
+          },
         })
       )
     );
@@ -73,4 +76,3 @@ export async function PATCH(request: NextRequest) {
     );
   }
 }
-

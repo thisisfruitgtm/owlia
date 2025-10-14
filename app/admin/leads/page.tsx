@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Users, TrendingUp, Calculator, Package, FileText, Filter, Search, CheckCircle2, XCircle } from "lucide-react";
+import { Users, TrendingUp, Calculator, Package, FileText, Filter, Search, CheckCircle2, XCircle, Download } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import Input from "@/components/ui/Input";
 
@@ -136,11 +136,21 @@ export default function LeadsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-navy mb-2">Lead Management</h1>
-        <p className="text-gray">
-          Toate lead-urile capturate din calculator, package modal și ghid
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-navy mb-2">Lead Management</h1>
+          <p className="text-gray">
+            Toate lead-urile capturate din calculator, package modal și ghid
+          </p>
+        </div>
+        <a
+          href="/api/admin/export/leads"
+          download
+          className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-smooth font-semibold"
+        >
+          <Download size={20} />
+          Export CSV
+        </a>
       </div>
 
       {/* Stats Grid */}
