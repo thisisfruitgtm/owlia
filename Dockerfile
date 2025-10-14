@@ -20,6 +20,14 @@ COPY . .
 # Generate Prisma Client & Run Migrations
 RUN npx prisma generate
 
+# Accept build arguments for NEXT_PUBLIC_ env vars (needed at build time!)
+ARG NEXT_PUBLIC_POSTHOG_KEY
+ARG NEXT_PUBLIC_POSTHOG_HOST
+
+# Set them as ENV so Next.js can use them during build
+ENV NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY
+ENV NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST
+
 # Build Next.js
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
