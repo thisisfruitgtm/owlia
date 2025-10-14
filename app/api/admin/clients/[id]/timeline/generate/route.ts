@@ -44,11 +44,23 @@ export async function POST(
     }
 
     // Get timeline template from package
-    const timelineTemplate = client.package.timeline as any[];
+    let timelineTemplate = client.package.timeline as any;
 
-    if (!timelineTemplate || timelineTemplate.length === 0) {
+    // Handle if timeline is stored as JSON string
+    if (typeof timelineTemplate === 'string') {
+      try {
+        timelineTemplate = JSON.parse(timelineTemplate);
+      } catch (e) {
+        return NextResponse.json(
+          { error: "Timeline template invalid în pachet" },
+          { status: 400 }
+        );
+      }
+    }
+
+    if (!Array.isArray(timelineTemplate) || timelineTemplate.length === 0) {
       return NextResponse.json(
-        { error: "Pachetul nu are timeline template" },
+        { error: "Pachetul nu are timeline template valid. Te rugăm să configurezi timeline-ul manual." },
         { status: 400 }
       );
     }
