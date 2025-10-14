@@ -75,24 +75,31 @@ export default function PackagesPage() {
     };
 
     try {
-      if (editingId) {
-        await fetch(`/api/admin/packages/${editingId}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(packageData),
-        });
-      } else {
-        await fetch("/api/admin/packages", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(packageData),
-        });
+      const url = editingId 
+        ? `/api/admin/packages/${editingId}` 
+        : "/api/admin/packages";
+      const method = editingId ? "PATCH" : "POST";
+
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(packageData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(`Eroare: ${data.error || "Ceva nu a mers bine"}`);
+        console.error("API error:", data);
+        return;
       }
 
+      alert("Pachet salvat cu succes!");
       resetForm();
       fetchPackages();
     } catch (error) {
       console.error("Error saving package:", error);
+      alert("Eroare la salvare. Vezi consola pentru detalii.");
     }
   };
 
@@ -124,14 +131,25 @@ export default function PackagesPage() {
 
   const toggleActive = async (id: string, currentStatus: boolean) => {
     try {
-      await fetch(`/api/admin/packages/${id}`, {
+      const response = await fetch(`/api/admin/packages/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ active: !currentStatus }),
       });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(`Eroare toggle: ${data.error || "Ceva nu a mers bine"}`);
+        console.error("Toggle error:", data);
+        return;
+      }
+
+      console.log("Toggle success:", data);
       fetchPackages();
     } catch (error) {
       console.error("Error toggling package:", error);
+      alert("Eroare la toggle. Vezi consola.");
     }
   };
 
