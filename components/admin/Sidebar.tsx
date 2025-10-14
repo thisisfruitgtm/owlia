@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Settings, FileText, TrendingUp } from "lucide-react";
+import { LayoutDashboard, Users, Settings, FileText, TrendingUp, Package } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
 const navigation = [
@@ -10,6 +10,7 @@ const navigation = [
   { name: "Clienți", href: "/admin/clients", icon: Users },
   { name: "Leads", href: "/admin/leads", icon: TrendingUp },
   { name: "Contracte", href: "/admin/contracts", icon: FileText },
+  { name: "Pachete", href: "/admin/packages", icon: Package },
   { name: "Setări", href: "/admin/settings", icon: Settings },
 ];
 

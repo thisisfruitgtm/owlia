@@ -33,11 +33,15 @@ export async function sendEmail({ to, subject, html }: SendEmailParams) {
   }
 }
 
-export async function sendWelcomeEmail(to: string, name: string) {
+export async function sendWelcomeEmail(to: string, name: string, clientId?: string) {
+  const dashboardUrl = clientId 
+    ? `${process.env.NEXTAUTH_URL}/client/${clientId}`
+    : `${process.env.NEXTAUTH_URL}/auth/login`;
+    
   return sendEmail({
     to,
-    subject: 'Bun venit la OWLIA!',
-    html: welcomeEmail(name),
+    subject: 'Bun venit la OWLIA! 🎉',
+    html: welcomeEmailTemplate(name, to, dashboardUrl),
   });
 }
 

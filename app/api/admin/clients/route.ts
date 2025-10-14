@@ -111,9 +111,9 @@ export async function POST(request: NextRequest) {
       return { user, client, randomPassword };
     });
 
-    // Send welcome email (don't fail if email fails)
+    // Send welcome email with dashboard link (don't fail if email fails)
     try {
-      await sendWelcomeEmail(data.email, data.name);
+      await sendWelcomeEmail(data.email, data.name, result.client.id);
     } catch (emailError) {
       console.error("Failed to send welcome email:", emailError);
     }
