@@ -27,12 +27,15 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const data = generateContractSchema.parse(body);
     
-    // Fetch client with package info
+    // Fetch client with package info and timeline
     const client = await prisma.client.findUnique({
       where: { id: data.clientId },
       include: {
         user: true,
         package: true,
+        timeline: {
+          orderBy: { month: 'asc' },
+        },
       },
     });
     
@@ -54,6 +57,14 @@ export async function POST(request: NextRequest) {
     const contractNumber = data.contractNumber || `OWLIA-${Date.now()}`;
     const contractDate = new Date().toLocaleDateString('ro-RO');
     
+    // Check if timeline exists
+    if (client.timeline.length === 0) {
+      return NextResponse.json(
+        { error: "Te rugăm să generezi mai întâi timeline-ul pentru acest client." },
+        { status: 400 }
+      );
+    }
+
     // Generate PDF (using custom HTML if provided)
     const filepath = await generateContract({
       clientId: client.id,
@@ -64,6 +75,12 @@ export async function POST(request: NextRequest) {
       clientPhone: client.phone || 'N/A',
       packageName: client.package.name,
       packagePrice: client.package.price,
+      packageFeatures: (client.package.features as any) || [],
+      timeline: client.timeline.map(t => ({
+        month: t.month,
+        milestone: t.milestone,
+        description: t.description || undefined,
+      })),
       contractNumber,
       contractDate,
       legalRepName: client.legalRepName || 'Reprezentant Legal',

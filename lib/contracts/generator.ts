@@ -4,6 +4,17 @@ import { existsSync } from 'fs';
 import path from 'path';
 import { contractTemplate } from './templates/startup-nation';
 
+interface PackageFeature {
+  title: string;
+  description?: string;
+}
+
+interface TimelineItem {
+  month: number;
+  milestone: string;
+  description?: string;
+}
+
 interface ContractData {
   clientId: string;
   clientName: string;
@@ -13,6 +24,8 @@ interface ContractData {
   clientPhone: string;
   packageName: string;
   packagePrice: number;
+  packageFeatures?: PackageFeature[];
+  timeline?: TimelineItem[];
   contractNumber: string;
   contractDate: string;
   legalRepName: string;

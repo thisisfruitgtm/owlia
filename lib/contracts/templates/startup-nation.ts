@@ -1,3 +1,14 @@
+interface PackageFeature {
+  title: string;
+  description?: string;
+}
+
+interface TimelineItem {
+  month: number;
+  milestone: string;
+  description?: string;
+}
+
 interface ContractData {
   clientName: string;
   clientCIF: string;
@@ -6,6 +17,8 @@ interface ContractData {
   clientPhone: string;
   packageName: string;
   packagePrice: number;
+  packageFeatures?: PackageFeature[];
+  timeline?: TimelineItem[];
   contractNumber: string;
   contractDate: string;
   legalRepName: string;
@@ -219,6 +232,18 @@ export function contractTemplate(data: ContractData): string {
             în cadrul pachetului <strong>${data.packageName}</strong>, conform specificațiilor tehnice și planului 
             de implementare anexat prezentului contract.
           </p>
+          
+          ${data.packageFeatures && data.packageFeatures.length > 0 ? `
+          <p style="margin-top: 15px;"><strong>Serviciile incluse în pachet:</strong></p>
+          <ul>
+            ${data.packageFeatures.map(feature => `
+              <li>
+                <strong>${feature.title}</strong>
+                ${feature.description ? `<br><span style="color: #666; font-size: 10pt;">${feature.description}</span>` : ''}
+              </li>
+            `).join('')}
+          </ul>
+          ` : `
           <p>Serviciile includ, dar nu se limitează la:</p>
           <ul>
             <li>Analiză de piață și definire strategie marketing</li>
@@ -228,6 +253,7 @@ export function contractTemplate(data: ContractData): string {
             <li>Strategie social media (12 luni)</li>
             <li>Management și raportare lunară</li>
           </ul>
+          `}
         </div>
       </div>
     </div>
@@ -250,13 +276,39 @@ export function contractTemplate(data: ContractData): string {
     <!-- Article 3 -->
     <div class="section">
       <div class="article">
-        <div class="article-title">Art. 3 - Durata Contractului</div>
+        <div class="article-title">Art. 3 - Durata și Plan de Implementare</div>
         <div class="article-content">
           <p>
             Prezentul contract intră în vigoare la data semnării de către ambele părți și este valabil 
             pentru o perioadă de <strong>12 (douăsprezece) luni</strong>, conform planului de implementare.
           </p>
-          <p>
+          
+          ${data.timeline && data.timeline.length > 0 ? `
+          <p style="margin-top: 20px;"><strong>Plan de Implementare (12 Luni):</strong></p>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 15px; border: 1px solid #ddd;">
+            <thead>
+              <tr style="background-color: #0A2540; color: white;">
+                <th style="padding: 12px; text-align: left; border: 1px solid #0A2540; width: 80px;">Luna</th>
+                <th style="padding: 12px; text-align: left; border: 1px solid #0A2540;">Milestone</th>
+                <th style="padding: 12px; text-align: left; border: 1px solid #0A2540;">Descriere</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.timeline.map((item, index) => `
+              <tr style="background-color: ${index % 2 === 0 ? '#f9f9f9' : 'white'};">
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: bold;">L${item.month}</td>
+                <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">${item.milestone}</td>
+                <td style="padding: 10px; border: 1px solid #ddd; color: #666;">${item.description || '-'}</td>
+              </tr>
+              `).join('')}
+            </tbody>
+          </table>
+          <p style="margin-top: 15px; font-size: 10pt; color: #666;">
+            * Termenele pot fi ajustate cu acordul ambelor părți în funcție de feedback-ul clientului și disponibilitatea materialelor necesare.
+          </p>
+          ` : ''}
+          
+          <p style="margin-top: 15px;">
             Contractul poate fi prelungit prin acordul scris al ambelor părți, cu minimum 30 de zile 
             înainte de expirare.
           </p>
