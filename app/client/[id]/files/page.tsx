@@ -90,16 +90,14 @@ export default async function ClientFilesPage({ params }: Props) {
                 </div>
               </div>
 
-              <button
-                onClick={() => {
-                  // TODO: Implement file download
-                  alert("Download în curând...");
-                }}
+              <a
+                href={`/api/files/${file.id}/download`}
+                download
                 className="w-full flex items-center justify-center gap-2 bg-navy text-white px-4 py-2 rounded-xl hover:bg-navy/90 transition-smooth font-semibold"
               >
                 <Download size={18} />
                 Download
-              </button>
+              </a>
             </div>
           ))}
         </div>

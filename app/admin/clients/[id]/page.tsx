@@ -8,6 +8,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import ContractsSection from "@/components/admin/ContractsSection";
 import SendNotificationModal from "@/components/admin/SendNotificationModal";
+import FileUploadSection from "@/components/admin/FileUploadSection";
 
 interface ClientDetail {
   id: string;
@@ -308,9 +309,78 @@ export default function ClientDetailPage() {
 
       <ContractsSection clientId={client.id} contracts={client.contracts || []} />
 
-      <div className="bg-white rounded-xl p-6 border border-gray-light">
-        <h2 className="text-xl font-bold text-navy mb-4">Fișiere</h2>
-        <p className="text-gray">Fișiere vor fi implementate în Faza 6</p>
+      {/* Files Section */}
+      <div className="bg-white rounded-xl border border-gray-light overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-light">
+          <h2 className="text-xl font-bold text-navy">Fișiere</h2>
+        </div>
+        <div className="p-6">
+          {/* Upload Section */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-navy mb-4">
+              Încarcă Fișier Nou
+            </h3>
+            <FileUploadSection
+              clientId={client.id}
+              onUploadSuccess={fetchClient}
+            />
+          </div>
+
+          {/* Files List */}
+          {client.files.length === 0 ? (
+            <p className="text-center text-gray py-8">
+              Niciun fișier încărcat încă
+            </p>
+          ) : (
+            <div>
+              <h3 className="text-lg font-semibold text-navy mb-4">
+                Fișiere Existente ({client.files.length})
+              </h3>
+              <div className="space-y-3">
+                {client.files.map((file: any) => (
+                  <div
+                    key={file.id}
+                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-smooth"
+                  >
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="p-2 bg-white rounded-lg">
+                        <svg
+                          className="w-5 h-5 text-navy"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-navy truncate">
+                          {file.name}
+                        </p>
+                        <p className="text-sm text-gray">
+                          {(file.size / 1024).toFixed(0)} KB •{" "}
+                          {new Date(file.createdAt).toLocaleDateString("ro-RO")}
+                        </p>
+                      </div>
+                    </div>
+                    <a
+                      href={`/api/files/${file.id}/download`}
+                      download
+                      className="ml-4 px-4 py-2 bg-navy text-white rounded-lg hover:bg-navy/90 transition-smooth font-semibold text-sm whitespace-nowrap"
+                    >
+                      Download
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Send Notification Modal */}
