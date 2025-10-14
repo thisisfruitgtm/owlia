@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
-import { headers } from "next/headers";
 import { sendGuideDownloadEmail } from "@/lib/email/send";
+import { headers } from "next/headers";
 
 const guideAccessSchema = z.object({
   email: z.string().email(),

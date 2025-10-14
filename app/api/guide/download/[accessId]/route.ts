@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { readFile } from "fs/promises";
-import path from "path";
+import { existsSync } from "fs";
+import { getGuidePdfPath } from "@/lib/guide/generatePdf";
 
 export async function GET(
   request: NextRequest,
@@ -27,16 +28,26 @@ export async function GET(
       });
     }
 
-    // Read the guide HTML file
-    const filePath = path.join(process.cwd(), "ghid-buget-marketing-startup-nation.html");
-    const fileContent = await readFile(filePath, "utf-8");
+    // Get PDF path
+    const pdfPath = getGuidePdfPath();
 
-    // Return the HTML file
-    return new NextResponse(fileContent, {
-      status: 200,
+    // Check if PDF exists
+    if (!existsSync(pdfPath)) {
+      return NextResponse.json(
+        { error: "Guide PDF not found. Please contact support." },
+        { status: 404 }
+      );
+    }
+
+    // Read PDF file
+    const pdfBuffer = await readFile(pdfPath);
+
+    // Return PDF
+    return new NextResponse(new Uint8Array(pdfBuffer), {
       headers: {
-        "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Content-Type": "application/pdf",
+        "Content-Disposition": 'attachment; filename="Ghid-Buget-Marketing-StartUp-Nation.pdf"',
+        "Content-Length": pdfBuffer.length.toString(),
       },
     });
   } catch (error) {
