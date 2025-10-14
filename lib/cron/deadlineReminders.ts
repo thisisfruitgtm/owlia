@@ -40,6 +40,7 @@ export async function checkAndSendDeadlineReminders() {
         subject: `Reminder: ${milestone.milestone} - Scadență în ${daysUntilDue} zile`,
         html: deadlineReminderTemplate(
           milestone.client.name,
+          milestone.client.id,
           milestone.milestone,
           milestone.description || "",
           daysUntilDue,
@@ -69,6 +70,7 @@ export async function checkAndSendDeadlineReminders() {
 
 function deadlineReminderTemplate(
   clientName: string,
+  clientId: string,
   milestone: string,
   description: string,
   daysUntil: number,
@@ -113,7 +115,7 @@ function deadlineReminderTemplate(
       </p>
 
       <div style="text-align: center; margin: 30px 0;">
-        <a href="${process.env.NEXTAUTH_URL}/client/${milestone.clientId}/timeline" 
+        <a href="${process.env.NEXTAUTH_URL}/client/${clientId}/timeline" 
            style="display: inline-block; background: #0A2540; color: white; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: bold;">
           Vezi Timeline Complet
         </a>
