@@ -11,6 +11,38 @@ interface Setting {
   description: string | null;
 }
 
+interface SecurityLog {
+  id: string;
+  eventType: string;
+  severity: string;
+  email: string | null;
+  description: string;
+  createdAt: string;
+}
+
+interface SecurityData {
+  stats: {
+    failedLogins24h: number;
+    failedLogins7d: number;
+    criticalEvents: number;
+    totalEvents: number;
+  };
+  recentLogs: SecurityLog[];
+  checks: {
+    env: {
+      nextauthSecret: boolean;
+      nextauthUrl: boolean;
+      databaseUrl: boolean;
+      resendApiKey: boolean;
+      nodeEnv: string;
+    };
+    security: {
+      https: boolean;
+      userAgent: string;
+    };
+  };
+}
+
 export default function SettingsPage() {
   const [settings, setSettings] = useState<Setting[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,9 +51,12 @@ export default function SettingsPage() {
   const [success, setSuccess] = useState(false);
   const [backupLoading, setBackupLoading] = useState(false);
   const [backupSuccess, setBackupSuccess] = useState(false);
+  const [securityData, setSecurityData] = useState<SecurityData | null>(null);
+  const [securityLoading, setSecurityLoading] = useState(true);
 
   useEffect(() => {
     fetchSettings();
+    fetchSecurityData();
   }, []);
 
   const fetchSettings = async () => {
@@ -34,6 +69,18 @@ export default function SettingsPage() {
       setError("Eroare la încărcarea setărilor");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchSecurityData = async () => {
+    try {
+      const response = await fetch("/api/admin/security");
+      const data = await response.json();
+      setSecurityData(data);
+    } catch (error) {
+      console.error("Error fetching security data:", error);
+    } finally {
+      setSecurityLoading(false);
     }
   };
 
@@ -253,96 +300,193 @@ export default function SettingsPage() {
       {/* Security Audit */}
       <div className="bg-white rounded-xl border border-gray-light overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-light bg-gradient-to-r from-red-50 to-orange-50">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-red-500 rounded-lg">
-              <Shield size={20} className="text-white" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-red-500 rounded-lg">
+                <Shield size={20} className="text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-navy">Security Audit</h2>
+                <p className="text-sm text-gray">Live monitoring</p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-xl font-bold text-navy">Security Audit</h2>
-              <p className="text-sm text-gray">Recommended checks</p>
-            </div>
+            <Button 
+              onClick={fetchSecurityData} 
+              disabled={securityLoading}
+              className="text-sm"
+            >
+              {securityLoading ? "Loading..." : "Refresh"}
+            </Button>
           </div>
         </div>
 
         <div className="p-6">
-          <div className="space-y-3 mb-6">
-            <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-              <div className="flex items-center gap-3">
-                <CheckCircle size={20} className="text-green-600" />
-                <div>
-                  <p className="font-medium text-gray-dark">NextAuth Session Security</p>
-                  <p className="text-xs text-gray">NEXTAUTH_SECRET configured & secure</p>
+          {securityLoading ? (
+            <div className="text-center py-8 text-gray">Se încarcă datele de securitate...</div>
+          ) : securityData ? (
+            <>
+              {/* Security Stats */}
+              <div className="grid md:grid-cols-4 gap-4 mb-6">
+                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-dark">Total Events</span>
+                    <Database size={18} className="text-blue-600" />
+                  </div>
+                  <div className="text-2xl font-bold text-blue-600">{securityData.stats.totalEvents}</div>
+                  <p className="text-xs text-gray mt-1">All time</p>
+                </div>
+
+                <div className={`p-4 border rounded-lg ${securityData.stats.failedLogins24h > 5 ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-dark">Failed Logins</span>
+                    <XCircle size={18} className={securityData.stats.failedLogins24h > 5 ? 'text-red-600' : 'text-green-600'} />
+                  </div>
+                  <div className={`text-2xl font-bold ${securityData.stats.failedLogins24h > 5 ? 'text-red-600' : 'text-green-600'}`}>
+                    {securityData.stats.failedLogins24h}
+                  </div>
+                  <p className="text-xs text-gray mt-1">Last 24 hours</p>
+                </div>
+
+                <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-dark">Failed (7d)</span>
+                    <Clock size={18} className="text-purple-600" />
+                  </div>
+                  <div className="text-2xl font-bold text-purple-600">{securityData.stats.failedLogins7d}</div>
+                  <p className="text-xs text-gray mt-1">Last 7 days</p>
+                </div>
+
+                <div className={`p-4 border rounded-lg ${securityData.stats.criticalEvents > 0 ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-dark">Critical Events</span>
+                    <AlertTriangle size={18} className={securityData.stats.criticalEvents > 0 ? 'text-red-600' : 'text-green-600'} />
+                  </div>
+                  <div className={`text-2xl font-bold ${securityData.stats.criticalEvents > 0 ? 'text-red-600' : 'text-green-600'}`}>
+                    {securityData.stats.criticalEvents}
+                  </div>
+                  <p className="text-xs text-gray mt-1">Requires attention</p>
                 </div>
               </div>
-              <span className="text-xs font-semibold text-green-600 bg-green-100 px-2 py-1 rounded">OK</span>
-            </div>
 
-            <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-              <div className="flex items-center gap-3">
-                <CheckCircle size={20} className="text-green-600" />
-                <div>
-                  <p className="font-medium text-gray-dark">Password Hashing (bcrypt)</p>
-                  <p className="text-xs text-gray">12 rounds configured</p>
+              {/* Environment Checks */}
+              <div className="space-y-3 mb-6">
+                <h3 className="font-semibold text-navy">Environment & Configuration</h3>
+                
+                <div className={`flex items-center justify-between p-3 border rounded-lg ${securityData.checks.env.nextauthSecret ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+                  <div className="flex items-center gap-3">
+                    {securityData.checks.env.nextauthSecret ? <CheckCircle size={20} className="text-green-600" /> : <XCircle size={20} className="text-red-600" />}
+                    <div>
+                      <p className="font-medium text-gray-dark">NEXTAUTH_SECRET</p>
+                      <p className="text-xs text-gray">Session security key</p>
+                    </div>
+                  </div>
+                  <span className={`text-xs font-semibold px-2 py-1 rounded ${securityData.checks.env.nextauthSecret ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'}`}>
+                    {securityData.checks.env.nextauthSecret ? 'OK' : 'MISSING'}
+                  </span>
+                </div>
+
+                <div className={`flex items-center justify-between p-3 border rounded-lg ${securityData.checks.env.databaseUrl ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+                  <div className="flex items-center gap-3">
+                    {securityData.checks.env.databaseUrl ? <CheckCircle size={20} className="text-green-600" /> : <XCircle size={20} className="text-red-600" />}
+                    <div>
+                      <p className="font-medium text-gray-dark">DATABASE_URL</p>
+                      <p className="text-xs text-gray">PostgreSQL connection</p>
+                    </div>
+                  </div>
+                  <span className={`text-xs font-semibold px-2 py-1 rounded ${securityData.checks.env.databaseUrl ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'}`}>
+                    {securityData.checks.env.databaseUrl ? 'OK' : 'MISSING'}
+                  </span>
+                </div>
+
+                <div className={`flex items-center justify-between p-3 border rounded-lg ${securityData.checks.security.https ? 'bg-green-50 border-green-200' : 'bg-yellow-50 border-yellow-200'}`}>
+                  <div className="flex items-center gap-3">
+                    {securityData.checks.security.https ? <CheckCircle size={20} className="text-green-600" /> : <AlertTriangle size={20} className="text-yellow-600" />}
+                    <div>
+                      <p className="font-medium text-gray-dark">HTTPS</p>
+                      <p className="text-xs text-gray">Secure connection</p>
+                    </div>
+                  </div>
+                  <span className={`text-xs font-semibold px-2 py-1 rounded ${securityData.checks.security.https ? 'text-green-600 bg-green-100' : 'text-yellow-600 bg-yellow-100'}`}>
+                    {securityData.checks.security.https ? 'OK' : 'HTTP'}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle size={20} className="text-blue-600" />
+                    <div>
+                      <p className="font-medium text-gray-dark">Environment</p>
+                      <p className="text-xs text-gray">{securityData.checks.env.nodeEnv}</p>
+                    </div>
+                  </div>
+                  <span className="text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                    {securityData.checks.env.nodeEnv?.toUpperCase()}
+                  </span>
                 </div>
               </div>
-              <span className="text-xs font-semibold text-green-600 bg-green-100 px-2 py-1 rounded">OK</span>
-            </div>
 
-            <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-              <div className="flex items-center gap-3">
-                <CheckCircle size={20} className="text-green-600" />
-                <div>
-                  <p className="font-medium text-gray-dark">Input Validation (Zod)</p>
-                  <p className="text-xs text-gray">All API routes validated</p>
-                </div>
+              {/* Recent Security Logs */}
+              <div className="mb-6">
+                <h3 className="font-semibold text-navy mb-3">Recent Security Events</h3>
+                {securityData.recentLogs.length === 0 ? (
+                  <div className="text-center py-8 text-gray bg-gray-50 rounded-lg">
+                    No security events logged yet
+                  </div>
+                ) : (
+                  <div className="space-y-2 max-h-96 overflow-y-auto">
+                    {securityData.recentLogs.map((log) => (
+                      <div 
+                        key={log.id} 
+                        className={`p-3 border rounded-lg ${
+                          log.severity === 'CRITICAL' ? 'bg-red-50 border-red-200' :
+                          log.severity === 'WARNING' ? 'bg-yellow-50 border-yellow-200' :
+                          'bg-gray-50 border-gray-200'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className={`text-xs font-semibold px-2 py-0.5 rounded ${
+                                log.severity === 'CRITICAL' ? 'bg-red-600 text-white' :
+                                log.severity === 'WARNING' ? 'bg-yellow-600 text-white' :
+                                'bg-blue-600 text-white'
+                              }`}>
+                                {log.eventType.replace(/_/g, ' ')}
+                              </span>
+                              {log.email && (
+                                <span className="text-xs text-gray">
+                                  {log.email}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-gray-dark">{log.description}</p>
+                          </div>
+                          <span className="text-xs text-gray whitespace-nowrap ml-4">
+                            {new Date(log.createdAt).toLocaleString('ro-RO')}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-              <span className="text-xs font-semibold text-green-600 bg-green-100 px-2 py-1 rounded">OK</span>
-            </div>
 
-            <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-              <div className="flex items-center gap-3">
-                <CheckCircle size={20} className="text-green-600" />
-                <div>
-                  <p className="font-medium text-gray-dark">File Upload Security</p>
-                  <p className="text-xs text-gray">Type & size validation active</p>
-                </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="font-semibold text-navy mb-2">⚠️ Security Best Practices:</h4>
+                <ul className="text-sm text-gray space-y-1">
+                  <li>• Rotate NEXTAUTH_SECRET periodic (every 90 days)</li>
+                  <li>• Monitor failed login attempts (current: {securityData.stats.failedLogins24h} in 24h)</li>
+                  <li>• Review user permissions monthly</li>
+                  <li>• Keep dependencies updated (npm audit)</li>
+                  <li>• Enable 2FA for admin accounts (future feature)</li>
+                </ul>
               </div>
-              <span className="text-xs font-semibold text-green-600 bg-green-100 px-2 py-1 rounded">OK</span>
+            </>
+          ) : (
+            <div className="text-center py-8 text-red-600">
+              Failed to load security data
             </div>
-
-            <div className="flex items-center justify-between p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <div className="flex items-center gap-3">
-                <AlertTriangle size={20} className="text-yellow-600" />
-                <div>
-                  <p className="font-medium text-gray-dark">HTTPS Redirect</p>
-                  <p className="text-xs text-gray">Verify in Coolify production</p>
-                </div>
-              </div>
-              <span className="text-xs font-semibold text-yellow-600 bg-yellow-100 px-2 py-1 rounded">CHECK</span>
-            </div>
-
-            <div className="flex items-center justify-between p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <div className="flex items-center gap-3">
-                <AlertTriangle size={20} className="text-yellow-600" />
-                <div>
-                  <p className="font-medium text-gray-dark">Rate Limiting</p>
-                  <p className="text-xs text-gray">Consider adding for API endpoints</p>
-                </div>
-              </div>
-              <span className="text-xs font-semibold text-yellow-600 bg-yellow-100 px-2 py-1 rounded">RECOMMENDED</span>
-            </div>
-          </div>
-
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-            <h4 className="font-semibold text-navy mb-2">⚠️ Security Best Practices:</h4>
-            <ul className="text-sm text-gray space-y-1">
-              <li>• Rotate NEXTAUTH_SECRET periodic (every 90 days)</li>
-              <li>• Monitor failed login attempts</li>
-              <li>• Review user permissions monthly</li>
-              <li>• Keep dependencies updated (npm audit)</li>
-              <li>• Enable 2FA for admin accounts (future feature)</li>
-            </ul>
-          </div>
+          )}
         </div>
       </div>
 

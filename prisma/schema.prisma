@@ -188,3 +188,33 @@ model GuideTracking {
   scrollDepth   Int // percentage 0-100
   timestamp     DateTime    @default(now())
 }
+
+enum SecurityEventType {
+  FAILED_LOGIN
+  SUCCESSFUL_LOGIN
+  UNAUTHORIZED_ACCESS
+  FILE_UPLOAD
+  CONTRACT_GENERATED
+  SETTINGS_CHANGED
+  PASSWORD_CHANGED
+  SUSPICIOUS_ACTIVITY
+}
+
+enum SecurityEventSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+model SecurityLog {
+  id          String                 @id @default(cuid())
+  eventType   SecurityEventType
+  severity    SecurityEventSeverity  @default(INFO)
+  userId      String?
+  email       String?
+  ipAddress   String?
+  userAgent   String?
+  description String
+  metadata    Json? // Additional context
+  createdAt   DateTime               @default(now())
+}
