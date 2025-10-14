@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Explicitly expose PostHog env vars to the browser
+  env: {
+    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY || '',
+    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST || '',
+  },
 };
 
 export default nextConfig;
