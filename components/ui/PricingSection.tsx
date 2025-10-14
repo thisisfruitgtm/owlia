@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import PackageModal from "./PackageModal";
+import CustomPackageConfigurator from "./CustomPackageConfigurator";
 
 interface Package {
   id: string;
@@ -26,6 +27,7 @@ export default function PricingSection() {
   const [leadId, setLeadId] = useState<string>("");
   const [packages, setPackages] = useState<Package[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showCustomConfigurator, setShowCustomConfigurator] = useState(false);
   
   useEffect(() => {
     fetchPackages();
@@ -131,7 +133,7 @@ export default function PricingSection() {
             </button>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
+          <div className="grid md:grid-cols-4 gap-6 mt-12">
             {packages.map((pkg, index) => {
               const isRecommended = !isLocked && recommendedPackage === pkg.name;
               const isPremium = pkg.name === "PREMIUM";
@@ -207,6 +209,42 @@ export default function PricingSection() {
                 </div>
               );
             })}
+
+            {/* PERSONALIZAT Card */}
+            <div className="p-12 bg-gradient-to-br from-purple-600 to-purple-800 text-white border-2 border-purple-600 rounded-3xl transition-smooth hover:-translate-y-2">
+              <h3 className="text-2xl font-bold mb-2">PERSONALIZAT</h3>
+              <p className="text-white/70 mb-6">Configurează-ți pachetul</p>
+              
+              <div className="text-5xl font-bold mb-2">
+                La cerere
+              </div>
+              <div className="text-sm text-white/70 mb-8">
+                Plătești doar ce ai nevoie
+              </div>
+              
+              <ul className="space-y-3 mb-8">
+                {[
+                  'Alegi serviciile care te interesează',
+                  'Vezi prețul calculat instant',
+                  'Consultanță gratuită pentru optimizare',
+                  'Flexibilitate 100%',
+                  'Plată în 2 rate fără dobândă',
+                ].map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3 border-b border-white/10 pb-3">
+                    <span className="text-white">✓</span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <button
+                onClick={() => setShowCustomConfigurator(true)}
+                disabled={isLocked}
+                className="w-full text-center py-4 bg-white text-purple-600 rounded-xl font-semibold hover:-translate-y-0.5 hover:shadow-xl transition-smooth disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Configurează Pachetul
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -218,6 +256,11 @@ export default function PricingSection() {
         packagePrice={selectedPackage?.price || ""}
         prefilledEmail={userEmail}
         leadId={leadId}
+      />
+
+      <CustomPackageConfigurator
+        isOpen={showCustomConfigurator}
+        onClose={() => setShowCustomConfigurator(false)}
       />
     </>
   );

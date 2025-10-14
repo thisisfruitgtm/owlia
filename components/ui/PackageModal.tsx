@@ -10,6 +10,7 @@ interface Props {
   packagePrice: string;
   prefilledEmail?: string;
   leadId?: string;
+  customFeatures?: string[];
 }
 
 export default function PackageModal({
@@ -19,6 +20,7 @@ export default function PackageModal({
   packagePrice,
   prefilledEmail,
   leadId,
+  customFeatures,
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState(prefilledEmail || "");
@@ -42,6 +44,7 @@ export default function PackageModal({
           packageName,
           packagePrice,
           gdprConsent,
+          customFeatures: customFeatures || null,
         }),
       });
 
