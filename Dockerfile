@@ -54,8 +54,10 @@ COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 COPY start.sh ./start.sh
 RUN chmod +x ./start.sh
 
-# Create uploads directory
-RUN mkdir -p /app/uploads && chown nextjs:nodejs /app/uploads
+# Create uploads directory structure with proper permissions
+RUN mkdir -p /app/uploads/files /app/uploads/contracts && \
+    chown -R nextjs:nodejs /app/uploads && \
+    chmod -R 755 /app/uploads
 
 USER nextjs
 
