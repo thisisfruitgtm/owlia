@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="ro">
       <body className={`${instrumentSans.className} antialiased`}>
-        <SessionProvider>{children}</SessionProvider>
+        <PostHogProvider>
+          <SessionProvider>{children}</SessionProvider>
+        </PostHogProvider>
       </body>
     </html>
   );
