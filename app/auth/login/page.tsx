@@ -43,10 +43,14 @@ export default function LoginPage() {
         // Wait for cookie to be set properly
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        console.log("5. Cookie should be set, redirecting...");
+        console.log("5. Cookie should be set, getting redirect URL...");
         
-        // Force full page reload to /admin
-        window.location.href = "/admin";
+        // Get dynamic redirect URL based on role
+        const redirectResponse = await fetch("/api/auth/redirect");
+        const { redirectUrl } = await redirectResponse.json();
+        
+        // Redirect to appropriate dashboard
+        window.location.href = redirectUrl;
       } else {
         console.log("5. Unexpected result:", result);
         setError("Login failed. Please try again.");
