@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db/prisma";
 import { redirect } from "next/navigation";
 import { Calendar, CheckCircle2, Clock, AlertCircle, PlayCircle } from "lucide-react";
 import Badge from "@/components/ui/Badge";
+import TimelineGantt from "@/components/client/TimelineGantt";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -17,8 +18,28 @@ export default async function ClientTimelinePage({ params }: Props) {
       timeline: {
         orderBy: { month: "asc" },
       },
+      contracts: {
+        orderBy: { createdAt: "desc" },
+        take: 1,
+      },
     },
   });
+  
+  // Get start date from contract
+  let startDate = new Date();
+  if (client?.contracts.length && client.contracts[0].data) {
+    const contractData = client.contracts[0].data as any;
+    if (contractData.contractDate) {
+      const parts = contractData.contractDate.split(".");
+      if (parts.length === 3) {
+        startDate = new Date(
+          parseInt(parts[2]),
+          parseInt(parts[1]) - 1,
+          parseInt(parts[0])
+        );
+      }
+    }
+  }
 
   if (!client) {
     redirect("/auth/login");
@@ -83,6 +104,11 @@ export default async function ClientTimelinePage({ params }: Props) {
           )}
         </div>
       </div>
+
+      {/* Gantt Chart */}
+      {client.timeline.length > 0 && (
+        <TimelineGantt timeline={client.timeline as any} startDate={startDate} />
+      )}
 
       {/* Timeline */}
       {client.timeline.length === 0 ? (

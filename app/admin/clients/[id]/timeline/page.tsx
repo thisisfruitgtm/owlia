@@ -48,6 +48,29 @@ export default function AdminTimelineEditor() {
     }
   };
 
+  const handleGenerateFromPackage = async () => {
+    if (!confirm("Generează timeline din pachetul clientului? Aceasta va șterge timeline-ul existent.")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/admin/clients/${params.id}/timeline/generate`, {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        alert("Timeline generat cu succes!");
+        fetchTimeline();
+      } else {
+        const data = await response.json();
+        alert(data.error || "Eroare la generarea timeline-ului");
+      }
+    } catch (error) {
+      console.error("Error generating timeline:", error);
+      alert("Eroare la generarea timeline-ului");
+    }
+  };
+
   const handleAdd = async () => {
     try {
       const response = await fetch(`/api/admin/clients/${params.id}/timeline`, {
@@ -135,13 +158,24 @@ export default function AdminTimelineEditor() {
           </Link>
           <h1 className="text-3xl font-bold text-navy">Editor Timeline</h1>
         </div>
-        <Button
-          onClick={() => setShowAddForm(true)}
-          className="flex items-center gap-2"
-        >
-          <Plus size={18} />
-          Adaugă Milestone
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            onClick={handleGenerateFromPackage}
+            className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            Generează din Pachet
+          </Button>
+          <Button
+            onClick={() => setShowAddForm(true)}
+            className="flex items-center gap-2"
+          >
+            <Plus size={18} />
+            Adaugă Milestone
+          </Button>
+        </div>
       </div>
 
       {/* Add Form */}
