@@ -15,35 +15,42 @@ interface Feature {
 
 const availableFeatures: Feature[] = [
   // Strategy & Planning
-  { id: "strategy", title: "Analiză & Strategie Marketing", description: "Audit complet, plan 12 luni", price: 4000, category: "Strategie" },
+  { id: "strategy", title: "Analiză & Strategie Marketing", description: "Audit industrie, competiție, plan 12 luni", price: 2500, category: "Strategie & Consultanță" },
+  { id: "consult", title: "Consultanță Lunară (12 luni)", description: "Call-uri strategice, ajustări plan, recomandări", price: 1500, category: "Strategie & Consultanță" },
   
   // Branding
-  { id: "logo-digital", title: "Logo Digital", description: "3 variante, culori, PNG/SVG", price: 5000, category: "Branding" },
-  { id: "logo-full", title: "Logo + Brand Manual", description: "Brand book complet 20 pagini", price: 10000, category: "Branding" },
+  { id: "logo-digital", title: "Logo Digital", description: "3 variante, culori brand, PNG/SVG toate mărimile", price: 1000, category: "Branding & Design" },
+  { id: "logo-full", title: "Logo + Brand Manual Complet", description: "Brand book 15-20 pagini, templates Office/Social", price: 3500, category: "Branding & Design" },
   
   // Digital
-  { id: "website", title: "Website 8-10 Pagini", description: "Responsive, SEO, Analytics", price: 10000, category: "Digital" },
-  { id: "google-business", title: "Google Business", description: "Setup + optimizare + 10 poze", price: 4000, category: "Digital" },
-  { id: "seo", title: "SEO Monitoring (12 luni)", description: "Tracking + optimizări lunare", price: 3000, category: "Digital" },
+  { id: "website-basic", title: "Website 5-6 Pagini", description: "Landing page responsive, SEO basic, formular", price: 2500, category: "Web & Digital" },
+  { id: "website-full", title: "Website 8-10 Pagini", description: "Site complet, SEO avansat, Analytics, blog", price: 4500, category: "Web & Digital" },
+  { id: "google-business", title: "Google Business Profile", description: "Setup complet, 10 poze, descriere optimizată", price: 800, category: "Web & Digital" },
+  { id: "seo", title: "SEO (12 luni)", description: "Optimizare, tracking poziții, raport lunar", price: 2400, category: "Web & Digital" },
   
   // Social Media
-  { id: "sm-basic", title: "Social Media Basic (8 postări/lună)", description: "FB/IG, Canva design, 12 luni", price: 8000, category: "Social Media" },
-  { id: "sm-advanced", title: "Social Media Advanced (16 postări/lună)", description: "Design custom, stories, 12 luni", price: 14000, category: "Social Media" },
-  { id: "community", title: "Community Management", description: "Răspuns comentarii, engagement, 12 luni", price: 4000, category: "Social Media" },
+  { id: "sm-basic", title: "Social Media Basic (8 postări/lună)", description: "FB/IG, Canva templates, programare - 12 luni", price: 4800, category: "Social Media" },
+  { id: "sm-pro", title: "Social Media Pro (12 postări/lună)", description: "Design custom, copywriting, Stories - 12 luni", price: 7200, category: "Social Media" },
+  { id: "sm-premium", title: "Social Media Premium (16 postări/lună)", description: "Design pro, Reels, engagement activ - 12 luni", price: 9600, category: "Social Media" },
+  { id: "community", title: "Community Management (12 luni)", description: "Răspuns comentarii 3x/săptămână, inbox", price: 2400, category: "Social Media" },
   
   // Content
-  { id: "video", title: "Video 60sec", description: "Filmare + montaj profesional", price: 3000, category: "Content" },
-  { id: "foto", title: "Fotografie Produse (10 poze)", description: "Poze profesionale pentru catalog", price: 2000, category: "Content" },
+  { id: "video-basic", title: "Video Prezentare 30-60sec", description: "Filmare + montaj pentru social media", price: 1500, category: "Content & Media" },
+  { id: "foto", title: "Sesiune Foto (10-15 poze)", description: "Poze produse/servicii, editare profesională", price: 800, category: "Content & Media" },
+  { id: "reels", title: "Reels/TikTok (5 buc/lună)", description: "Producție video scurtă - 12 luni", price: 4800, category: "Content & Media" },
   
-  // Print
-  { id: "print-basic", title: "Print Basic", description: "500 cărți vizită + 1000 flyere", price: 2500, category: "Print" },
-  { id: "uniforms", title: "Uniforme (6 seturi)", description: "Tricouri/Polos brodare logo", price: 2500, category: "Print" },
-  { id: "wrapping", title: "Wrapping Auto", description: "Design + print + montaj folie", price: 3500, category: "Print" },
-  { id: "rollup", title: "Roll-up + Banner", description: "2 roll-up + 1 banner standuri", price: 2000, category: "Print" },
+  // Print & Materials
+  { id: "carti-vizita", title: "Cărți de Vizită (500 buc)", description: "Design + print + livrare curier inclusă", price: 400, category: "Materiale Print" },
+  { id: "flyere", title: "Flyere A5 (1000 buc)", description: "Design + print color + livrare curier", price: 600, category: "Materiale Print" },
+  { id: "brosuri", title: "Broșuri A4 (500 buc)", description: "Design + print color + livrare curier", price: 1200, category: "Materiale Print" },
+  { id: "uniforms", title: "Uniforme Personalizate (6 seturi)", description: "Tricouri/Polos brodare logo + livrare", price: 1800, category: "Materiale Print" },
+  { id: "wrapping", title: "Wrapping Autovehicul", description: "Design folie + print + montaj profesional", price: 2500, category: "Materiale Print" },
+  { id: "rollup", title: "Roll-up Standuri (2 buc)", description: "200x85cm + husă transport + livrare", price: 800, category: "Materiale Print" },
+  { id: "banner", title: "Banner Events (1 buc)", description: "300x200cm outdoor + livrare", price: 600, category: "Materiale Print" },
   
-  // Support
-  { id: "reports", title: "Rapoarte Lunare (12 luni)", description: "Stats, insights, recomandări PDF", price: 2000, category: "Support" },
-  { id: "support", title: "Support & Consultanță (12 luni)", description: "Email/WhatsApp, call-uri lunare", price: 2000, category: "Support" },
+  // Reports & Support
+  { id: "reports", title: "Rapoarte Lunare PDF (12 luni)", description: "Stats trafic, social, insights, recomandări", price: 1200, category: "Raportare & Support" },
+  { id: "analytics", title: "Google Analytics Setup", description: "Configurare + dashboard personalizat + training", price: 500, category: "Raportare & Support" },
 ];
 
 interface Props {
