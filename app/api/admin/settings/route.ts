@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
 import { auth } from "@/lib/auth/config";
+import { logSecurityEvent } from "@/lib/security/logger";
 
 const updateSettingSchema = z.object({
   settings: z.array(
@@ -59,6 +60,19 @@ export async function PATCH(request: NextRequest) {
         })
       )
     );
+
+    // Log settings change
+    await logSecurityEvent({
+      eventType: "SETTINGS_CHANGED",
+      severity: "INFO",
+      userId: session.user.id || undefined,
+      email: session.user.email || undefined,
+      description: `Settings updated: ${data.settings.length} setting(s) modified by ${session.user.email || 'admin'}`,
+      metadata: {
+        settingsChanged: data.settings.map((s) => s.key),
+        changedBy: session.user.email || 'admin',
+      },
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {

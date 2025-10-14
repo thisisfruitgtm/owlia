@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth/config";
 import { generateContract } from "@/lib/contracts/generator";
 import { sendContractGeneratedEmail } from "@/lib/email/send";
 import { notifyContractGenerated } from "@/lib/notifications/send";
+import { logSecurityEvent } from "@/lib/security/logger";
 
 const generateContractSchema = z.object({
   clientId: z.string(),
@@ -76,7 +77,7 @@ export async function POST(request: NextRequest) {
       packageName: client.package.name,
       packagePrice: client.package.price,
       packageFeatures: (client.package.features as any) || [],
-      timeline: client.timeline.map(t => ({
+      timeline: client.timeline.map((t: any) => ({
         month: t.month,
         milestone: t.milestone,
         description: t.description || undefined,
@@ -116,6 +117,23 @@ export async function POST(request: NextRequest) {
     
     // Send in-app notification
     await notifyContractGenerated(client.userId, contractNumber);
+    
+    // Log contract generation
+    await logSecurityEvent({
+      eventType: "CONTRACT_GENERATED",
+      severity: "INFO",
+      userId: session.user.id || undefined,
+      email: session.user.email || undefined,
+      description: `Contract ${contractNumber} generated for client ${client.name} (${client.package.name})`,
+      metadata: {
+        contractId: contract.id,
+        contractNumber,
+        clientId: client.id,
+        clientName: client.name,
+        packageName: client.package.name,
+        emailSent: data.sendEmail,
+      },
+    });
     
     return NextResponse.json({
       success: true,

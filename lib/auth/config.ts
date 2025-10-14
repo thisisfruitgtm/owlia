@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 import { prisma } from "@/lib/db/prisma";
+import { logSecurityEvent } from "@/lib/security/logger";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
@@ -29,14 +30,38 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
 
         if (!user) {
+          // Log failed login attempt
+          await logSecurityEvent({
+            eventType: "FAILED_LOGIN",
+            severity: "WARNING",
+            email: email,
+            description: `Failed login attempt: User not found (${email})`,
+          });
           throw new Error("Email sau parolă incorectă");
         }
 
         const isPasswordValid = await compare(password, user.password);
 
         if (!isPasswordValid) {
+          // Log failed login attempt
+          await logSecurityEvent({
+            eventType: "FAILED_LOGIN",
+            severity: "WARNING",
+            userId: user.id,
+            email: user.email,
+            description: `Failed login attempt: Invalid password for ${user.email}`,
+          });
           throw new Error("Email sau parolă incorectă");
         }
+
+        // Log successful login
+        await logSecurityEvent({
+          eventType: "SUCCESSFUL_LOGIN",
+          severity: "INFO",
+          userId: user.id,
+          email: user.email,
+          description: `Successful login: ${user.email} (${user.role})`,
+        });
 
         return {
           id: user.id,

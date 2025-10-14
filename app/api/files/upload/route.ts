@@ -5,6 +5,7 @@ import path from "path";
 import { prisma } from "@/lib/db/prisma";
 import { auth } from "@/lib/auth/config";
 import { notifyFileUploaded } from "@/lib/notifications/send";
+import { logSecurityEvent } from "@/lib/security/logger";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = [
@@ -21,6 +22,13 @@ export async function POST(request: NextRequest) {
     const session = await auth();
 
     if (!session || session.user.role !== "ADMIN") {
+      await logSecurityEvent({
+        eventType: "UNAUTHORIZED_ACCESS",
+        severity: "WARNING",
+        userId: session?.user?.id || undefined,
+        email: session?.user?.email || undefined,
+        description: `Unauthorized file upload attempt by ${session?.user?.email || "unknown user"}`,
+      });
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -101,6 +109,22 @@ export async function POST(request: NextRequest) {
 
     // Send notification to client
     await notifyFileUploaded(client.userId, file.name);
+
+    // Log file upload
+    await logSecurityEvent({
+      eventType: "FILE_UPLOAD",
+      severity: "INFO",
+      userId: session.user.id || undefined,
+      email: session.user.email || undefined,
+      description: `File uploaded: ${file.name} (${(file.size / 1024).toFixed(2)} KB) for client ${client.name}`,
+      metadata: {
+        fileName: file.name,
+        fileSize: file.size,
+        fileType: file.type,
+        clientId: clientId,
+        clientName: client.name,
+      },
+    });
 
     return NextResponse.json(
       {
