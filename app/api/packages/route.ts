@@ -9,7 +9,10 @@ export async function GET() {
         id: true,
         name: true,
         price: true,
+        priceMonthly: true,
         description: true,
+        features: true,
+        active: true,
       },
       orderBy: { price: "asc" },
     });
