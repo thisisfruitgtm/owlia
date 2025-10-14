@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Settings, FileText } from "lucide-react";
+import { LayoutDashboard, Users, Settings, FileText, TrendingUp } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Clienți", href: "/admin/clients", icon: Users },
+  { name: "Leads", href: "/admin/leads", icon: TrendingUp },
   { name: "Contracte", href: "/admin/contracts", icon: FileText },
   { name: "Setări", href: "/admin/settings", icon: Settings },
 ];

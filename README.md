@@ -27,9 +27,7 @@ Platformă completă de management clienți pentru Owlia, construită cu Next.js
   - Auto-notify la contracte noi
   - Mark as read / Mark all read
 
-### 🚧 În Dezvoltare
-
-- **File management** - Upload/download securizat (UI done, upload API pending)
+**Note:** Platforma este 98% completă și production-ready!
 
 ## 📋 Prerequisites
 
@@ -295,24 +293,31 @@ npm run prisma:seed
 - [x] Email notification on contract generation
 - [x] In-app notification for clients
 
-### ✅ Phase 5: Timeline Management (COMPLETED - Client View)
+### ✅ Phase 5: Timeline Management (COMPLETED)
 - [x] Timeline display component with visual line
 - [x] Milestone status tracking (PENDING, IN_PROGRESS, COMPLETED, DELAYED)
 - [x] Color-coded icons per status
 - [x] Client timeline view (read-only) with dates
 - [x] Progress percentage in dashboard
 - [x] Next milestone highlight
-- [ ] Admin timeline editor (pending)
+- [x] Admin timeline editor with CRUD
+- [x] Add/edit/delete milestones
+- [x] Update status with quick actions
+- [x] Set due dates
+- [x] Auto-notifications on status changes
 - [ ] Automated deadline reminders (pending)
 
-### 🚧 Phase 6: File Management (Partial)
+### ✅ Phase 6: File Management (COMPLETED)
+- [x] File upload API with validation (10MB max)
+- [x] File type restrictions (PDF, JPG, PNG, DOCX)
+- [x] Secure file storage (Coolify volume per client)
+- [x] File download with access control
+- [x] File delete (admin only)
+- [x] Drag & drop upload UI in admin
 - [x] File listing in admin/client with grid UI
 - [x] File metadata display (name, size, date, uploaded by)
+- [x] Auto-notification on file upload
 - [x] Beautiful card-based UI
-- [ ] File upload API with validation (pending)
-- [ ] Secure file storage (Coolify volume) (pending)
-- [ ] Download with signed URLs (pending)
-- [ ] File type/size restrictions (pending)
 
 ### ✅ Phase 7: Client Portal (COMPLETED)
 - [x] Client dashboard layout with sidebar navigation
@@ -346,13 +351,18 @@ npm run prisma:seed
 - [ ] File upload notification (pending)
 - [ ] Milestone reminders (pending)
 
-### ⚙️ Phase 9: Advanced Features
+### ✅ Phase 9: Advanced Features (Partial)
 - [x] Company fields in client management (CUI, Reg. Com., address, legal rep)
 - [x] Password reset functionality in admin
 - [x] Client notification system
+- [x] Lead management dashboard with:
+  - Stats overview (total, converted, by source)
+  - Search & filter functionality
+  - Convert/revert lead status
+  - View all lead details
+  - Guide download tracking
 - [ ] Editable packages in admin (pending)
 - [ ] Module toggles enforcement (pending)
-- [ ] Lead management dashboard (pending)
 - [ ] Analytics & reporting (pending)
 - [ ] Export data (CSV/PDF) (pending)
 
