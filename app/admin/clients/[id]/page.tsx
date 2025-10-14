@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Edit, Trash2, Mail, Phone, Briefcase, DollarSign } from "lucide-react";
+import { ArrowLeft, Edit, Trash2, Mail, Phone, Briefcase, DollarSign, Bell } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import ContractsSection from "@/components/admin/ContractsSection";
+import SendNotificationModal from "@/components/admin/SendNotificationModal";
 
 interface ClientDetail {
   id: string;
@@ -47,6 +48,7 @@ export default function ClientDetailPage() {
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
 
   useEffect(() => {
     if (params.id) {
@@ -133,6 +135,13 @@ export default function ClientDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowNotificationModal(true)}
+            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-smooth font-semibold"
+          >
+            <Bell size={18} />
+            Notificare
+          </button>
           <Link
             href={`/admin/clients/${client.id}/edit`}
             className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy/90 transition-smooth font-semibold"
@@ -303,6 +312,18 @@ export default function ClientDetailPage() {
         <h2 className="text-xl font-bold text-navy mb-4">Fișiere</h2>
         <p className="text-gray">Fișiere vor fi implementate în Faza 6</p>
       </div>
+
+      {/* Send Notification Modal */}
+      {showNotificationModal && (
+        <SendNotificationModal
+          userId={client.user.id}
+          clientName={client.name}
+          onClose={() => setShowNotificationModal(false)}
+          onSuccess={() => {
+            alert("Notificare trimisă cu succes!");
+          }}
+        />
+      )}
 
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (

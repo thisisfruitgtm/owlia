@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db/prisma";
 import { auth } from "@/lib/auth/config";
 import { generateContract } from "@/lib/contracts/generator";
 import { sendContractGeneratedEmail } from "@/lib/email/send";
+import { notifyContractGenerated } from "@/lib/notifications/send";
 
 const generateContractSchema = z.object({
   clientId: z.string(),
@@ -95,6 +96,9 @@ export async function POST(request: NextRequest) {
         client.package.name
       );
     }
+    
+    // Send in-app notification
+    await notifyContractGenerated(client.userId, contractNumber);
     
     return NextResponse.json({
       success: true,

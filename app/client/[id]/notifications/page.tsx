@@ -1,30 +1,63 @@
-import { prisma } from "@/lib/db/prisma";
-import { redirect } from "next/navigation";
-import { Bell, CheckCircle2, AlertCircle, Info, Clock } from "lucide-react";
+"use client";
 
-interface Props {
-  params: Promise<{ id: string }>;
+import { useState, useEffect } from "react";
+import { Bell, CheckCircle2, AlertCircle, Info, Clock, Check } from "lucide-react";
+import Button from "@/components/ui/Button";
+
+interface Notification {
+  id: string;
+  type: string;
+  title: string;
+  message: string;
+  read: boolean;
+  createdAt: string;
 }
 
-export default async function ClientNotificationsPage({ params }: Props) {
-  const { id } = await params;
+export default function ClientNotificationsPage() {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const client = await prisma.client.findUnique({
-    where: { id },
-    include: {
-      user: {
-        include: {
-          notifications: {
-            orderBy: { createdAt: "desc" },
-          },
-        },
-      },
-    },
-  });
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
-  if (!client) {
-    redirect("/auth/login");
-  }
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch("/api/notifications");
+      const data = await response.json();
+      setNotifications(data.notifications || []);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const markAsRead = async (id: string) => {
+    try {
+      await fetch(`/api/notifications/${id}`, {
+        method: "PATCH",
+      });
+      
+      setNotifications((prev) =>
+        prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+      );
+    } catch (error) {
+      console.error("Error marking as read:", error);
+    }
+  };
+
+  const markAllAsRead = async () => {
+    try {
+      await fetch("/api/notifications/mark-all-read", {
+        method: "POST",
+      });
+      
+      setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+    } catch (error) {
+      console.error("Error marking all as read:", error);
+    }
+  };
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
@@ -52,7 +85,15 @@ export default async function ClientNotificationsPage({ params }: Props) {
     }
   };
 
-  const notifications = client.user.notifications;
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-gray">Se încarcă...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -65,11 +106,19 @@ export default async function ClientNotificationsPage({ params }: Props) {
               Toate actualizările și anunțurile importante despre proiectul tău
             </p>
           </div>
-          {notifications.filter((n) => !n.read).length > 0 && (
-            <div className="bg-red-500 text-white px-4 py-2 rounded-full font-semibold">
-              {notifications.filter((n) => !n.read).length} noi
-            </div>
-          )}
+          <div className="flex items-center gap-3">
+            {unreadCount > 0 && (
+              <>
+                <div className="bg-red-500 text-white px-4 py-2 rounded-full font-semibold">
+                  {unreadCount} {unreadCount === 1 ? "nouă" : "noi"}
+                </div>
+                <Button onClick={markAllAsRead} className="flex items-center gap-2">
+                  <Check size={18} />
+                  Marchează toate citite
+                </Button>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
@@ -90,9 +139,10 @@ export default async function ClientNotificationsPage({ params }: Props) {
             <div
               key={notification.id}
               className={`
-                bg-white rounded-xl p-6 border transition-smooth
+                bg-white rounded-xl p-6 border transition-smooth cursor-pointer
                 ${notification.read ? "border-gray-light" : "border-navy/30 shadow-md"}
               `}
+              onClick={() => !notification.read && markAsRead(notification.id)}
             >
               <div className="flex gap-4">
                 <div className={`p-3 rounded-xl flex-shrink-0 ${getNotificationBg(notification.type)}`}>
@@ -151,4 +201,3 @@ export default async function ClientNotificationsPage({ params }: Props) {
     </div>
   );
 }
-
