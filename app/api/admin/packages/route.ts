@@ -8,7 +8,10 @@ const createPackageSchema = z.object({
   price: z.number().min(0),
   priceMonthly: z.number().nullable().optional(),
   description: z.string().nullable().optional(),
-  features: z.array(z.string()),
+  features: z.array(z.object({
+    title: z.string(),
+    description: z.string().optional(),
+  })),
   active: z.boolean().default(true),
 });
 

@@ -8,7 +8,10 @@ const updatePackageSchema = z.object({
   price: z.number().min(0).optional(),
   priceMonthly: z.number().nullable().optional(),
   description: z.string().nullable().optional(),
-  features: z.array(z.string()).optional(),
+  features: z.array(z.object({
+    title: z.string(),
+    description: z.string().optional(),
+  })).optional(),
   active: z.boolean().optional(),
 });
 
