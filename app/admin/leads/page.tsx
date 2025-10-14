@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Users, TrendingUp, Calculator, Package, FileText, Filter, Search, CheckCircle2, XCircle, Download } from "lucide-react";
+import { Users, TrendingUp, Calculator, Package, FileText, Filter, Search, CheckCircle2, XCircle, Download, UserPlus } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import Input from "@/components/ui/Input";
+import ConvertLeadModal from "@/components/admin/ConvertLeadModal";
 
 interface Lead {
   id: string;
@@ -29,6 +30,7 @@ export default function LeadsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterSource, setFilterSource] = useState("all");
   const [filterConverted, setFilterConverted] = useState("all");
+  const [convertingLead, setConvertingLead] = useState<Lead | null>(null);
 
   useEffect(() => {
     fetchLeads();
@@ -363,26 +365,37 @@ export default function LeadsPage() {
                       </p>
                     </td>
                     <td className="px-6 py-4">
-                      <button
-                        onClick={() => toggleConverted(lead.id, lead.converted)}
-                        className={`px-3 py-1 text-sm font-semibold rounded-lg transition-smooth ${
-                          lead.converted
-                            ? "bg-gray-100 text-gray hover:bg-gray-200"
-                            : "bg-green-100 text-green-600 hover:bg-green-200"
-                        }`}
-                      >
-                        {lead.converted ? (
-                          <span className="flex items-center gap-1">
-                            <XCircle size={14} />
-                            Revert
-                          </span>
-                        ) : (
-                          <span className="flex items-center gap-1">
-                            <CheckCircle2 size={14} />
-                            Convert
-                          </span>
+                      <div className="flex gap-2">
+                        {!lead.converted && (
+                          <button
+                            onClick={() => setConvertingLead(lead)}
+                            className="px-3 py-1 text-sm font-semibold rounded-lg transition-smooth bg-navy text-white hover:bg-navy/90 flex items-center gap-1"
+                          >
+                            <UserPlus size={14} />
+                            Client
+                          </button>
                         )}
-                      </button>
+                        <button
+                          onClick={() => toggleConverted(lead.id, lead.converted)}
+                          className={`px-3 py-1 text-sm font-semibold rounded-lg transition-smooth ${
+                            lead.converted
+                              ? "bg-gray-100 text-gray hover:bg-gray-200"
+                              : "bg-green-100 text-green-600 hover:bg-green-200"
+                          }`}
+                        >
+                          {lead.converted ? (
+                            <span className="flex items-center gap-1">
+                              <XCircle size={14} />
+                              Revert
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-1">
+                              <CheckCircle2 size={14} />
+                              Marchează
+                            </span>
+                          )}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -391,6 +404,15 @@ export default function LeadsPage() {
           </table>
         </div>
       </div>
+
+      {/* Convert Lead Modal */}
+      {convertingLead && (
+        <ConvertLeadModal
+          lead={convertingLead}
+          onClose={() => setConvertingLead(null)}
+          onSuccess={fetchLeads}
+        />
+      )}
     </div>
   );
 }
