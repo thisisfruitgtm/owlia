@@ -301,10 +301,50 @@ export default function ClientDetailPage() {
         </div>
       </div>
 
-      {/* Placeholder sections */}
+      {/* Timeline Section */}
       <div className="bg-white rounded-xl p-6 border border-gray-light">
-        <h2 className="text-xl font-bold text-navy mb-4">Timeline</h2>
-        <p className="text-gray">Timeline va fi implementat în Faza 5</p>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-navy">Timeline</h2>
+          <Link
+            href={`/admin/clients/${client.id}/timeline`}
+            className="px-4 py-2 bg-navy text-white rounded-lg hover:bg-navy/90 transition-smooth font-semibold text-sm"
+          >
+            Editează Timeline
+          </Link>
+        </div>
+        {client.timeline.length === 0 ? (
+          <p className="text-gray">Niciun milestone încă. Adaugă primul!</p>
+        ) : (
+          <div className="space-y-2">
+            {client.timeline.slice(0, 3).map((item: any) => (
+              <div
+                key={item.id}
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-semibold text-gray bg-white px-2 py-1 rounded">
+                    Luna {item.month}
+                  </span>
+                  <span className="text-sm font-semibold text-navy">
+                    {item.milestone}
+                  </span>
+                </div>
+                <Badge variant={
+                  item.status === "COMPLETED" ? "success" :
+                  item.status === "IN_PROGRESS" ? "info" :
+                  item.status === "DELAYED" ? "warning" : "default"
+                } size="sm">
+                  {item.status}
+                </Badge>
+              </div>
+            ))}
+            {client.timeline.length > 3 && (
+              <p className="text-sm text-gray text-center pt-2">
+                +{client.timeline.length - 3} mai multe
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       <ContractsSection clientId={client.id} contracts={client.contracts || []} />
