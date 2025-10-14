@@ -40,6 +40,8 @@ Platformă completă de management clienți pentru Owlia, construită cu Next.js
 - **PDF Generation** - Generate guide PDF cu Puppeteer
 - **Automated Reminders** - Cron job pentru deadline-uri (7 zile înainte)
 - **Module Toggles** - Enforcement în UI cu ModuleGuard component
+- **Security Audit** - Real-time monitoring cu logs din database
+- **PostHog Analytics** - EU region, automatic pageview tracking, custom events
 
 **🎉 Platforma este 100% COMPLETĂ și production-ready! Toate features-urile implementate!**
 
@@ -70,8 +72,12 @@ Editează `.env` cu credențialele tale:
 DATABASE_URL="postgresql://user:password@localhost:5432/owlia"
 NEXTAUTH_SECRET="your-secret-here"  # Generate: openssl rand -base64 32
 NEXTAUTH_URL="http://localhost:3000"
-RESEND_API_KEY="re_xxxxx"
+RESEND_API_KEY="re_your_api_key_here"
 UPLOAD_DIR="/app/uploads"
+
+# Optional: Analytics (PostHog EU)
+NEXT_PUBLIC_POSTHOG_KEY="phc_your_key_here"
+NEXT_PUBLIC_POSTHOG_HOST="https://eu.i.posthog.com"
 ```
 
 ### 3. Setup Database
@@ -131,6 +137,19 @@ Open [http://localhost:3000](http://localhost:3000)
   /uploads                    # File storage (symlink to volume)
   /templates                  # Contract HTML templates
 ```
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 15.5.4 (App Router + Turbopack)
+- **Language:** TypeScript (strict mode)
+- **Database:** PostgreSQL + Prisma ORM
+- **Authentication:** NextAuth.js v5 (beta)
+- **Styling:** Tailwind CSS v4
+- **Email:** Resend
+- **PDF Generation:** Puppeteer
+- **Validation:** Zod
+- **Analytics:** PostHog (EU region)
+- **Deployment:** Coolify (Docker)
 
 ## 🗄️ Database Schema
 
