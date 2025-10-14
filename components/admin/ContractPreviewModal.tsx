@@ -79,12 +79,13 @@ export default function ContractPreviewModal({
 
     <div style="margin-bottom: 20px;">
       <p style="margin: 0 0 10px 0; color: #1A1A1A;"><strong>2. CLIENT:</strong></p>
-      <p style="margin: 0 0 5px 0; color: #666666;"><strong>${client.name}</strong></p>
-      <p style="margin: 0 0 5px 0; color: #666666;">CUI: RO[completează CUI client]</p>
-      <p style="margin: 0 0 5px 0; color: #666666;">Adresa: [completează adresa client]</p>
+      <p style="margin: 0 0 5px 0; color: #666666;"><strong>${client.companyName || client.name}</strong></p>
+      <p style="margin: 0 0 5px 0; color: #666666;">CUI: ${client.cui || "RO[completează CUI]"}</p>
+      <p style="margin: 0 0 5px 0; color: #666666;">Reg. Com.: ${client.regCom || "[completează Reg. Com.]"}</p>
+      <p style="margin: 0 0 5px 0; color: #666666;">Adresa: ${client.address || "[completează adresa]"}</p>
       <p style="margin: 0 0 5px 0; color: #666666;">Email: ${client.user.email}</p>
       <p style="margin: 0 0 5px 0; color: #666666;">Telefon: ${client.phone || "[completează]"}</p>
-      <p style="margin: 0 0 5px 0; color: #666666;">Reprezentant legal: [completează]</p>
+      <p style="margin: 0 0 5px 0; color: #666666;">Reprezentant legal: ${client.legalRepName || "[completează]"}, ${client.legalRepRole || "[funcție]"}</p>
     </div>
   </div>
 
