@@ -9,14 +9,16 @@ export const initPostHog = () => {
       posthog.init(apiKey, {
         api_host: host,
         person_profiles: "identified_only",
-        capture_pageview: false, // We'll capture manually
-        capture_pageleave: true,
+        capture_pageview: true, // Automatic pageview tracking
+        capture_pageleave: true, // Automatic pageleave tracking
         loaded: (posthog) => {
           if (process.env.NODE_ENV === "development") {
-            console.log("PostHog loaded");
+            console.log("PostHog loaded successfully");
           }
         },
       });
+    } else {
+      console.warn("PostHog API key not found. Analytics disabled.");
     }
   }
 
