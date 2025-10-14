@@ -1,5 +1,5 @@
 import { getResend, FROM_EMAIL, isResendConfigured } from './resend';
-import { welcomeEmail } from './templates/welcome';
+import { welcomeEmailTemplate } from './templates/welcome';
 import { guideDownloadEmail } from './templates/guideDownload';
 import { calculatorResultEmail } from './templates/calculatorResult';
 import { packageInterestEmail } from './templates/packageInterest';
