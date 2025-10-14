@@ -4,16 +4,32 @@ Platformă completă de management clienți pentru Owlia, construită cu Next.js
 
 ## 🚀 Features
 
-- ✅ **Autentificare securizată** - NextAuth.js v5 cu role-based access (ADMIN/CLIENT)
-- ✅ **Management clienți** - CRUD complet pentru clienți și proiecte
-- ✅ **Notificări email** - Resend pentru calculator results & package interest
-- ✅ **Landing page** - Calculator buget cu email capture + pricing interactiv
-- ✅ **Admin dashboard** - Stats, client management, settings
-- ✅ **Lead tracking** - Capture & tracking pentru toate lead sources
-- 🚧 **Generare contracte** - Template HTML → PDF automat cu Puppeteer
-- 🚧 **File management** - Upload/download securizat în Coolify volumes
-- 🚧 **Timeline tracking** - 12 luni milestone-uri pentru fiecare pachet
-- 🚧 **Client portal** - Acces la contracte, files, timeline
+### ✅ Implementate Complet
+
+- **Autentificare securizată** - NextAuth.js v5 cu role-based access (ADMIN/CLIENT)
+- **Management clienți** - CRUD complet cu date companie (CUI, Reg. Com., adresă)
+- **Password reset** - Admin poate reseta parola clienților
+- **Notificări email** - Resend pentru calculator results & package interest
+- **Landing page** - Calculator buget cu email capture + pricing interactiv
+- **Admin dashboard** - Stats, client management, settings, send notifications
+- **Lead tracking** - Capture & tracking pentru toate lead sources
+- **Generare contracte** - Template HTML → PDF cu Puppeteer + date reale
+- **Client portal complet**:
+  - Dashboard cu stats și progres
+  - Timeline 12 luni cu milestone-uri
+  - Contracte cu download PDF
+  - Fișiere proiect
+  - Notificări in-app
+- **Sistem notificări**:
+  - Notificări in-app real-time
+  - Counter în header (polling 30s)
+  - Admin poate trimite manual
+  - Auto-notify la contracte noi
+  - Mark as read / Mark all read
+
+### 🚧 În Dezvoltare
+
+- **File management** - Upload/download securizat (UI done, upload API pending)
 
 ## 📋 Prerequisites
 
@@ -108,14 +124,16 @@ Open [http://localhost:3000](http://localhost:3000)
 
 **Models:**
 - `User` - Authentication + roles (ADMIN/CLIENT)
-- `Client` - Client information + relationships
+- `Client` - Client information + company data (CUI, Reg. Com., address, legal rep)
 - `Package` - Service packages (SMART, PREMIUM, etc.)
-- `Contract` - Generated contracts with PDF
+- `Contract` - Generated contracts with PDF + metadata
 - `File` - Uploaded documents
-- `Timeline` - 12-month milestones per client
+- `Timeline` - 12-month milestones per client with status tracking
 - `Setting` - Module toggles & configuration
-- `Notification` - In-app notifications
+- `Notification` - In-app notifications (type, title, message, read status)
 - `Lead` - Lead capture from landing page
+- `GuideAccess` - Guide download tracking + GDPR consent
+- `GuideTracking` - User behavior analytics (time spent, scroll depth)
 
 ## 🔧 Development Commands
 
@@ -142,7 +160,8 @@ npm run prisma:seed            # Seed database
 - **Styling:** Tailwind CSS v4
 - **Validation:** Zod
 - **Deployment:** Coolify (Docker)
-- **PDF:** Puppeteer (planned)
+- **PDF Generation:** Puppeteer
+- **Password Hashing:** bcrypt (12 rounds)
 
 ## 🚢 Deployment (Coolify)
 
@@ -264,50 +283,78 @@ npm run prisma:seed
 - [x] Calculator result emails
 - [x] Package interest confirmation emails
 
-### 📄 Phase 4: Contract System
-- [ ] HTML contract templates
-- [ ] Contract generator (Puppeteer → PDF)
-- [ ] Contract preview before generation
-- [ ] Save PDFs to Coolify volume
-- [ ] Contract management UI in admin
+### ✅ Phase 4: Contract System (COMPLETED)
+- [x] HTML contract templates (startup-nation template)
+- [x] Contract generator (Puppeteer → PDF)
+- [x] Contract preview before generation in modal
+- [x] Save PDFs to Coolify volume
+- [x] Contract management UI in admin
+- [x] Auto-populate with real client data (company, CUI, etc.)
+- [x] Download contracts as PDF
+- [x] Contract status tracking (DRAFT, SENT, SIGNED, CANCELLED)
+- [x] Email notification on contract generation
+- [x] In-app notification for clients
 
-### 📅 Phase 5: Timeline Management
-- [ ] Timeline display component
-- [ ] Milestone status tracking
-- [ ] Admin timeline editor
-- [ ] Client timeline view (read-only)
-- [ ] Automated deadline reminders
+### ✅ Phase 5: Timeline Management (COMPLETED - Client View)
+- [x] Timeline display component with visual line
+- [x] Milestone status tracking (PENDING, IN_PROGRESS, COMPLETED, DELAYED)
+- [x] Color-coded icons per status
+- [x] Client timeline view (read-only) with dates
+- [x] Progress percentage in dashboard
+- [x] Next milestone highlight
+- [ ] Admin timeline editor (pending)
+- [ ] Automated deadline reminders (pending)
 
-### 📁 Phase 6: File Management
-- [ ] File upload API with validation
-- [ ] Secure file storage (Coolify volume)
-- [ ] File listing in admin/client
-- [ ] Download with signed URLs
-- [ ] File type/size restrictions
+### 🚧 Phase 6: File Management (Partial)
+- [x] File listing in admin/client with grid UI
+- [x] File metadata display (name, size, date, uploaded by)
+- [x] Beautiful card-based UI
+- [ ] File upload API with validation (pending)
+- [ ] Secure file storage (Coolify volume) (pending)
+- [ ] Download with signed URLs (pending)
+- [ ] File type/size restrictions (pending)
 
-### 👤 Phase 7: Client Portal
-- [ ] Client dashboard layout
-- [ ] Overview page (package, progress)
-- [ ] Contracts page
-- [ ] Files page
-- [ ] Timeline visualization
-- [ ] Profile settings (change password)
+### ✅ Phase 7: Client Portal (COMPLETED)
+- [x] Client dashboard layout with sidebar navigation
+- [x] Overview page with stats cards (package, progress, contracts, timeline)
+- [x] Progress bar and percentage
+- [x] Next milestone display
+- [x] Recent contracts section
+- [x] Recent files section
+- [x] Contracts page with download functionality
+- [x] Files page with grid display
+- [x] Timeline visualization with 12-month view
+- [x] Notifications page with real-time updates
+- [x] Access control (clients can only see their own data)
+- [x] Auto-redirect based on role (admin → /admin, client → /client/[id])
+- [ ] Profile settings (change password) - can be done by admin
 
-### 📧 Phase 8: Notifications
-- [ ] Resend integration
-- [ ] Email templates (HTML)
-- [ ] Welcome email
-- [ ] Contract generated notification
-- [ ] File upload notification
-- [ ] Milestone reminders
-- [ ] In-app notifications
+### ✅ Phase 8: Notifications (COMPLETED)
+- [x] Resend integration for emails
+- [x] Email templates (HTML) - calculator results, package interest, contracts
+- [x] Contract generated notification (email + in-app)
+- [x] In-app notification system:
+  - Real-time counter in header (polls every 30s)
+  - Notification types (info, success, warning, error)
+  - Mark as read on click
+  - Mark all as read button
+  - Beautiful UI with color coding
+- [x] Admin can send manual notifications to clients
+- [x] Helper functions for common notifications
+- [x] Auto-notifications on contract generation
+- [ ] Welcome email (pending)
+- [ ] File upload notification (pending)
+- [ ] Milestone reminders (pending)
 
 ### ⚙️ Phase 9: Advanced Features
-- [ ] Editable packages in admin
-- [ ] Module toggles enforcement
-- [ ] Lead management
-- [ ] Analytics & reporting
-- [ ] Export data (CSV/PDF)
+- [x] Company fields in client management (CUI, Reg. Com., address, legal rep)
+- [x] Password reset functionality in admin
+- [x] Client notification system
+- [ ] Editable packages in admin (pending)
+- [ ] Module toggles enforcement (pending)
+- [ ] Lead management dashboard (pending)
+- [ ] Analytics & reporting (pending)
+- [ ] Export data (CSV/PDF) (pending)
 
 ### 🚀 Phase 10: Production
 - [ ] Performance optimization
