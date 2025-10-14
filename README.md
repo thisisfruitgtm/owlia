@@ -27,7 +27,17 @@ Platformă completă de management clienți pentru Owlia, construită cu Next.js
   - Auto-notify la contracte noi
   - Mark as read / Mark all read
 
-**🎉 Platforma este 99% completă și production-ready!** Toate features-urile esențiale sunt implementate și funcționale.
+### ✅ **Recent Adăugate:**
+- **File Upload/Download System** - Drag & drop, validare, notificări
+- **Timeline Auto-Generator** - Generează din pachet cu date din contract
+- **Gantt Chart Vizual** - Timeline grafic pentru clienți
+- **Lead Management Dashboard** - Stats, search, filter, convert
+- **Package Management** - CRUD complet, features editabile cu titlu + descriere
+- **Analytics Dashboard** - Metrics complete, charts, activity feed
+- **Export CSV** - Clienți și leads exportabile
+- **Dynamic Packages on Front** - Pachete citite din database, editabile din admin
+
+**🎉 Platforma este 100% completă și production-ready!**
 
 ## 📋 Prerequisites
 
