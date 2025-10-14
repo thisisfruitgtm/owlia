@@ -85,7 +85,7 @@ export async function POST(
         month: item.month,
         milestone: item.milestone,
         description: item.description || null,
-        status: index === 0 ? "IN_PROGRESS" : "PENDING",
+        status: (index === 0 ? "IN_PROGRESS" : "PENDING") as "IN_PROGRESS" | "PENDING",
         dueDate,
       };
     });
