@@ -1,6 +1,6 @@
 // Automated email sequence sender
 import { prisma } from "@/lib/db/prisma";
-import { resend } from "@/lib/email/resend";
+import { getResend } from "@/lib/email/resend";
 import { guideDay3Template, guideDay7Template } from "./guideSequence";
 import { calculatorDay3Template, calculatorDay5Template, calculatorDay7Template } from "./calculatorSequence";
 import { packageDay2Template, packageDay5Template } from "./packageSequence";
@@ -43,7 +43,7 @@ export async function sendGuideSequenceEmails() {
       if (shouldSendEmail(createdAt, 3)) {
         const template = guideDay3Template(firstName);
         
-        await resend.emails.send({
+        await getResend().emails.send({
           from: "OWLIA <noreply@owlia.ro>",
           to: email,
           subject: template.subject,
@@ -64,7 +64,7 @@ export async function sendGuideSequenceEmails() {
       if (shouldSendEmail(createdAt, 7)) {
         const template = guideDay7Template(firstName);
         
-        await resend.emails.send({
+        await getResend().emails.send({
           from: "OWLIA <noreply@owlia.ro>",
           to: email,
           subject: template.subject,
@@ -117,7 +117,7 @@ export async function sendCalculatorSequenceEmails() {
       if (shouldSendEmail(createdAt, 3)) {
         const template = calculatorDay3Template(firstName, industry);
         
-        await resend.emails.send({
+        await getResend().emails.send({
           from: "OWLIA <noreply@owlia.ro>",
           to: email,
           subject: template.subject,
@@ -139,7 +139,7 @@ export async function sendCalculatorSequenceEmails() {
       if (shouldSendEmail(createdAt, 5)) {
         const template = calculatorDay5Template(firstName, revenue);
         
-        await resend.emails.send({
+        await getResend().emails.send({
           from: "OWLIA <noreply@owlia.ro>",
           to: email,
           subject: template.subject,
@@ -160,7 +160,7 @@ export async function sendCalculatorSequenceEmails() {
       if (shouldSendEmail(createdAt, 7)) {
         const template = calculatorDay7Template(firstName);
         
-        await resend.emails.send({
+        await getResend().emails.send({
           from: "OWLIA <noreply@owlia.ro>",
           to: email,
           subject: template.subject,
@@ -212,7 +212,7 @@ export async function sendPackageSequenceEmails() {
       if (shouldSendEmail(createdAt, 2)) {
         const template = packageDay2Template(firstName, packageName, packagePrice);
         
-        await resend.emails.send({
+        await getResend().emails.send({
           from: "OWLIA <noreply@owlia.ro>",
           to: email,
           subject: template.subject,
@@ -234,7 +234,7 @@ export async function sendPackageSequenceEmails() {
       if (shouldSendEmail(createdAt, 5)) {
         const template = packageDay5Template(firstName, packageName);
         
-        await resend.emails.send({
+        await getResend().emails.send({
           from: "OWLIA <noreply@owlia.ro>",
           to: email,
           subject: template.subject,
