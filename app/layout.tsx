@@ -9,6 +9,8 @@ const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -80,6 +82,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ro" suppressHydrationWarning>
+      <head>
+        {/* Preconnect to external domains for performance */}
+        <link rel="preconnect" href="https://eu.i.posthog.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://eu-assets.i.posthog.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://static.videoask.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.videoask.com" />
+      </head>
       <body className={`${instrumentSans.className} antialiased`}>
         {/* JSON-LD: Organization */}
         <script
