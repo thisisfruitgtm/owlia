@@ -79,7 +79,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' data: https://fonts.gstatic.com",
               "img-src 'self' data: https: blob:",
-              "connect-src 'self' https://eu.i.posthog.com https://eu-assets.i.posthog.com https://static.videoask.com https://www.videoask.com",
+              "connect-src 'self' https://eu.i.posthog.com https://eu-assets.i.posthog.com https://static.videoask.com https://www.videoask.com https://api.videoask.com",
               "frame-src 'self' https://www.videoask.com",
               "media-src 'self' https://static.videoask.com https://www.videoask.com",
             ].join('; '),
