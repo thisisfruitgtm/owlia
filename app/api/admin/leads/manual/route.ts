@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
       eventType: "LEAD_ADDED_MANUAL",
       severity: "INFO",
       userId: session.user.id,
-      email: session.user.email,
+      email: session.user.email || undefined,
       description: `Lead manual adăugat: ${data.name} (${data.email}) - Sursă: ${data.source}`,
       metadata: {
         leadId: lead.id,

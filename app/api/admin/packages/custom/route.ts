@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
       eventType: "PACKAGE_CREATED",
       severity: "INFO",
       userId: session.user.id,
-      email: session.user.email,
+      email: session.user.email || undefined,
       description: `Pachet custom creat: ${data.name} - ${data.price} RON`,
       metadata: {
         packageId: packageData.id,

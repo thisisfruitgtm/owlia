@@ -1,0 +1,5 @@
+-- AlterEnum
+ALTER TYPE "SecurityEventType" ADD VALUE 'INVOICE_EMITED';
+ALTER TYPE "SecurityEventType" ADD VALUE 'LEAD_ADDED_MANUAL';
+ALTER TYPE "SecurityEventType" ADD VALUE 'PACKAGE_CREATED';
+
