@@ -10,11 +10,12 @@ Automated script to configure PostHog analytics with Actions, Funnels, Insights,
 ## Installation
 
 ```bash
+# Create virtual environment (recommended for macOS)
+python3 -m venv venv
+source venv/bin/activate
+
 # Install dependencies
 pip install -r scripts/requirements.txt
-
-# Or with Python 3 specifically
-pip3 install -r scripts/requirements.txt
 ```
 
 ## Configuration
@@ -33,11 +34,14 @@ NEXT_PUBLIC_POSTHOG_KEY=phc_your_project_key_here  # Already exists
 ## Usage
 
 ```bash
+# Activate virtual environment (if not already active)
+source venv/bin/activate
+
 # Run the setup script
 python scripts/setup-posthog.py
 
-# Or with Python 3 specifically
-python3 scripts/setup-posthog.py
+# When done, deactivate virtual environment
+deactivate
 ```
 
 ## What Gets Created
