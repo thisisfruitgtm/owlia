@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { auth } from "@/lib/auth/config";
+import { getTrafficAnalytics } from "@/lib/analytics/posthogApi";
 
 export async function GET(request: NextRequest) {
   try {
@@ -102,7 +103,11 @@ export async function GET(request: NextRequest) {
       .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
       .slice(0, 10);
 
+    // Get traffic analytics from PostHog
+    const traffic = await getTrafficAnalytics();
+
     const analytics = {
+      traffic,
       clients: {
         total: totalClients,
         active: activeClients,

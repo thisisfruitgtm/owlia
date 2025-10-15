@@ -1,9 +1,26 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { TrendingUp, Users, Package, FileText, Calendar, Mail, CheckCircle2, Clock } from "lucide-react";
+import { TrendingUp, Users, Package, FileText, Calendar, Mail, CheckCircle2, Clock, Eye, MousePointer } from "lucide-react";
 
 interface Analytics {
+  traffic?: {
+    pageviews: {
+      total: number;
+      trend: number[];
+      labels: string[];
+    };
+    sessions: {
+      total: number;
+      trend: number[];
+      labels: string[];
+    };
+    topPages: Array<{
+      page: string;
+      count: number;
+    }>;
+    activeUsers: number;
+  };
   clients: {
     total: number;
     active: number;
@@ -77,6 +94,67 @@ export default function AnalyticsPage() {
           Overview complet al performanței platformei
         </p>
       </div>
+
+      {/* Traffic Analytics (PostHog) */}
+      {analytics.traffic && (
+        <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200">
+          <h2 className="text-xl font-bold text-navy mb-4 flex items-center gap-2">
+            <TrendingUp size={24} />
+            Trafic Website (PostHog) - Ultimele 30 zile
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="bg-white rounded-lg p-4 border border-gray-light">
+              <div className="flex items-center gap-3 mb-2">
+                <Eye className="text-blue-600" size={20} />
+                <p className="text-sm text-gray">Pageviews</p>
+              </div>
+              <p className="text-3xl font-bold text-navy">
+                {analytics.traffic.pageviews.total.toLocaleString()}
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg p-4 border border-gray-light">
+              <div className="flex items-center gap-3 mb-2">
+                <MousePointer className="text-purple-600" size={20} />
+                <p className="text-sm text-gray">Sessions</p>
+              </div>
+              <p className="text-3xl font-bold text-navy">
+                {analytics.traffic.sessions.total.toLocaleString()}
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg p-4 border border-gray-light">
+              <div className="flex items-center gap-3 mb-2">
+                <Users className="text-green-600" size={20} />
+                <p className="text-sm text-gray">Active Users</p>
+              </div>
+              <p className="text-3xl font-bold text-navy">
+                {analytics.traffic.activeUsers.toLocaleString()}
+              </p>
+            </div>
+          </div>
+
+          {/* Top Pages */}
+          {analytics.traffic.topPages.length > 0 && (
+            <div className="bg-white rounded-lg p-4 border border-gray-light">
+              <h3 className="text-sm font-semibold text-navy mb-3">Top Pagini</h3>
+              <div className="space-y-2">
+                {analytics.traffic.topPages.slice(0, 5).map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-between text-sm">
+                    <span className="text-gray truncate flex-1 mr-4">
+                      {item.page}
+                    </span>
+                    <span className="font-semibold text-navy">
+                      {item.count.toLocaleString()} views
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Main Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

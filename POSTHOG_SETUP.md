@@ -15,11 +15,18 @@
 Add to `.env` (local) or Coolify (production):
 
 ```env
+# Client-side tracking (required)
 NEXT_PUBLIC_POSTHOG_KEY="phc_your_project_api_key_here"
 NEXT_PUBLIC_POSTHOG_HOST="https://eu.i.posthog.com"
+
+# Server-side analytics API (optional - for admin dashboard traffic analytics)
+POSTHOG_PERSONAL_API_KEY="phx_your_personal_api_key_here"
+POSTHOG_PROJECT_ID="12345"
 ```
 
-⚠️ **Important:** These must be prefixed with `NEXT_PUBLIC_` to work in the browser.
+⚠️ **Important:** 
+- Client keys must be prefixed with `NEXT_PUBLIC_` to work in the browser
+- Personal API key is optional but enables traffic analytics in admin dashboard
 
 ### 3. Restart Application
 
@@ -54,6 +61,39 @@ PostHog API key not found. Analytics disabled.
 2. Navigate to **Events** → **Live Events**
 3. Visit your website pages
 4. You should see `$pageview` and `$pageleave` events appearing in real-time
+
+---
+
+## 🔑 Server-Side API Setup (Optional)
+
+To enable traffic analytics in the admin dashboard:
+
+### Get Personal API Key
+
+1. Login to PostHog → Click your profile (top right)
+2. Go to **Personal API Keys**
+3. Click **Create Personal API Key**
+4. Give it a name (e.g., "Owlia Admin Analytics")
+5. Copy the key (starts with `phx_`)
+
+### Get Project ID
+
+1. Go to your PostHog project
+2. Look at the URL: `https://eu.posthog.com/project/[PROJECT_ID]`
+3. Copy the number (e.g., `12345`)
+
+### Add to Environment
+
+```env
+POSTHOG_PERSONAL_API_KEY="phx_your_personal_api_key"
+POSTHOG_PROJECT_ID="12345"
+```
+
+**What you'll get:**
+- ✅ Pageviews count (last 30 days)
+- ✅ Sessions count
+- ✅ Active users count
+- ✅ Top visited pages
 
 ---
 

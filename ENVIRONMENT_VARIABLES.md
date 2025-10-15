@@ -38,21 +38,43 @@ PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser"
 
 ### PostHog Analytics (EU Region)
 ```env
+# Client-side tracking (required)
 NEXT_PUBLIC_POSTHOG_KEY="phc_your_project_api_key"
 NEXT_PUBLIC_POSTHOG_HOST="https://eu.i.posthog.com"
+
+# Server-side analytics API (optional - for admin analytics dashboard)
+POSTHOG_PERSONAL_API_KEY="phx_your_personal_api_key"
+POSTHOG_PROJECT_ID="12345"
 ```
 
-## How to Get PostHog API Key
+## How to Get PostHog Keys
 
+### Project API Key (Client-side)
 1. Go to [PostHog](https://eu.posthog.com/signup) (EU region)
 2. Create a new project or select existing
-3. Go to Project Settings → Project API Key
+3. Go to **Settings** → **Project** → **Project API Key**
 4. Copy the key (starts with `phc_`)
 5. Add to `.env`:
    ```env
    NEXT_PUBLIC_POSTHOG_KEY="phc_your_key_here"
    NEXT_PUBLIC_POSTHOG_HOST="https://eu.i.posthog.com"
    ```
+
+### Personal API Key (Server-side Analytics)
+Required only if you want traffic analytics in admin dashboard:
+
+1. Go to your PostHog account
+2. Click your profile → **Personal API Keys**
+3. Create new Personal API Key
+4. Copy the key (starts with `phx_`)
+5. Get your Project ID from URL: `https://eu.posthog.com/project/[PROJECT_ID]`
+6. Add to `.env`:
+   ```env
+   POSTHOG_PERSONAL_API_KEY="phx_your_key_here"
+   POSTHOG_PROJECT_ID="12345"
+   ```
+
+**Note:** Personal API key is optional. Without it, admin analytics will work but won't show traffic data from PostHog.
 
 ## Note on NEXT_PUBLIC_ Prefix
 
