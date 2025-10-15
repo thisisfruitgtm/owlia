@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { posthog } from "@/lib/analytics/posthog";
 
 interface CalculatorResult {
   leadId: string;
@@ -53,6 +54,18 @@ export default function Calculator() {
       }
       
       const { leadId } = await response.json();
+    
+    // Track calculator completion in PostHog
+    if (typeof window !== 'undefined' && posthog) {
+      posthog.capture('calculator_completed', {
+        industry: industryName,
+        revenue,
+        target_clients: clients,
+        recommended_budget_min: minBudget,
+        recommended_budget_max: maxBudget,
+        lead_id: leadId,
+      });
+    }
     
     let packageName = '';
     let packageInfo = '';

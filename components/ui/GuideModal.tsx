@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import Button from "./Button";
 import Input from "./Input";
+import { posthog } from "@/lib/analytics/posthog";
 
 interface GuideModalProps {
   isOpen: boolean;
@@ -44,6 +45,14 @@ export default function GuideModal({ isOpen, onClose }: GuideModalProps) {
 
       setSuccess(true);
       setDownloadUrl(data.downloadUrl);
+      
+      // Track guide download in PostHog
+      if (typeof window !== 'undefined' && posthog) {
+        posthog.capture('guide_download_started', {
+          email,
+          access_id: data.accessId,
+        });
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {

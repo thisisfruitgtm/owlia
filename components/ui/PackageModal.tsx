@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
+import { posthog } from "@/lib/analytics/posthog";
 
 interface Props {
   isOpen: boolean;
@@ -53,6 +54,17 @@ export default function PackageModal({
       }
 
       const { whatsappUrl } = await response.json();
+      
+      // Track package interest in PostHog
+      if (typeof window !== 'undefined' && posthog) {
+        posthog.capture('package_interest_submitted', {
+          package_name: packageName,
+          package_price: packagePrice,
+          has_phone: phone !== "+40",
+          lead_id: leadId,
+          is_custom: customFeatures && customFeatures.length > 0,
+        });
+      }
       
       // Redirect to WhatsApp
       window.location.href = whatsappUrl;
