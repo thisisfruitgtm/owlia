@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Edit, Trash2, Mail, Phone, Briefcase, DollarSign, Bell } from "lucide-react";
+import { ArrowLeft, Edit, Trash2, Mail, Phone, Briefcase, DollarSign, Bell, Send } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import ContractsSection from "@/components/admin/ContractsSection";
 import SendNotificationModal from "@/components/admin/SendNotificationModal";
 import FileUploadSection from "@/components/admin/FileUploadSection";
+import AssignPackageModal from "@/components/admin/AssignPackageModal";
 
 interface ClientDetail {
   id: string;
@@ -50,6 +51,8 @@ export default function ClientDetailPage() {
   const [deleting, setDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showNotificationModal, setShowNotificationModal] = useState(false);
+  const [showAssignPackageModal, setShowAssignPackageModal] = useState(false);
+  const [sendingOnboarding, setSendingOnboarding] = useState(false);
 
   useEffect(() => {
     if (params.id) {
@@ -87,6 +90,28 @@ export default function ClientDetailPage() {
     } finally {
       setDeleting(false);
       setShowDeleteConfirm(false);
+    }
+  };
+
+  const handleSendOnboarding = async () => {
+    setSendingOnboarding(true);
+    try {
+      const response = await fetch(`/api/admin/clients/${params.id}/send-onboarding`, {
+        method: "POST",
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Email de onboarding trimis cu succes!");
+      } else {
+        alert(data.error || "Eroare la trimiterea emailului");
+      }
+    } catch (error) {
+      console.error("Error sending onboarding:", error);
+      alert("Eroare la trimiterea emailului");
+    } finally {
+      setSendingOnboarding(false);
     }
   };
 
@@ -136,6 +161,15 @@ export default function ClientDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={handleSendOnboarding}
+            disabled={sendingOnboarding}
+            className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-smooth font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            title="Trimite email pentru completarea datelor companiei"
+          >
+            <Send size={18} />
+            {sendingOnboarding ? "Trimitere..." : "Onboarding"}
+          </button>
           <button
             onClick={() => setShowNotificationModal(true)}
             className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-smooth font-semibold"
@@ -246,7 +280,15 @@ export default function ClientDetailPage() {
 
         {/* Business Info */}
         <div className="bg-white rounded-xl p-6 border border-gray-light">
-          <h2 className="text-xl font-bold text-navy mb-4">Informații Business</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-navy">Informații Business</h2>
+            <button
+              onClick={() => setShowAssignPackageModal(true)}
+              className="px-3 py-1 text-sm bg-navy text-white rounded-lg hover:bg-navy/90 transition-smooth font-semibold"
+            >
+              {client.package ? "Modifică Pachet" : "Asignează Pachet"}
+            </button>
+          </div>
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-gray">Venituri estimate:</span>
@@ -432,6 +474,16 @@ export default function ClientDetailPage() {
           onSuccess={() => {
             alert("Notificare trimisă cu succes!");
           }}
+        />
+      )}
+
+      {/* Assign Package Modal */}
+      {showAssignPackageModal && (
+        <AssignPackageModal
+          clientId={client.id}
+          currentPackageId={client.package?.id || null}
+          onClose={() => setShowAssignPackageModal(false)}
+          onSuccess={fetchClient}
         />
       )}
 

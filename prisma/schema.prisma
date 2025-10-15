@@ -49,29 +49,31 @@ model User {
 }
 
 model Client {
-  id            String       @id @default(cuid())
-  userId        String       @unique
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  name          String
-  phone         String?
-  industry      String
-  revenue       Int
-  targetClients Int
-  packageId     String?
-  package       Package?     @relation(fields: [packageId], references: [id])
-  status        ClientStatus @default(ACTIVE)
-  companyName   String?
-  cui           String?
-  regCom        String?
-  address       String?
-  legalRepName  String?
-  legalRepRole  String?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  timeline      Timeline[]
-  contracts     Contract[]
-  files         File[]
-  leads         Lead[]
+  id                      String       @id @default(cuid())
+  userId                  String       @unique
+  user                    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name                    String
+  phone                   String?
+  industry                String
+  revenue                 Int
+  targetClients           Int
+  packageId               String?
+  package                 Package?     @relation(fields: [packageId], references: [id])
+  status                  ClientStatus @default(ACTIVE)
+  companyName             String?
+  cui                     String?
+  regCom                  String?
+  address                 String?
+  legalRepName            String?
+  legalRepRole            String?
+  onboardingToken         String?      @unique
+  onboardingTokenExpires  DateTime?
+  createdAt               DateTime     @default(now())
+  updatedAt               DateTime     @updatedAt
+  timeline                Timeline[]
+  contracts               Contract[]
+  files                   File[]
+  leads                   Lead[]
 }
 
 model Package {

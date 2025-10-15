@@ -21,7 +21,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # PostHog Configuration
-POSTHOG_HOST = "https://eu.i.posthog.com"
+POSTHOG_HOST = "https://eu.posthog.com"
 POSTHOG_PROJECT_API_KEY = os.getenv("NEXT_PUBLIC_POSTHOG_KEY")
 POSTHOG_PERSONAL_API_KEY = os.getenv("POSTHOG_PERSONAL_API_KEY")  # Get from PostHog Settings > Personal API Keys
 

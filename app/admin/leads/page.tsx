@@ -5,6 +5,7 @@ import { Users, TrendingUp, Calculator, Package, FileText, Filter, Search, Check
 import Badge from "@/components/ui/Badge";
 import Input from "@/components/ui/Input";
 import ConvertLeadModal from "@/components/admin/ConvertLeadModal";
+import AddLeadModal from "@/components/admin/AddLeadModal";
 
 interface Lead {
   id: string;
@@ -31,6 +32,7 @@ export default function LeadsPage() {
   const [filterSource, setFilterSource] = useState("all");
   const [filterConverted, setFilterConverted] = useState("all");
   const [convertingLead, setConvertingLead] = useState<Lead | null>(null);
+  const [showAddLeadModal, setShowAddLeadModal] = useState(false);
 
   useEffect(() => {
     fetchLeads();
@@ -142,17 +144,26 @@ export default function LeadsPage() {
         <div>
           <h1 className="text-3xl font-bold text-navy mb-2">Lead Management</h1>
           <p className="text-gray">
-            Toate lead-urile capturate din calculator, package modal și ghid
+            Toate lead-urile capturate din calculator, package modal, ghid și recomandări
           </p>
         </div>
-        <a
-          href="/api/admin/export/leads"
-          download
-          className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-smooth font-semibold"
-        >
-          <Download size={20} />
-          Export CSV
-        </a>
+        <div className="flex gap-3">
+          <button
+            onClick={() => setShowAddLeadModal(true)}
+            className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy/90 transition-smooth font-semibold"
+          >
+            <UserPlus size={20} />
+            Adaugă Lead Manual
+          </button>
+          <a
+            href="/api/admin/export/leads"
+            download
+            className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-smooth font-semibold"
+          >
+            <Download size={20} />
+            Export CSV
+          </a>
+        </div>
       </div>
 
       {/* Stats Grid */}
@@ -410,6 +421,14 @@ export default function LeadsPage() {
         <ConvertLeadModal
           lead={convertingLead}
           onClose={() => setConvertingLead(null)}
+          onSuccess={fetchLeads}
+        />
+      )}
+
+      {/* Add Lead Modal */}
+      {showAddLeadModal && (
+        <AddLeadModal
+          onClose={() => setShowAddLeadModal(false)}
           onSuccess={fetchLeads}
         />
       )}
