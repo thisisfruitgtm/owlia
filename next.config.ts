@@ -81,7 +81,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: https: blob:",
               "connect-src 'self' https://eu.i.posthog.com https://eu-assets.i.posthog.com https://static.videoask.com https://www.videoask.com https://api.videoask.com",
               "frame-src 'self' https://www.videoask.com",
-              "media-src 'self' https://static.videoask.com https://www.videoask.com",
+              "media-src 'self' https://static.videoask.com https://www.videoask.com https://media.videoask.com",
             ].join('; '),
           },
         ],
