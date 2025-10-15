@@ -57,12 +57,20 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: { icon: "/favicon.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: "/favicon.png",
+  },
   referrer: "origin-when-cross-origin",
 };
 
 export const viewport: Viewport = {
   themeColor: "#0A2540",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
