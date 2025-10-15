@@ -4,7 +4,29 @@
 
 Migrația `20251015202357_add_package_delivery_conditions` a eșuat în producție (error P3009) și blochează deployment-ul.
 
-## Soluție Rapidă (2 opțiuni)
+**Record eșuat în tabela `_prisma_migrations` din database blochează toate deployment-urile noi.**
+
+## 🚀 Soluție Automată (RECOMANDAT - CEL MAI RAPID)
+
+**În Coolify → Terminal (container aplicație):**
+
+```bash
+# Rulează scriptul de fix automat
+node scripts/fix-migration-db.js
+```
+
+**Ce face scriptul:**
+1. ✅ Verifică dacă coloanele există în Package
+2. ✅ Aplică coloanele dacă lipsesc (deliveryDays, conditions, visible)
+3. ✅ Șterge record-ul migrației eșuate din `_prisma_migrations`
+4. ✅ Inserează record nou ca migrație aplicată cu succes
+5. ✅ Afișează verificare finală
+
+**Rezultat:** Deployment-ul va merge imediat după rularea scriptului!
+
+---
+
+## Soluții Manuale (dacă scriptul eșuează)
 
 ### **OPȚIUNEA 1: Fix Manual în Database (RECOMANDAT)**
 
