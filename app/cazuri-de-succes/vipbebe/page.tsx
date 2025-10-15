@@ -28,6 +28,39 @@ export default function VipBebePage() {
   return (
     <>
       <Navigation />
+      
+      {/* JSON-LD: Case Study / Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "VipBebe.ro - Caz de Succes în E-commerce",
+            description: "Cum am transformat VipBebe într-un magazin online de 4 milioane lei. Strategie completă de branding, web design și marketing digital.",
+            author: {
+              "@type": "Organization",
+              name: "OWLIA",
+              url: "https://owlia.ro",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "OWLIA",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://owlia.ro/logo_owlia_blue.svg",
+              },
+            },
+            datePublished: "2024-01-01",
+            dateModified: "2025-01-01",
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": "https://owlia.ro/cazuri-de-succes/vipbebe",
+            },
+            image: "https://owlia.ro/opengraph-image",
+          }),
+        }}
+      />
 
       {/* Hero */}
       <section className="mt-20 pt-24 pb-20 bg-gradient-to-b from-cream to-white">

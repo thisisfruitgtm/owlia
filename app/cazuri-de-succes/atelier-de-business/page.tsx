@@ -28,6 +28,39 @@ export default function AtelierDeBusinessPage() {
   return (
     <>
       <Navigation />
+      
+      {/* JSON-LD: Case Study / Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Atelierul de Business - Caz de Succes în Consultanță",
+            description: "Cum am crescut rata de conversie cu +45% prin redesign complet și funnel optimization pentru o firmă de consultanță business.",
+            author: {
+              "@type": "Organization",
+              name: "OWLIA",
+              url: "https://owlia.ro",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "OWLIA",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://owlia.ro/logo_owlia_blue.svg",
+              },
+            },
+            datePublished: "2024-01-01",
+            dateModified: "2025-01-01",
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": "https://owlia.ro/cazuri-de-succes/atelier-de-business",
+            },
+            image: "https://owlia.ro/opengraph-image",
+          }),
+        }}
+      />
 
       {/* Hero */}
       <section className="mt-20 pt-24 pb-20 bg-gradient-to-b from-cream to-white">

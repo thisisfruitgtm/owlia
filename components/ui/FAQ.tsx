@@ -38,6 +38,24 @@ export default function FAQ() {
 
   return (
     <section className="mt-20 pt-16 md:pt-24 pb-20 bg-gradient-to-b from-cream to-white">
+      {/* JSON-LD: FAQ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
+          }),
+        }}
+      />
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-navy mb-4 text-center">Întrebări pe care le primim des</h2>
         <p className="text-lg text-gray mb-12 text-center">Probabil te întrebi și tu de astea</p>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: "%s | OWLIA",
   },
   description:
-    "16 ani experiență în marketing digital, web design și branding. Echipă internă completă care ajută afaceri noi să crească rapid și sustenabil.",
+    "16 ani experiență în marketing digital, 100+ proiecte livrate, echipă completă care ajută afaceri noi să crească rapid. Parte din Fruit Creative & Omnisfera.",
   alternates: { canonical: "/despre" },
   openGraph: {
     type: "website",

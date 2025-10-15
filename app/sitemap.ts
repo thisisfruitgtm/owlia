@@ -45,7 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/start-up-nation`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.6,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/politica-confidentialitate`,
@@ -63,8 +63,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ].map((slug) => ({
     url: `${baseUrl}/cazuri-de-succes/${slug}`,
     lastModified: now,
-    changeFrequency: "yearly",
-    priority: 0.5,
+    changeFrequency: "monthly",
+    priority: 0.7,
   }));
 
   return [...staticRoutes, ...caseStudies];

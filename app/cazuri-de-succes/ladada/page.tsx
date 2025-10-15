@@ -28,6 +28,39 @@ export default function LaDaDaPage() {
   return (
     <>
       <Navigation />
+      
+      {/* JSON-LD: Case Study / Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "LaDaDa.ro - Caz de Succes în HoReCa",
+            description: "Cum am dublat traficul pentru un restaurant în 6 luni prin website nou, Google Ads și social media.",
+            author: {
+              "@type": "Organization",
+              name: "OWLIA",
+              url: "https://owlia.ro",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "OWLIA",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://owlia.ro/logo_owlia_blue.svg",
+              },
+            },
+            datePublished: "2024-01-01",
+            dateModified: "2025-01-01",
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": "https://owlia.ro/cazuri-de-succes/ladada",
+            },
+            image: "https://owlia.ro/opengraph-image",
+          }),
+        }}
+      />
 
       {/* Hero */}
       <section className="mt-20 pt-24 pb-20 bg-gradient-to-b from-cream to-white">
