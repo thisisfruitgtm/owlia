@@ -5,7 +5,7 @@ export default function WhatIsMarketing() {
         {/* Main Heading */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">
-            Dar ce e ăsta "marketing"? 🤔
+            Dar ce e marketingul? 🤔
           </h2>
           <p className="text-xl text-gray leading-relaxed">
             Ai un business de vis, un produs grozav sau un serviciu de care lumea are nevoie. 
@@ -75,8 +75,8 @@ export default function WhatIsMarketing() {
             Deci ce e marketingul?
           </h3>
           <p className="text-xl leading-relaxed mb-6 text-white/90">
-            E <span className="font-bold underline decoration-cream">totul ce faci ca să te facă lumea să te cunoască, 
-            să te placă și să cumpere de la tine</span> în loc de competiție.
+          <span className="font-bold underline decoration-cream">Marketingul este procesul strategic prin care identifici, atragi și păstrezi clienți pentru afacerea ta, comunicându-le valoarea pe care produsul sau serviciul tău o aduce în viața lor.</span>
+            <p>Important de reținut: Marketingul nu este doar "reclamă" sau "promovare". Este întregul proces care începe cu înțelegerea profundă a clientului tău și se termină cu transformarea lui într-un client fidel care te recomandă și altora.</p>
           </p>
           <p className="text-lg text-white/80">
             Logo, website, postări pe social media, reclame, newsletters, design - 
