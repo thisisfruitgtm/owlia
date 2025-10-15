@@ -35,7 +35,7 @@ export default function VipBebePage() {
           <div className="flex items-center gap-4 mb-6">
             <div className="text-8xl">👶</div>
             <div>
-              <div className="text-sm font-semibold text-navy/60 mb-2 uppercase tracking-wide">
+              <div className="text-sm font-semibold text-navy/70 mb-2 uppercase tracking-wide">
                 E-commerce - Produse Copii
               </div>
               <h1 className="text-5xl md:text-6xl font-bold text-navy leading-tight">
@@ -220,7 +220,7 @@ export default function VipBebePage() {
               <div key={i} className="p-8 bg-cream rounded-2xl border-l-4 border-navy">
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="text-2xl font-bold text-navy">{result.title}</h3>
-                  <span className="text-sm font-semibold text-navy/60 bg-white px-3 py-1 rounded-full">
+                  <span className="text-sm font-semibold text-navy/70 bg-white px-3 py-1 rounded-full">
                     {result.period}
                   </span>
                 </div>

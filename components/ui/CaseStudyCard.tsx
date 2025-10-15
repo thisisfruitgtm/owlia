@@ -26,7 +26,7 @@ export default function CaseStudyCard({
           </div>
         )}
         <div className="p-8">
-          <div className="text-sm font-semibold text-navy/60 mb-2 uppercase tracking-wide">
+          <div className="text-sm font-semibold text-navy/70 mb-2 uppercase tracking-wide">
             {industry}
           </div>
           <h3 className="text-2xl font-bold text-navy mb-3 group-hover:underline">

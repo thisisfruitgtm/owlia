@@ -197,7 +197,7 @@ export default function WebDesignPage() {
                 className="p-8 bg-cream rounded-2xl hover:-translate-y-1 transition-smooth"
               >
                 <div className="text-6xl mb-4 text-center">{project.emoji}</div>
-                <div className="text-sm font-semibold text-navy/60 mb-1 uppercase tracking-wide text-center">
+                <div className="text-sm font-semibold text-navy/70 mb-1 uppercase tracking-wide text-center">
                   {project.industry}
                 </div>
                 <h3 className="text-xl font-bold text-navy mb-3 text-center">

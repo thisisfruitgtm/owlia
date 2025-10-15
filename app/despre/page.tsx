@@ -112,7 +112,7 @@ export default function DesprePage() {
                 className={`p-10 rounded-2xl hover:-translate-y-2 transition-smooth ${company.color}`}
               >
                 <h3 className="text-3xl font-bold mb-2">{company.name}</h3>
-                <div className={`text-sm font-semibold mb-4 ${i === 0 ? "text-white/70" : "text-navy/60"} uppercase tracking-wide`}>
+                <div className={`text-sm font-semibold mb-4 ${i === 0 ? "text-white/70" : "text-navy/70"} uppercase tracking-wide`}>
                   {company.tagline}
                 </div>
                 <p className={`leading-relaxed ${i === 0 ? "text-white/90" : "text-gray"}`}>

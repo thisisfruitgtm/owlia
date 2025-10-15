@@ -35,7 +35,7 @@ export default function AtelierDeBusinessPage() {
           <div className="flex items-center gap-4 mb-6">
             <div className="text-8xl">💼</div>
             <div>
-              <div className="text-sm font-semibold text-navy/60 mb-2 uppercase tracking-wide">
+              <div className="text-sm font-semibold text-navy/70 mb-2 uppercase tracking-wide">
                 Servicii & Consultanță
               </div>
               <h1 className="text-5xl md:text-6xl font-bold text-navy leading-tight">

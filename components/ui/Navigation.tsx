@@ -163,7 +163,7 @@ export default function Navigation() {
         <div className="md:hidden bg-white border-t border-gray-light">
           <div className="px-6 py-4 space-y-4">
             <div>
-              <div className="text-sm font-semibold text-navy/60 mb-2">
+              <div className="text-sm font-semibold text-navy/70 mb-2">
                 Servicii
               </div>
               <div className="pl-4 space-y-2">
