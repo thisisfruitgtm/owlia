@@ -3,13 +3,24 @@ import Navigation from "@/components/ui/Navigation";
 import CTASection from "@/components/ui/CTASection";
 
 export const metadata: Metadata = {
-  title: "VipBebe.ro - Caz de Succes | OWLIA",
+  title: { default: "VipBebe.ro - Caz de Succes", template: "%s | OWLIA" },
   description:
     "Cum am transformat VipBebe într-un magazin online de 4 milioane lei. Strategie completă de branding, web design și marketing digital.",
+  alternates: { canonical: "/cazuri-de-succes/vipbebe" },
   openGraph: {
+    type: "article",
+    url: "/cazuri-de-succes/vipbebe",
     title: "VipBebe.ro - Caz de Succes | OWLIA",
     description: "De la 0 la 4 milioane lei vânzări în 2 ani.",
-    images: ["/og-image.jpg"],
+    siteName: "OWLIA",
+    locale: "ro_RO",
+    images: [{ url: "/opengraph-image" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VipBebe.ro - Caz de Succes | OWLIA",
+    description: "De la 0 la 4 milioane lei vânzări în 2 ani.",
+    images: ["/opengraph-image"],
   },
 };
 

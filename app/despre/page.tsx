@@ -3,13 +3,29 @@ import Navigation from "@/components/ui/Navigation";
 import CTASection from "@/components/ui/CTASection";
 
 export const metadata: Metadata = {
-  title: "Despre | OWLIA - Echipa Ta de Creștere",
+  title: {
+    default: "Despre | Echipa Ta de Creștere",
+    template: "%s | OWLIA",
+  },
   description:
     "16 ani experiență în marketing digital, web design și branding. Echipă internă completă care ajută afaceri noi să crească rapid și sustenabil.",
+  alternates: { canonical: "/despre" },
   openGraph: {
-    title: "Despre | OWLIA - Echipa Ta de Creștere",
-    description: "16 ani experiență, 100+ proiecte livrate, rezultate măsurabile.",
-    images: ["/og-image.jpg"],
+    type: "website",
+    url: "/despre",
+    title: "Despre | Echipa Ta de Creștere",
+    description:
+      "16 ani experiență, 100+ proiecte livrate, rezultate măsurabile.",
+    siteName: "OWLIA",
+    locale: "ro_RO",
+    images: [{ url: "/opengraph-image" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Despre | OWLIA",
+    description:
+      "16 ani experiență, 100+ proiecte livrate, rezultate măsurabile.",
+    images: ["/opengraph-image"],
   },
 };
 

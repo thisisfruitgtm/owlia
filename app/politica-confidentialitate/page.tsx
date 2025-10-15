@@ -1,5 +1,30 @@
+import type { Metadata } from "next";
 import Navigation from "@/components/ui/Navigation";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: { default: "Politica de Confidențialitate", template: "%s | OWLIA" },
+  description:
+    "Cum colectăm, folosim și protejăm datele personale pe owlia.ro. Drepturi GDPR și contact.",
+  alternates: { canonical: "/politica-confidentialitate" },
+  openGraph: {
+    type: "article",
+    url: "/politica-confidentialitate",
+    title: "Politica de Confidențialitate | OWLIA",
+    description:
+      "Informații despre colectarea și protecția datelor personale conform GDPR.",
+    siteName: "OWLIA",
+    locale: "ro_RO",
+    images: [{ url: "/opengraph-image" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Politica de Confidențialitate | OWLIA",
+    description:
+      "Informații despre colectarea și protecția datelor personale conform GDPR.",
+    images: ["/opengraph-image"],
+  },
+};
 
 export default function PrivacyPolicyPage() {
   return (

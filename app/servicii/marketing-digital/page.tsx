@@ -4,13 +4,24 @@ import CTASection from "@/components/ui/CTASection";
 import CaseStudyCard from "@/components/ui/CaseStudyCard";
 
 export const metadata: Metadata = {
-  title: "Marketing Digital | OWLIA - Marketing pentru Afaceri Noi",
+  title: { default: "Marketing Digital", template: "%s | OWLIA" },
   description:
     "Marketing digital care generează vânzări reale. SEO, Google Ads, Social Media și Email Marketing pentru afaceri 0-3 ani. Rezultate măsurabile.",
+  alternates: { canonical: "/servicii/marketing-digital" },
   openGraph: {
+    type: "website",
+    url: "/servicii/marketing-digital",
     title: "Marketing Digital | OWLIA",
     description: "Marketing digital care generează vânzări reale pentru afaceri noi.",
-    images: ["/og-image.jpg"],
+    siteName: "OWLIA",
+    locale: "ro_RO",
+    images: [{ url: "/opengraph-image" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Marketing Digital | OWLIA",
+    description: "Marketing digital care generează vânzări reale pentru afaceri noi.",
+    images: ["/opengraph-image"],
   },
 };
 
@@ -18,6 +29,27 @@ export default function MarketingDigitalPage() {
   return (
     <>
       <Navigation />
+      {/* JSON-LD: Service (Marketing Digital) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Marketing Digital",
+            provider: {
+              "@type": "Organization",
+              name: "OWLIA",
+              url: "https://owlia.ro",
+            },
+            areaServed: "RO",
+            serviceType: "Marketing Digital",
+            url: "https://owlia.ro/servicii/marketing-digital",
+            description:
+              "SEO, Google Ads, Social Media și Email Marketing pentru afaceri noi.",
+          }),
+        }}
+      />
 
       {/* Hero */}
       <section className="mt-20 pt-24 pb-20 bg-gradient-to-b from-cream to-white">

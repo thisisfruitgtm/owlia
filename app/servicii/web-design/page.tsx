@@ -3,13 +3,24 @@ import Navigation from "@/components/ui/Navigation";
 import CTASection from "@/components/ui/CTASection";
 
 export const metadata: Metadata = {
-  title: "Web Design & Development | OWLIA - Marketing pentru Afaceri Noi",
+  title: { default: "Web Design & Development", template: "%s | OWLIA" },
   description:
     "Website-uri responsive care convertesc vizitatori în clienți. Next.js, React, design modern. Optimizate pentru viteză și conversie.",
+  alternates: { canonical: "/servicii/web-design" },
   openGraph: {
+    type: "website",
+    url: "/servicii/web-design",
     title: "Web Design & Development | OWLIA",
     description: "Website-uri care convertesc vizitatori în clienți.",
-    images: ["/og-image.jpg"],
+    siteName: "OWLIA",
+    locale: "ro_RO",
+    images: [{ url: "/opengraph-image" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Web Design & Development | OWLIA",
+    description: "Website-uri care convertesc vizitatori în clienți.",
+    images: ["/opengraph-image"],
   },
 };
 
@@ -17,6 +28,27 @@ export default function WebDesignPage() {
   return (
     <>
       <Navigation />
+      {/* JSON-LD: Service (Web Design) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Web Design & Development",
+            provider: {
+              "@type": "Organization",
+              name: "OWLIA",
+              url: "https://owlia.ro",
+            },
+            areaServed: "RO",
+            serviceType: "Web Design",
+            url: "https://owlia.ro/servicii/web-design",
+            description:
+              "Website-uri responsive care convertesc vizitatori în clienți.",
+          }),
+        }}
+      />
 
       {/* Hero */}
       <section className="mt-20 pt-24 pb-20 bg-gradient-to-b from-cream to-white">

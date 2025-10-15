@@ -12,14 +12,75 @@ import IndustriesSection from "@/components/home/IndustriesSection";
 import CTASection from "@/components/ui/CTASection";
 
 export const metadata: Metadata = {
-  title: "OWLIA - Marketing pentru Afaceri Noi | Brand, Website, Digital Marketing",
+  metadataBase: new URL("https://owlia.ro"),
+  title: {
+    default:
+      "OWLIA - Marketing pentru Afaceri Noi | Brand, Website, Digital Marketing",
+    template: "%s | OWLIA",
+  },
   description:
     "Marketing full-service pentru companii 0-3 ani. De la strategie la rezultate măsurabile. 16 ani experiență, 100+ proiecte livrate, rezultate concrete.",
-  openGraph: {
-    title: "OWLIA - Marketing pentru Afaceri Noi",
-    description: "Construim brand-uri profitabile pentru afaceri noi.",
-    images: ["/og-image.jpg"],
+  keywords: [
+    "marketing pentru afaceri noi",
+    "branding",
+    "web design",
+    "marketing digital",
+    "strategie de marketing",
+    "agenție marketing",
+    "creștere afaceri",
+    "lead generation",
+    "SEO",
+    "PPC",
+    "social media",
+    "site web",
+  ],
+  applicationName: "OWLIA",
+  authors: [{ name: "OWLIA", url: "https://owlia.ro" }],
+  creator: "OWLIA",
+  publisher: "OWLIA",
+  alternates: {
+    canonical: "/",
   },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: "OWLIA - Marketing pentru Afaceri Noi",
+    description:
+      "Marketing full-service pentru companii 0-3 ani. De la strategie la rezultate măsurabile. 16 ani experiență, 100+ proiecte livrate, rezultate concrete.",
+    siteName: "OWLIA",
+    locale: "ro_RO",
+    images: [
+      {
+        url: "/logo_owlia_blue.svg",
+        width: 1200,
+        height: 630,
+        alt: "OWLIA - Marketing pentru Afaceri Noi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OWLIA - Marketing pentru Afaceri Noi",
+    description:
+      "Marketing full-service pentru companii 0-3 ani. De la strategie la rezultate măsurabile. 16 ani experiență, 100+ proiecte livrate, rezultate concrete.",
+    images: ["/logo_owlia_blue.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+  themeColor: "#0A2540",
+  referrer: "origin-when-cross-origin",
 };
 
 export default function HomePage() {

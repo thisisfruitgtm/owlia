@@ -3,13 +3,24 @@ import Navigation from "@/components/ui/Navigation";
 import CTASection from "@/components/ui/CTASection";
 
 export const metadata: Metadata = {
-  title: "Atelierul de Business - Caz de Succes | OWLIA",
+  title: { default: "Atelierul de Business - Caz de Succes", template: "%s | OWLIA" },
   description:
     "Cum am automatizat funnel-ul de vânzări pentru o platformă de training business. Redesign complet, strategie și conversie crescută.",
+  alternates: { canonical: "/cazuri-de-succes/atelier-de-business" },
   openGraph: {
+    type: "article",
+    url: "/cazuri-de-succes/atelier-de-business",
     title: "Atelierul de Business - Caz de Succes | OWLIA",
     description: "Funnel automatizat și conversie crescută cu 45%.",
-    images: ["/og-image.jpg"],
+    siteName: "OWLIA",
+    locale: "ro_RO",
+    images: [{ url: "/opengraph-image" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Atelierul de Business - Caz de Succes | OWLIA",
+    description: "Funnel automatizat și conversie crescută cu 45%.",
+    images: ["/opengraph-image"],
   },
 };
 
