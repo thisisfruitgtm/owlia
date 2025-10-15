@@ -57,7 +57,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/favicon.png" },
   themeColor: "#0A2540",
   referrer: "origin-when-cross-origin",
 };
