@@ -54,8 +54,18 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Generate contract number if not provided
-    const contractNumber = data.contractNumber || `OWLIA-${Date.now()}`;
+    // Generate contract number if not provided (autoincrement starting from 1)
+    let contractNumber = data.contractNumber;
+    if (!contractNumber) {
+      // Get the count of existing contracts to generate sequential number
+      const contractCount = await prisma.contract.count();
+      const nextNumber = contractCount + 1;
+      const date = new Date();
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      contractNumber = `${nextNumber}/${day}.${month}.${year}`;
+    }
     const contractDate = new Date().toLocaleDateString('ro-RO');
     
     // Check if timeline exists
@@ -71,6 +81,7 @@ export async function POST(request: NextRequest) {
       clientId: client.id,
       clientName: client.companyName || client.name,
       clientCIF: client.cui || 'RO[CUI]',
+      clientRegCom: client.regCom || 'J__/____/____',
       clientAddress: client.address || 'Adresa Firmei',
       clientEmail: client.user.email,
       clientPhone: client.phone || 'N/A',

@@ -19,6 +19,7 @@ interface ContractData {
   clientId: string;
   clientName: string;
   clientCIF: string;
+  clientRegCom: string;
   clientAddress: string;
   clientEmail: string;
   clientPhone: string;
