@@ -79,7 +79,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ro">
+    <html lang="ro" suppressHydrationWarning>
       <body className={`${instrumentSans.className} antialiased`}>
         {/* JSON-LD: Organization */}
         <script

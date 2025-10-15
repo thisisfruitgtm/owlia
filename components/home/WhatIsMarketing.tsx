@@ -76,7 +76,9 @@ export default function WhatIsMarketing() {
           </h3>
           <p className="text-xl leading-relaxed mb-6 text-white/90">
           <span className="font-bold underline decoration-cream">Marketingul este procesul strategic prin care identifici, atragi și păstrezi clienți pentru afacerea ta, comunicându-le valoarea pe care produsul sau serviciul tău o aduce în viața lor.</span>
-            <p>Important de reținut: Marketingul nu este doar "reclamă" sau "promovare". Este întregul proces care începe cu înțelegerea profundă a clientului tău și se termină cu transformarea lui într-un client fidel care te recomandă și altora.</p>
+          </p>
+          <p className="text-xl leading-relaxed mb-6 text-white/90">
+            Important de reținut: Marketingul nu este doar "reclamă" sau "promovare". Este întregul proces care începe cu înțelegerea profundă a clientului tău și se termină cu transformarea lui într-un client fidel care te recomandă și altora.
           </p>
           <p className="text-lg text-white/80">
             Logo, website, postări pe social media, reclame, newsletters, design - 
