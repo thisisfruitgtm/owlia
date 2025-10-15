@@ -32,10 +32,15 @@ export default function ContractPreviewModal({
       // Fetch client data
       const response = await fetch(`/api/admin/clients/${clientId}`);
       const { client } = await response.json();
-      setClientData(client);
+      
+      // Fetch timeline
+      const timelineResponse = await fetch(`/api/admin/clients/${clientId}/timeline`);
+      const { timeline } = await timelineResponse.json();
+      
+      setClientData({ ...client, timeline: timeline || [] });
 
       // Generate preview HTML
-      const previewHtml = generatePreviewHtml(client);
+      const previewHtml = generatePreviewHtml({ ...client, timeline: timeline || [] });
       setHtmlContent(previewHtml);
     } catch (error) {
       console.error("Error loading preview:", error);
@@ -126,6 +131,31 @@ export default function ContractPreviewModal({
     </p>
   </div>
 
+  <!-- Timeline -->
+  ${client.timeline && client.timeline.length > 0 ? `
+  <div style="margin-bottom: 30px;">
+    <h3 style="color: #00288B; font-size: 18px; margin: 0 0 15px 0;">PLAN DE IMPLEMENTARE (12 LUNI)</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 15px; border: 1px solid #ddd;">
+      <thead>
+        <tr style="background-color: #00288B; color: white;">
+          <th style="padding: 12px; text-align: left; border: 1px solid #00288B; width: 80px;">Luna</th>
+          <th style="padding: 12px; text-align: left; border: 1px solid #00288B;">Milestone</th>
+          <th style="padding: 12px; text-align: left; border: 1px solid #00288B;">Descriere</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${client.timeline.map((item: any, index: number) => `
+        <tr style="background-color: ${index % 2 === 0 ? '#f9f9f9' : 'white'};">
+          <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: bold;">L${item.month}</td>
+          <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">${item.milestone}</td>
+          <td style="padding: 10px; border: 1px solid #ddd; color: #666;">${item.description || '-'}</td>
+        </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  </div>
+  ` : ''}
+
   <!-- Other Terms -->
   <div style="margin-bottom: 30px;">
     <h3 style="color: #00288B; font-size: 18px; margin: 0 0 15px 0;">CLAUZE GENERALE</h3>
@@ -158,6 +188,32 @@ export default function ContractPreviewModal({
     `.trim();
   };
 
+  const handleGenerateTimeline = async () => {
+    if (!confirm("Generează timeline din pachetul clientului? Timeline-ul existent va fi înlocuit.")) {
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/admin/clients/${clientId}/timeline/generate`, {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        alert("Timeline generat cu succes! Reîncarcă preview-ul.");
+        await loadPreview();
+      } else {
+        const data = await response.json();
+        alert(data.error || "Eroare la generarea timeline-ului");
+      }
+    } catch (error) {
+      console.error("Error generating timeline:", error);
+      alert("Eroare la generarea timeline-ului");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSavePdf = async () => {
     setSaving(true);
     try {
@@ -172,7 +228,9 @@ export default function ContractPreviewModal({
       });
 
       if (!response.ok) {
-        throw new Error("Failed to generate contract");
+        const errorData = await response.json();
+        alert(errorData.error || "Eroare la generarea contractului");
+        return;
       }
 
       const { contract } = await response.json();
@@ -247,6 +305,26 @@ export default function ContractPreviewModal({
 
           {/* Content */}
           <div className="p-6">
+            {/* Warning if no timeline */}
+            {clientData?.timeline?.length === 0 && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+                <p className="text-sm text-red-800 font-semibold mb-2">
+                  ⚠️ Atenție: Acest client nu are milestone-uri generate!
+                </p>
+                <p className="text-sm text-red-600 mb-3">
+                  Pentru a genera un contract complet cu planul de implementare, 
+                  trebuie mai întâi să generezi timeline-ul.
+                </p>
+                <button
+                  onClick={handleGenerateTimeline}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-smooth text-sm font-semibold"
+                  disabled={loading}
+                >
+                  Generează Timeline
+                </button>
+              </div>
+            )}
+
             <div className="bg-cream rounded-xl p-4 mb-4">
               <p className="text-sm text-gray">
                 💡 <strong>Editează template-ul</strong> modificând HTML-ul mai jos. 
@@ -283,8 +361,9 @@ export default function ContractPreviewModal({
             </button>
             <Button
               onClick={handleSavePdf}
-              disabled={saving || sendingEmail}
+              disabled={saving || sendingEmail || clientData?.timeline?.length === 0}
               className="flex items-center gap-2"
+              title={clientData?.timeline?.length === 0 ? "Generează mai întâi timeline-ul" : ""}
             >
               {saving ? (
                 <>
