@@ -149,7 +149,7 @@ export async function POST(request: NextRequest) {
       eventType: "INVOICE_EMITED",
       severity: "INFO",
       userId: session.user.id,
-      email: session.user.email,
+      email: session.user.email || undefined,
       description: `Factură emisă ${fgoResponse.Result.NumarComplet} pentru ${client.companyName} - ${total.toFixed(2)} RON`,
       metadata: {
         invoiceId: invoice.id,
