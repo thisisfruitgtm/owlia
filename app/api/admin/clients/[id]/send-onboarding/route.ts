@@ -2,9 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { auth } from "@/lib/auth/config";
 import crypto from "crypto";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getResend } from "@/lib/email/resend";
 
 export async function POST(
   request: NextRequest,
@@ -54,7 +52,7 @@ export async function POST(
     const onboardingUrl = `${baseUrl}/onboarding/${token}`;
 
     // Send email
-    await resend.emails.send({
+    await getResend().emails.send({
       from: "OWLIA <noreply@owlia.ro>",
       to: client.user.email,
       subject: "Completează datele companiei tale - OWLIA",
