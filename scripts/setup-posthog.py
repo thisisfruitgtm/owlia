@@ -15,15 +15,23 @@ import sys
 import json
 import requests
 from typing import Dict, List, Any
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # PostHog Configuration
 POSTHOG_HOST = "https://eu.i.posthog.com"
 POSTHOG_PROJECT_API_KEY = os.getenv("NEXT_PUBLIC_POSTHOG_KEY")
 POSTHOG_PERSONAL_API_KEY = os.getenv("POSTHOG_PERSONAL_API_KEY")  # Get from PostHog Settings > Personal API Keys
 
-if not POSTHOG_PROJECT_API_KEY or not POSTHOG_PERSONAL_API_KEY:
-    print("❌ Error: POSTHOG_PERSONAL_API_KEY not found in environment")
+if not POSTHOG_PERSONAL_API_KEY:
+    print("❌ Error: POSTHOG_PERSONAL_API_KEY not found in .env file")
     print("Get it from: https://eu.i.posthog.com/settings/user-api-keys")
+    print("\nMake sure your Personal API Key has these scopes:")
+    print("  - action:write")
+    print("  - insight:write")
+    print("  - dashboard:write")
     sys.exit(1)
 
 # Headers for API requests
