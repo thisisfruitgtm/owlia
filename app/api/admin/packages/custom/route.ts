@@ -8,11 +8,14 @@ const createPackageSchema = z.object({
   name: z.string().min(2, "Numele trebuie să aibă minim 2 caractere"),
   price: z.number().min(0, "Prețul trebuie să fie pozitiv"),
   duration: z.number().min(1, "Durata trebuie să fie minim 1 lună").max(24, "Durata maximă este 24 luni"),
+  deliveryDays: z.number().min(1).max(90).optional(),
+  conditions: z.string().optional(),
   features: z.array(z.object({
     title: z.string().min(1),
     description: z.string().optional(),
   })).min(1, "Pachetul trebuie să aibă cel puțin un serviciu"),
   active: z.boolean().default(true),
+  visible: z.boolean().default(true),
 });
 
 export async function POST(request: NextRequest) {
@@ -46,7 +49,10 @@ export async function POST(request: NextRequest) {
         description: `Pachet custom ${data.duration} luni - ${data.features.length} servicii incluse`,
         features: data.features,
         timeline: timeline,
+        deliveryDays: data.deliveryDays,
+        conditions: data.conditions,
         active: data.active,
+        visible: data.visible,
       },
     });
 

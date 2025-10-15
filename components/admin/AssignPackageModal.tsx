@@ -34,6 +34,8 @@ export default function AssignPackageModal({
     name: "",
     price: "",
     duration: "12", // Durata în luni (default 12)
+    deliveryDays: "", // Termen livrare în zile lucrătoare
+    conditions: "", // Condiții specifice pachetului
     features: [""],
   });
   const [error, setError] = useState("");
@@ -41,6 +43,21 @@ export default function AssignPackageModal({
   useEffect(() => {
     fetchPackages();
   }, []);
+
+  // Reset form when modal opens or clientId changes
+  useEffect(() => {
+    setShowCustomForm(false);
+    setSelectedPackageId(currentPackageId);
+    setCustomPackage({
+      name: "",
+      price: "",
+      duration: "12",
+      deliveryDays: "",
+      conditions: "",
+      features: [""],
+    });
+    setError("");
+  }, [clientId]);
 
   const fetchPackages = async () => {
     try {
@@ -103,8 +120,11 @@ export default function AssignPackageModal({
           name: customPackage.name,
           price: parseInt(customPackage.price),
           duration: parseInt(customPackage.duration),
+          deliveryDays: customPackage.deliveryDays ? parseInt(customPackage.deliveryDays) : null,
+          conditions: customPackage.conditions || null,
           features: customPackage.features.filter((f) => f.trim() !== "").map((f) => ({ title: f })),
           active: true,
+          visible: true,
         }),
       });
 
@@ -282,6 +302,34 @@ export default function AssignPackageModal({
                     placeholder="Ex: 12"
                     min="1"
                     max="24"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-navy mb-2">
+                    Termen Livrare (zile lucrătoare)
+                  </label>
+                  <Input
+                    type="number"
+                    value={customPackage.deliveryDays}
+                    onChange={(e) => setCustomPackage({ ...customPackage, deliveryDays: e.target.value })}
+                    placeholder="Ex: 20"
+                    min="1"
+                    max="90"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-navy mb-2">
+                    Condiții Specifice
+                  </label>
+                  <textarea
+                    value={customPackage.conditions}
+                    onChange={(e) => setCustomPackage({ ...customPackage, conditions: e.target.value })}
+                    placeholder="Modalități de plată, garanție, alte condiții..."
+                    className="w-full px-3 py-2 border border-gray-light rounded-lg resize-none"
+                    rows={3}
                   />
                 </div>
               </div>
