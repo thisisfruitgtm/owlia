@@ -77,6 +77,35 @@ export async function PATCH(
     const body = await request.json();
     const { newPassword, ...data } = updateClientSchema.parse(body);
 
+    // If packageId is being updated, copy timeline from package to client
+    if (data.packageId) {
+      const packageData = await prisma.package.findUnique({
+        where: { id: data.packageId },
+        select: { timeline: true },
+      });
+
+      if (packageData && packageData.timeline) {
+        // Delete existing timeline items for this client
+        await prisma.timeline.deleteMany({
+          where: { clientId: id },
+        });
+
+        // Create new timeline items from package template
+        const timelineArray = packageData.timeline as any[];
+        if (Array.isArray(timelineArray) && timelineArray.length > 0) {
+          await prisma.timeline.createMany({
+            data: timelineArray.map((item: any) => ({
+              clientId: id,
+              month: item.month,
+              milestone: item.milestone,
+              description: item.description || null,
+              completed: false,
+            })),
+          });
+        }
+      }
+    }
+
     // Update client
     const client = await prisma.client.update({
       where: { id },

@@ -33,6 +33,7 @@ export default function AssignPackageModal({
   const [customPackage, setCustomPackage] = useState({
     name: "",
     price: "",
+    duration: "12", // Durata în luni (default 12)
     features: [""],
   });
   const [error, setError] = useState("");
@@ -85,7 +86,7 @@ export default function AssignPackageModal({
   };
 
   const handleCreateCustom = async () => {
-    if (!customPackage.name || !customPackage.price) {
+    if (!customPackage.name || !customPackage.price || !customPackage.duration) {
       setError("Completează toate câmpurile obligatorii");
       return;
     }
@@ -101,6 +102,7 @@ export default function AssignPackageModal({
         body: JSON.stringify({
           name: customPackage.name,
           price: parseInt(customPackage.price),
+          duration: parseInt(customPackage.duration),
           features: customPackage.features.filter((f) => f.trim() !== "").map((f) => ({ title: f })),
           active: true,
         }),
@@ -247,7 +249,7 @@ export default function AssignPackageModal({
           ) : (
             /* Custom Package Form */
             <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-navy mb-2">
                     Nume Pachet *
@@ -267,6 +269,19 @@ export default function AssignPackageModal({
                     value={customPackage.price}
                     onChange={(e) => setCustomPackage({ ...customPackage, price: e.target.value })}
                     placeholder="Ex: 15000"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-navy mb-2">
+                    Durata (luni) *
+                  </label>
+                  <Input
+                    type="number"
+                    value={customPackage.duration}
+                    onChange={(e) => setCustomPackage({ ...customPackage, duration: e.target.value })}
+                    placeholder="Ex: 12"
+                    min="1"
+                    max="24"
                   />
                 </div>
               </div>

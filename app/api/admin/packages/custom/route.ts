@@ -7,6 +7,7 @@ import { logSecurityEvent } from "@/lib/security/logger";
 const createPackageSchema = z.object({
   name: z.string().min(2, "Numele trebuie să aibă minim 2 caractere"),
   price: z.number().min(0, "Prețul trebuie să fie pozitiv"),
+  duration: z.number().min(1, "Durata trebuie să fie minim 1 lună").max(24, "Durata maximă este 24 luni"),
   features: z.array(z.object({
     title: z.string().min(1),
     description: z.string().optional(),
@@ -25,15 +26,26 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const data = createPackageSchema.parse(body);
 
-    // Create package with empty timeline (will be generated later)
+    // Generate basic timeline template based on duration
+    const timeline = Array.from({ length: data.duration }, (_, i) => ({
+      month: i + 1,
+      milestone: i === 0 ? "Kickoff & Planning" : 
+                 i === data.duration - 1 ? "Final Review & Launch" : 
+                 `Implementare Luna ${i + 1}`,
+      description: i === 0 ? "Lansare proiect și definire strategie" :
+                   i === data.duration - 1 ? "Revizuire finală și lansare oficială" :
+                   "Implementare continuă conform planului"
+    }));
+
+    // Create package with generated timeline template
     const packageData = await prisma.package.create({
       data: {
         name: data.name,
         price: data.price,
-        priceMonthly: null,
-        description: `Pachet custom creat pentru client specific`,
+        priceMonthly: Math.round(data.price / data.duration),
+        description: `Pachet custom ${data.duration} luni - ${data.features.length} servicii incluse`,
         features: data.features,
-        timeline: [], // Empty timeline - will be populated later
+        timeline: timeline,
         active: data.active,
       },
     });
