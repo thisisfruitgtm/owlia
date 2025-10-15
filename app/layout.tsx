@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Instrument_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -58,8 +58,11 @@ export const metadata: Metadata = {
     },
   },
   icons: { icon: "/favicon.png" },
-  themeColor: "#0A2540",
   referrer: "origin-when-cross-origin",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0A2540",
 };
 
 export default function RootLayout({

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Navigation from "@/components/ui/Navigation";
 import HeroSection from "@/components/home/HeroSection";
 import ProblemSection from "@/components/home/ProblemSection";
@@ -79,8 +79,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
-  themeColor: "#0A2540",
   referrer: "origin-when-cross-origin",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0A2540",
 };
 
 export default function HomePage() {
