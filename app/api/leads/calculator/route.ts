@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
 import { sendCalculatorResultEmail } from "@/lib/email/send";
+import { trackServerEvent, identifyUser } from "@/lib/analytics/posthogBackend";
 
 const createLeadSchema = z.object({
   email: z.string().email(),
@@ -35,6 +36,26 @@ export async function POST(request: NextRequest) {
         recommendedBudget: data.recommendedBudget,
         source: "calculator",
       },
+    });
+    
+    // Track lead creation in PostHog (server-side)
+    identifyUser(data.email, {
+      email: data.email,
+      industry: data.industry,
+      revenue: data.revenue,
+      target_clients: data.targetClients,
+      lead_source: "calculator",
+      lead_id: lead.id,
+      created_at: new Date().toISOString(),
+    });
+    
+    trackServerEvent(data.email, "lead_created_server", {
+      lead_id: lead.id,
+      source: "calculator",
+      industry: data.industry,
+      revenue: data.revenue,
+      target_clients: data.targetClients,
+      recommended_budget: data.recommendedBudget,
     });
     
     return NextResponse.json({ leadId: lead.id }, { status: 201 });
@@ -78,6 +99,14 @@ export async function PATCH(request: NextRequest) {
         lead.industry,
         lead.revenue
       );
+      
+      // Track email sent
+      trackServerEvent(lead.email, "calculator_email_sent", {
+        lead_id: lead.id,
+        package_name: data.packageName,
+        budget_min: data.minBudget,
+        budget_max: data.maxBudget,
+      });
     }
     
     return NextResponse.json({ success: true });

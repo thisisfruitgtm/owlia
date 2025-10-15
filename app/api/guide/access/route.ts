@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
 import { sendGuideDownloadEmail } from "@/lib/email/send";
 import { headers } from "next/headers";
+import { trackServerEvent, identifyUser } from "@/lib/analytics/posthogBackend";
 
 const guideAccessSchema = z.object({
   email: z.string().email(),
@@ -38,6 +39,19 @@ export async function POST(request: NextRequest) {
           source: "guide",
         },
       });
+      
+      // Identify new user
+      identifyUser(data.email, {
+        email: data.email,
+        lead_source: "guide",
+        lead_id: lead.id,
+      });
+      
+      // Track new lead from guide
+      trackServerEvent(data.email, "lead_created_server", {
+        lead_id: lead.id,
+        source: "guide",
+      });
     }
     
     // Create guide access record
@@ -51,6 +65,13 @@ export async function POST(request: NextRequest) {
       },
     });
     
+    // Track guide access
+    trackServerEvent(data.email, "guide_access_granted", {
+      lead_id: lead.id,
+      access_id: guideAccess.id,
+      ip_address: ipAddress,
+    });
+    
     // Generate download URL
     const downloadUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/guide/download/${guideAccess.id}`;
     
@@ -62,6 +83,12 @@ export async function POST(request: NextRequest) {
       await prisma.guideAccess.update({
         where: { id: guideAccess.id },
         data: { emailSent: true },
+      });
+      
+      // Track email sent
+      trackServerEvent(data.email, "guide_email_sent", {
+        lead_id: lead.id,
+        access_id: guideAccess.id,
       });
     } catch (emailError) {
       console.error("Failed to send guide email:", emailError);

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
 import { sendPackageInterestEmail } from "@/lib/email/send";
+import { trackServerEvent, identifyUser } from "@/lib/analytics/posthogBackend";
 
 const packageLeadSchema = z.object({
   leadId: z.string().optional(),
@@ -25,6 +26,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Update existing lead or create new one
+    let leadId = data.leadId;
     if (data.leadId) {
       await prisma.lead.update({
         where: { id: data.leadId },
@@ -35,7 +37,7 @@ export async function POST(request: NextRequest) {
         },
       });
     } else {
-      await prisma.lead.create({
+      const newLead = await prisma.lead.create({
         data: {
           email: data.email,
           phone: data.phone,
@@ -43,7 +45,24 @@ export async function POST(request: NextRequest) {
           source: "package-modal",
         },
       });
+      leadId = newLead.id;
+      
+      // Identify new user
+      identifyUser(data.email, {
+        email: data.email,
+        phone: data.phone,
+        lead_source: "package-modal",
+        lead_id: newLead.id,
+      });
     }
+    
+    // Track package interest (server-side)
+    trackServerEvent(data.email, "package_interest_server", {
+      lead_id: leadId,
+      package_name: data.packageName,
+      package_price: data.packagePrice,
+      has_phone: !!data.phone,
+    });
     
     // Send email to user
     await sendPackageInterestEmail(
@@ -52,6 +71,12 @@ export async function POST(request: NextRequest) {
       data.packagePrice,
       data.phone
     );
+    
+    // Track email sent
+    trackServerEvent(data.email, "package_interest_email_sent", {
+      lead_id: leadId,
+      package_name: data.packageName,
+    });
     
     // Generate WhatsApp URL
     const phoneNumber = "40123456789"; // Replace with actual number
