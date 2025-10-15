@@ -12,7 +12,10 @@ const updatePackageSchema = z.object({
     title: z.string(),
     description: z.string().optional(),
   })).optional(),
+  deliveryDays: z.number().nullable().optional(),
+  conditions: z.string().nullable().optional(),
   active: z.boolean().optional(),
+  visible: z.boolean().optional(),
 });
 
 export async function PATCH(

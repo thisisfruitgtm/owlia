@@ -12,7 +12,10 @@ const createPackageSchema = z.object({
     title: z.string(),
     description: z.string().optional(),
   })),
+  deliveryDays: z.number().nullable().optional(),
+  conditions: z.string().nullable().optional(),
   active: z.boolean().default(true),
+  visible: z.boolean().default(true),
 });
 
 export async function POST(request: NextRequest) {
@@ -34,7 +37,10 @@ export async function POST(request: NextRequest) {
         description: data.description,
         features: data.features,
         timeline: [], // Empty timeline template
+        deliveryDays: data.deliveryDays,
+        conditions: data.conditions,
         active: data.active,
+        visible: data.visible,
       },
     });
 

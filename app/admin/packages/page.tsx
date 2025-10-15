@@ -19,7 +19,10 @@ interface PackageType {
   priceMonthly: number | null;
   description: string | null;
   features: Feature[];
+  deliveryDays: number | null;
+  conditions: string | null;
   active: boolean;
+  visible: boolean;
   createdAt: string;
 }
 
@@ -34,14 +37,20 @@ export default function PackagesPage() {
     priceMonthly: string;
     description: string;
     features: Feature[];
+    deliveryDays: string;
+    conditions: string;
     active: boolean;
+    visible: boolean;
   }>({
     name: "",
     price: "",
     priceMonthly: "",
     description: "",
     features: [],
+    deliveryDays: "",
+    conditions: "",
     active: true,
+    visible: true,
   });
 
   useEffect(() => {
@@ -71,7 +80,10 @@ export default function PackagesPage() {
         : null,
       description: formData.description || null,
       features: formData.features.filter((f) => f.title.trim()),
+      deliveryDays: formData.deliveryDays ? parseInt(formData.deliveryDays) : null,
+      conditions: formData.conditions || null,
       active: formData.active,
+      visible: formData.visible,
     };
 
     try {
@@ -110,7 +122,10 @@ export default function PackagesPage() {
       priceMonthly: pkg.priceMonthly?.toString() || "",
       description: pkg.description || "",
       features: pkg.features || [],
+      deliveryDays: pkg.deliveryDays?.toString() || "",
+      conditions: pkg.conditions || "",
       active: pkg.active,
+      visible: pkg.visible,
     });
     setEditingId(pkg.id);
     setShowAddForm(true);
@@ -160,7 +175,10 @@ export default function PackagesPage() {
       priceMonthly: "",
       description: "",
       features: [],
+      deliveryDays: "",
+      conditions: "",
       active: true,
+      visible: true,
     });
     setEditingId(null);
     setShowAddForm(false);
@@ -238,15 +256,35 @@ export default function PackagesPage() {
                   setFormData({ ...formData, priceMonthly: e.target.value })
                 }
               />
-              <Input
-                type="text"
-                placeholder="Descriere scurtă"
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-              />
             </div>
+
+            <Input
+              type="text"
+              placeholder="Descriere scurtă"
+              value={formData.description}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
+            />
+
+            <Input
+              type="number"
+              placeholder="Termen livrare (zile lucrătoare, opțional)"
+              value={formData.deliveryDays}
+              onChange={(e) =>
+                setFormData({ ...formData, deliveryDays: e.target.value })
+              }
+            />
+
+            <textarea
+              placeholder="Condiții specifice pachetului (modalități plată, garanție, etc.)"
+              value={formData.conditions}
+              onChange={(e) =>
+                setFormData({ ...formData, conditions: e.target.value })
+              }
+              className="w-full px-4 py-3 border border-gray-light rounded-xl resize-none"
+              rows={4}
+            />
 
             <PackageFeatureEditor
               features={formData.features}
@@ -255,19 +293,36 @@ export default function PackagesPage() {
               }
             />
 
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                id="active"
-                checked={formData.active}
-                onChange={(e) =>
-                  setFormData({ ...formData, active: e.target.checked })
-                }
-                className="w-4 h-4"
-              />
-              <label htmlFor="active" className="text-sm text-gray">
-                Pachet activ (vizibil pe site)
-              </label>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="active"
+                  checked={formData.active}
+                  onChange={(e) =>
+                    setFormData({ ...formData, active: e.target.checked })
+                  }
+                  className="w-4 h-4"
+                />
+                <label htmlFor="active" className="text-sm text-gray">
+                  Pachet activ (funcțional în sistem)
+                </label>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="visible"
+                  checked={formData.visible}
+                  onChange={(e) =>
+                    setFormData({ ...formData, visible: e.target.checked })
+                  }
+                  className="w-4 h-4"
+                />
+                <label htmlFor="visible" className="text-sm text-gray">
+                  Vizibil pe website public
+                </label>
+              </div>
             </div>
 
             <div className="flex gap-4">

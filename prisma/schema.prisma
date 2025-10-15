@@ -98,7 +98,10 @@ model Package {
   description   String?
   features      Json // Array of {title: string, description?: string}
   timeline      Json // Timeline template
-  active        Boolean  @default(true)
+  deliveryDays  Int? // Termen de livrare în zile lucrătoare
+  conditions    String? @db.Text // Condiții specifice pachetului (modalități plată, garanție, etc.)
+  active        Boolean  @default(true) // Activ în sistem
+  visible       Boolean  @default(true) // Vizibil pe website public
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   clients       Client[]
