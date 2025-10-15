@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { FileText, Download, Plus, Loader2, Check, X } from "lucide-react";
+import { FileText, Download, Plus, Loader2, Check, X, Receipt } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ContractPreviewModal from "./ContractPreviewModal";
+import EmitInvoiceModal from "./EmitInvoiceModal";
 
 interface Contract {
   id: string;
@@ -18,6 +19,7 @@ interface Contract {
 
 interface Props {
   clientId: string;
+  clientName: string;
   contracts: Contract[];
 }
 
@@ -30,12 +32,14 @@ type GenerationStep =
   | "success" 
   | "error";
 
-export default function ContractsSection({ clientId, contracts: initialContracts }: Props) {
+export default function ContractsSection({ clientId, clientName, contracts: initialContracts }: Props) {
   const [contracts, setContracts] = useState(initialContracts);
   const [generationStep, setGenerationStep] = useState<GenerationStep>("idle");
   const [error, setError] = useState("");
   const [generatedContract, setGeneratedContract] = useState<any>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [showEmitInvoice, setShowEmitInvoice] = useState(false);
+  const [selectedContractId, setSelectedContractId] = useState<string | null>(null);
 
   const getStepMessage = (step: GenerationStep): string => {
     switch (step) {
@@ -71,6 +75,16 @@ export default function ContractsSection({ clientId, contracts: initialContracts
 
   const handleDownload = (contractId: string) => {
     window.open(`/api/admin/contracts/${contractId}/download`, "_blank");
+  };
+
+  const handleEmitInvoice = (contractId: string) => {
+    setSelectedContractId(contractId);
+    setShowEmitInvoice(true);
+  };
+
+  const handleInvoiceEmited = (invoice: any) => {
+    // Refresh contracts or show success message
+    console.log("Invoice emited:", invoice);
   };
 
   return (
@@ -133,14 +147,23 @@ export default function ContractsSection({ clientId, contracts: initialContracts
                     </div>
                   </div>
                 </div>
-                <Button
-                  onClick={() => handleDownload(contract.id)}
-                  className="flex items-center gap-2"
-                  variant="secondary"
-                >
-                  <Download size={16} />
-                  Descarcă
-                </Button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleEmitInvoice(contract.id)}
+                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-smooth font-semibold text-sm"
+                  >
+                    <Receipt size={16} />
+                    Emite Factură
+                  </button>
+                  <Button
+                    onClick={() => handleDownload(contract.id)}
+                    className="flex items-center gap-2"
+                    variant="secondary"
+                  >
+                    <Download size={16} />
+                    Descarcă
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
@@ -153,6 +176,20 @@ export default function ContractsSection({ clientId, contracts: initialContracts
           clientId={clientId}
           onClose={() => setShowPreview(false)}
           onContractGenerated={handleContractGenerated}
+        />
+      )}
+
+      {/* Emit Invoice Modal */}
+      {showEmitInvoice && (
+        <EmitInvoiceModal
+          clientId={clientId}
+          clientName={clientName}
+          contractId={selectedContractId || undefined}
+          onClose={() => {
+            setShowEmitInvoice(false);
+            setSelectedContractId(null);
+          }}
+          onSuccess={handleInvoiceEmited}
         />
       )}
     </div>

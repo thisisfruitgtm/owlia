@@ -389,7 +389,7 @@ export default function ClientDetailPage() {
         )}
       </div>
 
-      <ContractsSection clientId={client.id} contracts={client.contracts || []} />
+      <ContractsSection clientId={client.id} clientName={client.name} contracts={client.contracts || []} />
 
       {/* Files Section */}
       <div className="bg-white rounded-xl border border-gray-light overflow-hidden">

@@ -36,6 +36,19 @@ enum TimelineStatus {
   DELAYED
 }
 
+enum InvoiceStatus {
+  DRAFT
+  EMISA
+  ANULATA
+  STORNATA
+}
+
+enum InvoiceType {
+  FACTURA
+  PROFORMA
+  AVANS
+}
+
 model User {
   id            String         @id @default(cuid())
   email         String         @unique
@@ -74,6 +87,7 @@ model Client {
   contracts               Contract[]
   files                   File[]
   leads                   Lead[]
+  invoices                Invoice[]
 }
 
 model Package {
@@ -100,6 +114,28 @@ model Contract {
   status     ContractStatus @default(DRAFT)
   createdAt  DateTime       @default(now())
   updatedAt  DateTime       @updatedAt
+  invoices   Invoice[]
+}
+
+model Invoice {
+  id              String        @id @default(cuid())
+  clientId        String
+  client          Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  contractId      String?
+  contract        Contract?     @relation(fields: [contractId], references: [id], onDelete: SetNull)
+  fgoSerie        String?       // Serie factura FGO
+  fgoNumar        String?       // Numar factura FGO
+  fgoId           String?       // ID-ul facturii in FGO
+  fgoLink         String?       // Link-ul PDF-ului din FGO
+  type            InvoiceType   @default(FACTURA)
+  status          InvoiceStatus @default(DRAFT)
+  total           Float
+  currency        String        @default("RON")
+  items           Json          // Array of invoice items
+  fgoResponse     Json?         // Raspuns complet de la FGO
+  emitedAt        DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model File {
