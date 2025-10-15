@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -26,6 +27,32 @@ export default function RootLayout({
         <PostHogProvider>
           <SessionProvider>{children}</SessionProvider>
         </PostHogProvider>
+
+        {/* VideoAsk Widget */}
+        <Script
+          id="videoask-config"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.VIDEOASK_EMBED_CONFIG = {
+                "kind": "widget",
+                "url": "https://www.videoask.com/f48l4phj5",
+                "options": {
+                  "widgetType": "VideoThumbnailExtraLarge",
+                  "text": "",
+                  "backgroundColor": "#002185",
+                  "position": "bottom-right",
+                  "dismissible": true,
+                  "videoPosition": "center center"
+                }
+              };
+            `,
+          }}
+        />
+        <Script
+          src="https://www.videoask.com/embed/embed.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );
