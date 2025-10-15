@@ -4,6 +4,7 @@ import HeroSection from "@/components/home/HeroSection";
 import ProblemSection from "@/components/home/ProblemSection";
 import SolutionSection from "@/components/home/SolutionSection";
 import ServicesGrid from "@/components/home/ServicesGrid";
+import WhatIsMarketing from "@/components/home/WhatIsMarketing";
 import ProcessSteps from "@/components/home/ProcessSteps";
 import CaseStudiesPreview from "@/components/home/CaseStudiesPreview";
 import WhyOwlia from "@/components/home/WhyOwlia";
@@ -29,6 +30,7 @@ export default function HomePage() {
       <ProblemSection />
       <SolutionSection />
       <ServicesGrid />
+      <WhatIsMarketing />
       <ProcessSteps />
       <CaseStudiesPreview />
       <WhyOwlia />
