@@ -133,7 +133,7 @@ export default function PricingSection() {
             </button>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
+          <div className="grid md:grid-cols-3 gap-8 mt-12 items-start">
             {packages.map((pkg, index) => {
               const isRecommended = !isLocked && recommendedPackage === pkg.name;
               const isPremium = pkg.name === "PREMIUM";
