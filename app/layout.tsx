@@ -127,30 +127,50 @@ export default function RootLayout({
           <SessionProvider>{children}</SessionProvider>
         </PostHogProvider>
 
-        {/* VideoAsk Widget */}
+        {/* VideoAsk Widget - Delayed for performance */}
         <Script
-          id="videoask-config"
+          id="videoask-init"
           strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
-              window.VIDEOASK_EMBED_CONFIG = {
-                "kind": "widget",
-                "url": "https://www.videoask.com/f48l4phj5",
-                "options": {
-                  "widgetType": "VideoThumbnailExtraLarge",
-                  "text": "",
-                  "backgroundColor": "#002185",
-                  "position": "bottom-right",
-                  "dismissible": true,
-                  "videoPosition": "center center"
+              function initVideoAsk() {
+                window.VIDEOASK_EMBED_CONFIG = {
+                  "kind": "widget",
+                  "url": "https://www.videoask.com/f48l4phj5",
+                  "options": {
+                    "widgetType": "VideoThumbnailExtraLarge",
+                    "text": "",
+                    "backgroundColor": "#002185",
+                    "position": "bottom-right",
+                    "dismissible": true,
+                    "videoPosition": "center center"
+                  }
+                };
+                
+                const script = document.createElement('script');
+                script.src = 'https://www.videoask.com/embed/embed.js';
+                script.async = true;
+                document.body.appendChild(script);
+              }
+              
+              // Delay VideoAsk until page is fully loaded and idle
+              if (document.readyState === 'complete') {
+                if ('requestIdleCallback' in window) {
+                  requestIdleCallback(() => setTimeout(initVideoAsk, 3000));
+                } else {
+                  setTimeout(initVideoAsk, 4000);
                 }
-              };
+              } else {
+                window.addEventListener('load', () => {
+                  if ('requestIdleCallback' in window) {
+                    requestIdleCallback(() => setTimeout(initVideoAsk, 3000));
+                  } else {
+                    setTimeout(initVideoAsk, 4000);
+                  }
+                });
+              }
             `,
           }}
-        />
-        <Script
-          src="https://www.videoask.com/embed/embed.js"
-          strategy="lazyOnload"
         />
       </body>
     </html>

@@ -136,7 +136,7 @@ export default function BrandingPage() {
       </section>
 
       {/* Process */}
-      <section className="py-20 bg-cream">
+      <section className="mt-20 pt-16 md:pt-24 pb-20 bg-gradient-to-b from-cream to-white">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-4xl font-bold text-navy mb-4 text-center">
             Cum Lucrăm?
@@ -210,7 +210,7 @@ export default function BrandingPage() {
       </section>
 
       {/* Pricing */}
-      <section className="py-20 bg-cream">
+      <section className="mt-20 pt-16 md:pt-24 pb-20 bg-gradient-to-b from-cream to-white">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-navy mb-4">Cât Costă?</h2>
           <p className="text-lg text-gray mb-12">

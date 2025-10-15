@@ -110,7 +110,7 @@ export default function BreakdownSection() {
   const [activeTab, setActiveTab] = useState("etapa1");
 
   return (
-    <section className="py-20 bg-cream">
+    <section className="mt-20 pt-16 md:pt-24 pb-20 bg-gradient-to-b from-cream to-white">
       <div className="max-w-5xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-navy mb-4 text-center">Ce primești exact în pachet?</h2>
         <p className="text-lg text-gray mb-10 text-center">Detalii complete pentru fiecare etapă</p>

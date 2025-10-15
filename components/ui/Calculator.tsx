@@ -131,7 +131,7 @@ export default function Calculator() {
   };
 
   return (
-    <section className="py-20 bg-cream" id="calculator">
+    <section className="mt-20 pt-16 md:pt-24 pb-20 bg-gradient-to-b from-cream to-white" id="calculator">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-navy mb-4 text-center">Cât ar trebui să investești în marketing?</h2>
         <p className="text-lg text-gray mb-12 text-center">Completează 3 câmpuri și îți calculăm bugetul optim</p>

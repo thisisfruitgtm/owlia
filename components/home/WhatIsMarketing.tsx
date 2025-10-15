@@ -1,6 +1,6 @@
 export default function WhatIsMarketing() {
   return (
-    <section className="py-20 bg-cream">
+    <section className="mt-20 pt-16 md:pt-24 pb-20 bg-gradient-to-b from-cream to-white">
       <div className="max-w-7xl mx-auto px-6">
         {/* Main Heading */}
         <div className="max-w-3xl mx-auto text-center mb-16">
