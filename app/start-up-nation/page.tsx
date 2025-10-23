@@ -344,7 +344,7 @@ export default function StartUpNationPage() {
           <p className="text-sm mt-4 text-white/60">
             sau contactează-ne pe{" "}
             <a
-              href="https://wa.me/40123456789?text=Bună!%20Vreau%20ghidul%20gratuit%20despre%20bugetul%20de%20marketing."
+              href="https://wa.me/40778767940?text=Bună!%20Vreau%20ghidul%20gratuit%20despre%20bugetul%20de%20marketing."
               className="text-white/90 underline"
             >
               WhatsApp
@@ -365,7 +365,7 @@ export default function StartUpNationPage() {
             cât buget să aloci pentru marketing în primul an.
           </p>
           <a
-            href="https://wa.me/40123456789?text=Bună!%20Vreau%20o%20consultanță%20gratuită%20de%2030%20min%20pentru%20Start-Up%20Nation."
+            href="https://wa.me/40778767940?text=Bună!%20Vreau%20o%20consultanță%20gratuită%20de%2030%20min%20pentru%20Start-Up%20Nation."
             className="inline-flex items-center gap-3 bg-navy text-white px-12 py-6 rounded-xl font-semibold text-xl hover:-translate-y-1 hover:shadow-2xl transition-smooth"
           >
             <span>💬</span>

@@ -284,7 +284,7 @@ export default function LaDaDaPage() {
         title="Vrei să crești și tu local?"
         description="Dacă ai un business HoReCa sau local, vorbim despre strategia ta de creștere. Consultanță gratuită 30 min."
         buttonText="Programează Consultanță"
-        buttonHref="https://wa.me/40123456789?text=Bună!%20Am%20văzut%20cazul%20LaDaDa.%20Vreau%20să%20cresc%20local."
+        buttonHref="https://wa.me/40778767940?text=Bună!%20Am%20văzut%20cazul%20LaDaDa.%20Vreau%20să%20cresc%20local."
       />
 
       {/* Footer */}

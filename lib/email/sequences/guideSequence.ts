@@ -138,7 +138,7 @@ export const guideDay7Template = (firstName: string) => ({
     </div>
     
     <div style="text-align: center; margin: 30px 0;">
-      <a href="https://wa.me/40123456789?text=Vreau%20o%20consultanță%20gratuită%20pentru%20Start-Up%20Nation" style="background-color: #25D366; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+      <a href="https://wa.me/40778767940?text=Vreau%20o%20consultanță%20gratuită%20pentru%20Start-Up%20Nation" style="background-color: #25D366; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
         💬 Programează Consultanță Gratuită
       </a>
     </div>
@@ -184,7 +184,7 @@ Vrei rezultate similare?
 
 Hai să vorbim 30 de minute despre afacerea ta. Îți arăt exact ce poți face cu bugetul Start-Up Nation.
 
-Programează consultanță gratuită: https://wa.me/40123456789?text=Vreau%20o%20consultanță%20gratuită%20pentru%20Start-Up%20Nation
+Programează consultanță gratuită: https://wa.me/40778767940?text=Vreau%20o%20consultanță%20gratuită%20pentru%20Start-Up%20Nation
 
 Vezi cazul complet: https://owlia.ro/cazuri-de-succes/vipbebe
 

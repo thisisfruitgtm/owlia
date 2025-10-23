@@ -64,7 +64,7 @@ export default function BrandingPage() {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="https://wa.me/40123456789?text=Bună!%20Vreau%20să%20discutăm%20despre%20branding."
+              href="https://wa.me/40778767940?text=Bună!%20Vreau%20să%20discutăm%20despre%20branding."
               className="inline-flex items-center gap-3 bg-navy text-white px-10 py-5 rounded-xl font-semibold text-lg hover:-translate-y-1 hover:shadow-xl transition-smooth"
             >
               💬 Începe Proiectul
@@ -289,7 +289,7 @@ export default function BrandingPage() {
         title="Gata să construim un brand memorabil?"
         description="Discutăm despre viziunea ta și îți trimitem o ofertă personalizată în 24h."
         buttonText="Începe Proiectul"
-        buttonHref="https://wa.me/40123456789?text=Bună!%20Vreau%20să%20discutăm%20despre%20branding."
+        buttonHref="https://wa.me/40778767940?text=Bună!%20Vreau%20să%20discutăm%20despre%20branding."
       />
 
       {/* Footer */}

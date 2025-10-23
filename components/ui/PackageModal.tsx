@@ -114,7 +114,7 @@ export default function PackageModal({
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="+40712345678"
+              placeholder="+40778767940"
               className="w-full px-4 py-3 border-2 border-gray-light rounded-xl focus:outline-none focus:border-navy transition-smooth"
             />
           </div>

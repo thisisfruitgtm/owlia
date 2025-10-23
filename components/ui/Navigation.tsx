@@ -112,7 +112,7 @@ export default function Navigation() {
           </Link>
 
           <a
-            href="https://wa.me/40123456789?text=Bună!%20Vreau%20să%20discutăm."
+            href="https://wa.me/40778767940?text=Bună!%20Vreau%20să%20discutăm."
             className="text-sm font-semibold text-navy hover:opacity-75 transition-smooth"
           >
             Contact
@@ -219,7 +219,7 @@ export default function Navigation() {
             </Link>
 
             <a
-              href="https://wa.me/40123456789?text=Bună!%20Vreau%20să%20discutăm."
+              href="https://wa.me/40778767940?text=Bună!%20Vreau%20să%20discutăm."
               className="block text-sm font-semibold text-navy hover:opacity-75"
             >
               Contact

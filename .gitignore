@@ -46,3 +46,13 @@ __pycache__/
 next-env.d.ts
 
 /app/generated/prisma
+
+# Deployment
+.env.production
+.env.staging
+deploy.log
+*.deploy
+
+# Build artifacts (keep some for deployment)
+# .next/
+# node_modules/

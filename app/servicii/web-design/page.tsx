@@ -63,7 +63,7 @@ export default function WebDesignPage() {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="https://wa.me/40123456789?text=Bună!%20Vreau%20o%20ofertă%20pentru%20un%20website."
+              href="https://wa.me/40778767940?text=Bună!%20Vreau%20o%20ofertă%20pentru%20un%20website."
               className="inline-flex items-center gap-3 bg-navy text-white px-10 py-5 rounded-xl font-semibold text-lg hover:-translate-y-1 hover:shadow-xl transition-smooth"
             >
               💬 Solicită Ofertă
@@ -294,7 +294,7 @@ export default function WebDesignPage() {
         title="Gata să ai un website de top?"
         description="Trimite-ne un mesaj și discutăm despre proiectul tău. Îți facem o ofertă personalizată în 24h."
         buttonText="Solicită Ofertă"
-        buttonHref="https://wa.me/40123456789?text=Bună!%20Vreau%20o%20ofertă%20pentru%20website."
+        buttonHref="https://wa.me/40778767940?text=Bună!%20Vreau%20o%20ofertă%20pentru%20website."
       />
 
       {/* Footer */}

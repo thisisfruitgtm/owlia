@@ -243,7 +243,7 @@ export default function Calculator() {
                 {result.packageInfo}
               </p>
               <a
-                href={`https://wa.me/40123456789?text=${encodeURIComponent(result.whatsappMessage)}`}
+                href={`https://wa.me/40778767940?text=${encodeURIComponent(result.whatsappMessage)}`}
                 className="inline-flex items-center gap-2 bg-navy text-white px-8 py-4 rounded-xl font-semibold hover:-translate-y-0.5 hover:shadow-xl transition-smooth"
               >
                 <span>💬</span>

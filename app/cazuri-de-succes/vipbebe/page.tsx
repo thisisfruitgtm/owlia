@@ -281,7 +281,7 @@ export default function VipBebePage() {
         title="Vrei rezultate similare?"
         description="Discutăm despre business-ul tău și îți arătăm cum putem ajuta. Consultanță gratuită 30 min."
         buttonText="Programează Consultanță"
-        buttonHref="https://wa.me/40123456789?text=Bună!%20Am%20văzut%20cazul%20VipBebe.%20Vreau%20și%20eu%20rezultate%20similare."
+        buttonHref="https://wa.me/40778767940?text=Bună!%20Am%20văzut%20cazul%20VipBebe.%20Vreau%20și%20eu%20rezultate%20similare."
       />
 
       {/* Footer */}

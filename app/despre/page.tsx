@@ -259,7 +259,7 @@ export default function DesprePage() {
         title="Hai să vorbim!"
         description="Programează o consultanță gratuită de 30 de minute și discutăm despre business-ul tău."
         buttonText="Programează Consultanță"
-        buttonHref="https://wa.me/40123456789?text=Bună!%20Vreau%20o%20consultanță%20gratuită."
+        buttonHref="https://wa.me/40778767940?text=Bună!%20Vreau%20o%20consultanță%20gratuită."
       />
 
       {/* Footer */}

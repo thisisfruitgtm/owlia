@@ -128,7 +128,7 @@ export default function AddLeadModal({ onClose, onSuccess }: Props) {
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="0712345678"
+                placeholder="0778767940"
               />
             </div>
 

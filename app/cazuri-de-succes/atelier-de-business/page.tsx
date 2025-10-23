@@ -298,7 +298,7 @@ export default function AtelierDeBusinessPage() {
         title="Vrei un funnel automatizat?"
         description="Dacă vinzi servicii sau training-uri, te ajutăm să automatizezi vânzările. Consultanță gratuită 30 min."
         buttonText="Programează Consultanță"
-        buttonHref="https://wa.me/40123456789?text=Bună!%20Am%20văzut%20cazul%20Atelierul%20de%20Business.%20Vreau%20automatizare."
+        buttonHref="https://wa.me/40778767940?text=Bună!%20Am%20văzut%20cazul%20Atelierul%20de%20Business.%20Vreau%20automatizare."
       />
 
       {/* Footer */}
