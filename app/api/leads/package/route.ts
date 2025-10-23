@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     });
     
     // Generate WhatsApp URL
-    const phoneNumber = "40123456789"; // Replace with actual number
+    const phoneNumber = "40778767940"; // Official Owlia number
     const message = `Bună! Sunt interesat de ${data.packageName} (${data.packagePrice} lei).\n\nEmail: ${data.email}${data.phone ? `\nTelefon: ${data.phone}` : ''}`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     

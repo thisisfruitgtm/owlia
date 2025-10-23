@@ -64,7 +64,7 @@ export default function MarketingDigitalPage() {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="https://wa.me/40123456789?text=Bună!%20Vreau%20să%20discutăm%20despre%20marketing%20digital."
+              href="https://wa.me/40778767940?text=Bună!%20Vreau%20să%20discutăm%20despre%20marketing%20digital."
               className="inline-flex items-center gap-3 bg-navy text-white px-10 py-5 rounded-xl font-semibold text-lg hover:-translate-y-1 hover:shadow-xl transition-smooth"
             >
               💬 Consultanță Gratuită
@@ -284,7 +284,7 @@ export default function MarketingDigitalPage() {
         title="Gata să începi?"
         description="Programează o consultanță gratuită de 30 de minute și află cum putem să-ți creștem business-ul."
         buttonText="Consultanță Gratuită"
-        buttonHref="https://wa.me/40123456789?text=Bună!%20Vreau%20o%20consultanță%20despre%20marketing%20digital."
+        buttonHref="https://wa.me/40778767940?text=Bună!%20Vreau%20o%20consultanță%20despre%20marketing%20digital."
       />
 
       {/* Footer */}

@@ -72,7 +72,7 @@ export const calculatorDay3Template = (firstName: string, industry: string) => {
     <p>Hai să vorbim 30 de minute despre afacerea ta. Îți arăt exact cum aplicăm aceste tactici în practică.</p>
     
     <div style="text-align: center; margin: 30px 0;">
-      <a href="https://wa.me/40123456789?text=Vreau%20o%20consultanță%20pentru%20${encodeURIComponent(industry)}" style="background-color: #25D366; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+      <a href="https://wa.me/40778767940?text=Vreau%20o%20consultanță%20pentru%20${encodeURIComponent(industry)}" style="background-color: #25D366; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
         💬 Programează Consultanță Gratuită
       </a>
     </div>
@@ -97,7 +97,7 @@ Vrei să implementezi aceste strategii?
 
 Hai să vorbim 30 de minute despre afacerea ta. Îți arăt exact cum aplicăm aceste tactici în practică.
 
-Programează consultanță: https://wa.me/40123456789?text=Vreau%20o%20consultanță%20pentru%20${encodeURIComponent(industry)}
+Programează consultanță: https://wa.me/40778767940?text=Vreau%20o%20consultanță%20pentru%20${encodeURIComponent(industry)}
 
 P.S. - În consultanță îți arăt și cum alții din ${industry} au reușit să crească rapid cu buget similar.
 
@@ -155,7 +155,7 @@ export const calculatorDay5Template = (firstName: string, revenue: number) => ({
     <p>Perfect! Ești exact în target-ul nostru. Hai să vorbim despre implementarea corectă.</p>
     
     <div style="text-align: center; margin: 30px 0;">
-      <a href="https://wa.me/40123456789?text=Vreau%20să%20implementez%20corect%20Start-Up%20Nation" style="background-color: #25D366; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+      <a href="https://wa.me/40778767940?text=Vreau%20să%20implementez%20corect%20Start-Up%20Nation" style="background-color: #25D366; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
         💬 Hai să Vorbim Acum
       </a>
     </div>
@@ -194,7 +194,7 @@ Alegi un partener cu:
 Ai ${revenue >= 500000 ? 'peste 500.000 lei' : 'sub 500.000 lei'} cifră de afaceri?
 Perfect! Ești exact în target-ul nostru. Hai să vorbim despre implementarea corectă.
 
-Programează consultanță: https://wa.me/40123456789?text=Vreau%20să%20implementez%20corect%20Start-Up%20Nation
+Programează consultanță: https://wa.me/40778767940?text=Vreau%20să%20implementez%20corect%20Start-Up%20Nation
 
 P.S. - Mai acceptăm doar 4 beneficiari pentru 2025. First come, first served.
 
@@ -247,7 +247,7 @@ export const calculatorDay7Template = (firstName: string) => ({
     </div>
     
     <div style="text-align: center; margin: 30px 0;">
-      <a href="https://wa.me/40123456789?text=Vreau%20bonusul%20-%20consultanță%20gratuită" style="background-color: #d32f2f; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+      <a href="https://wa.me/40778767940?text=Vreau%20bonusul%20-%20consultanță%20gratuită" style="background-color: #d32f2f; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
         🎁 Revendic Bonusul Acum
       </a>
     </div>
@@ -285,7 +285,7 @@ Acest bonus expiră în 48 DE ORE. După aceea revin la consultanțele standard 
 De ce fac asta?
 Pentru că am doar 4 locuri rămase pentru Start-Up Nation 2025 și vreau să lucrez cu antreprenori serioși care își doresc rezultate reale, nu doar să bifeze proiectul.
 
-Revendică bonusul: https://wa.me/40123456789?text=Vreau%20bonusul%20-%20consultanță%20gratuită
+Revendică bonusul: https://wa.me/40778767940?text=Vreau%20bonusul%20-%20consultanță%20gratuită
 
 Expiră în: 48 ore
 

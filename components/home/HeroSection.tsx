@@ -14,7 +14,7 @@ export default function HeroSection() {
         </p>
         <div className="flex flex-wrap gap-4">
           <a
-            href="https://wa.me/40123456789?text=Bună!%20Vreau%20o%20consultanță%20gratuită."
+            href="https://wa.me/40778767940?text=Bună!%20Vreau%20o%20consultanță%20gratuită."
             className="inline-flex items-center gap-3 bg-navy text-white px-10 py-5 rounded-xl font-semibold text-lg hover:-translate-y-1 hover:shadow-xl transition-smooth"
           >
             💬 Consultanță Gratuită 30 min

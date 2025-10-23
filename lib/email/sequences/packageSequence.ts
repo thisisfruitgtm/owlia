@@ -47,7 +47,7 @@ export const packageDay2Template = (firstName: string, packageName: string, pack
     <p><strong>Ai întrebări?</strong> Hai să vorbim 15 minute. Îți explic tot în detaliu și vezi dacă e potrivit pentru afacerea ta.</p>
     
     <div style="text-align: center; margin: 30px 0;">
-      <a href="https://wa.me/40123456789?text=Vreau%20detalii%20despre%20${encodeURIComponent(packageName)}" style="background-color: #25D366; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+      <a href="https://wa.me/40778767940?text=Vreau%20detalii%20despre%20${encodeURIComponent(packageName)}" style="background-color: #25D366; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
         💬 Hai să Vorbim
       </a>
     </div>
@@ -89,7 +89,7 @@ Eligibil 100% pentru Start-Up Nation • Raportare inclusă • Documentație co
 
 Ai întrebări? Hai să vorbim 15 minute. Îți explic tot în detaliu și vezi dacă e potrivit pentru afacerea ta.
 
-Programează: https://wa.me/40123456789?text=Vreau%20detalii%20despre%20${encodeURIComponent(packageName)}
+Programează: https://wa.me/40778767940?text=Vreau%20detalii%20despre%20${encodeURIComponent(packageName)}
 
 Vezi toate pachetele: https://owlia.ro/start-up-nation#pricing
 
@@ -149,7 +149,7 @@ export const packageDay5Template = (firstName: string, packageName: string) => (
     <p>Același pachet pe care l-ai ales (<strong>${packageName}</strong>) este exact ce a folosit Atelier de Business pentru a crește.</p>
     
     <div style="text-align: center; margin: 30px 0;">
-      <a href="https://wa.me/40123456789?text=Vreau%20să%20discutăm%20despre%20${encodeURIComponent(packageName)}" style="background-color: #0A2540; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+      <a href="https://wa.me/40778767940?text=Vreau%20să%20discutăm%20despre%20${encodeURIComponent(packageName)}" style="background-color: #0A2540; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
         📞 Hai să Vorbim despre Rezultate
       </a>
     </div>
@@ -197,7 +197,7 @@ Vrei aceleași rezultate?
 
 Același pachet pe care l-ai ales (${packageName}) este exact ce a folosit Atelier de Business pentru a crește.
 
-Programează: https://wa.me/40123456789?text=Vreau%20să%20discutăm%20despre%20${encodeURIComponent(packageName)}
+Programează: https://wa.me/40778767940?text=Vreau%20să%20discutăm%20despre%20${encodeURIComponent(packageName)}
 
 Vezi cazul complet: https://owlia.ro/cazuri-de-succes/atelier-de-business
 

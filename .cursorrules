@@ -313,6 +313,33 @@ const browser = await puppeteer.launch({
 
 ## Git Workflow
 
+### Branch Strategy
+- **`main`** → Production (owlia.ro)
+- **`staging`** → Development & Testing
+
+### Development Workflow
+```bash
+# 1. Work on staging branch
+git checkout staging
+
+# 2. Make changes and commit
+./scripts/git-workflow.sh commit "Description of changes"
+
+# 3. Deploy to staging for testing
+./scripts/git-workflow.sh deploy-staging
+
+# 4. When ready, deploy to production
+./scripts/git-workflow.sh deploy-prod
+```
+
+### Quick Commands
+| Command | Description |
+|---------|-------------|
+| `./scripts/git-workflow.sh status` | Show current status |
+| `./scripts/git-workflow.sh commit "msg"` | Commit changes |
+| `./scripts/git-workflow.sh deploy-staging` | Deploy to staging |
+| `./scripts/git-workflow.sh deploy-prod` | Deploy to production |
+
 ### Commit Messages
 ```
 feat: add new feature

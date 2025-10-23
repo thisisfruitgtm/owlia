@@ -266,7 +266,7 @@ export default function ClientOnboardingPage() {
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="Ex: 0712345678"
+                placeholder="Ex: 0778767940"
                 required
               />
             </div>

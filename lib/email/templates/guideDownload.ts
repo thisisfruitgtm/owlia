@@ -72,7 +72,7 @@ export const guideDownloadEmail = (guideUrl: string) => `
               <table role="presentation" style="margin: 20px 0;">
                 <tr>
                   <td style="border-radius: 8px; background-color: #25D366; text-align: center;">
-                    <a href="https://wa.me/40123456789?text=Bună!%20Am%20descărcat%20ghidul%20și%20vreau%20o%20consultanță." style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 15px;">
+                    <a href="https://wa.me/40778767940?text=Bună!%20Am%20descărcat%20ghidul%20și%20vreau%20o%20consultanță." style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 15px;">
                       💬 Consultanță Gratuită pe WhatsApp
                     </a>
                   </td>
