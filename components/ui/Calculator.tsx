@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { posthog } from "@/lib/analytics/posthog";
 
 interface CalculatorResult {
@@ -13,9 +13,33 @@ interface CalculatorResult {
   email: string;
 }
 
+interface Package {
+  id: string;
+  name: string;
+  price: number;
+  priceMonthly: number | null;
+  description: string | null;
+  features: Array<{ title: string; description?: string }>;
+  active: boolean;
+}
+
 export default function Calculator() {
   const [result, setResult] = useState<CalculatorResult | null>(null);
   const [loading, setLoading] = useState(false);
+  const [packages, setPackages] = useState<Package[]>([]);
+
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const response = await fetch("/api/packages");
+        const data = await response.json();
+        setPackages((data.packages || []).filter((p: Package) => p.active));
+      } catch (error) {
+        console.error("Error fetching packages:", error);
+      }
+    };
+    fetchPackages();
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,8 +55,26 @@ export default function Calculator() {
     const industryName = industrySelect.options[industrySelect.selectedIndex].text;
     const marketingPercent = parseFloat(industrySelect.options[industrySelect.selectedIndex].dataset.percent || "6");
     
-    const minBudget = Math.round((revenue * (marketingPercent - 1)) / 100);
-    const maxBudget = Math.round((revenue * (marketingPercent + 1)) / 100);
+    // Set range based on available packages (use first two packages)
+    let minBudget: number;
+    let maxBudget: number;
+    
+    if (packages.length >= 2) {
+      // Use range between first two packages
+      const firstPackage = packages[0];
+      const secondPackage = packages[1];
+      minBudget = firstPackage.price;
+      maxBudget = secondPackage.price;
+    } else if (packages.length === 1) {
+      // Only one package - use it as both min and max
+      minBudget = packages[0].price;
+      maxBudget = packages[0].price;
+    } else {
+      // Fallback: calculate based on marketing percent
+      minBudget = Math.round((revenue * (marketingPercent - 1)) / 100);
+      maxBudget = Math.round((revenue * (marketingPercent + 1)) / 100);
+    }
+    
     const avgBudget = Math.round((minBudget + maxBudget) / 2);
     
     // Save lead to database
@@ -72,26 +114,41 @@ export default function Calculator() {
     let whatsappMessage = '';
     let recommendedPackage = '';
     
-    if (avgBudget < 42000) {
+    // Determine recommended package based on actual package prices
+    if (packages.length === 0) {
+      // Fallback if no packages loaded
       packageName = 'Recomandăm Pachetul PERSONALIZAT';
       recommendedPackage = 'CUSTOM';
       packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei, bugetul tău optim este ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei. Îți recomandăm un pachet personalizat adaptat bugetului tău, care include elementele esențiale pentru Start-Up Nation.`;
       whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau o ofertă PERSONALIZATĂ adaptată bugetului meu.`;
-    } else if (avgBudget >= 42000 && avgBudget < 55000) {
-      packageName = 'Pachet SMART recomandat';
-      recommendedPackage = 'SMART';
-      packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, pachetul SMART (42.000 lei) oferă focus digital optim și ROI maxim - perfect pentru bugetul tău.`;
-      whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau informații despre Pachetul SMART (42.000 lei).`;
-    } else if (avgBudget >= 55000 && avgBudget < 70000) {
-      packageName = 'Pachet PREMIUM recomandat';
-      recommendedPackage = 'PREMIUM';
-      packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, pachetul PREMIUM (55.000 lei) include tot ce ai nevoie: brand complet, digital și materiale fizice - ideal pentru bugetul tău.`;
-      whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau informații despre Pachetul PREMIUM (55.000 lei).`;
+    } else if (packages.length === 1) {
+      // Only one package available
+      const pkg = packages[0];
+      packageName = `Pachet ${pkg.name} recomandat`;
+      recommendedPackage = pkg.name;
+      packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, pachetul ${pkg.name} (${(pkg.price / 1000).toFixed(0)}.000 lei) este perfect pentru bugetul tău.`;
+      whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau informații despre Pachetul ${pkg.name} (${(pkg.price / 1000).toFixed(0)}.000 lei).`;
     } else {
-      packageName = 'Pachet PREMIUM + Campanii recomandat';
-      recommendedPackage = 'PREMIUM_PLUS';
-      packageInfo = `Pentru ${industryName} cu CA ambițioasă de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, recomandăm pachetul PREMIUM (55.000 lei) plus campanii Google/Facebook Ads susținute pentru a maximiza rezultatele.`;
-      whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau o ofertă PREMIUM + Campanii de publicitate.`;
+      // Two or more packages - use first two for range
+      const firstPackage = packages[0];
+      const secondPackage = packages[1];
+      
+      if (avgBudget < firstPackage.price) {
+        packageName = 'Recomandăm Pachetul PERSONALIZAT';
+        recommendedPackage = 'CUSTOM';
+        packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei, bugetul tău optim este ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei. Îți recomandăm un pachet personalizat adaptat bugetului tău, care include elementele esențiale pentru Start-Up Nation.`;
+        whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau o ofertă PERSONALIZATĂ adaptată bugetului meu.`;
+      } else if (avgBudget >= firstPackage.price && avgBudget < secondPackage.price) {
+        packageName = `Pachet ${firstPackage.name} recomandat`;
+        recommendedPackage = firstPackage.name;
+        packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, pachetul ${firstPackage.name} (${(firstPackage.price / 1000).toFixed(0)}.000 lei) oferă focus digital optim și ROI maxim - perfect pentru bugetul tău.`;
+        whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau informații despre Pachetul ${firstPackage.name} (${(firstPackage.price / 1000).toFixed(0)}.000 lei).`;
+      } else {
+        packageName = `Pachet ${secondPackage.name} recomandat`;
+        recommendedPackage = secondPackage.name;
+        packageInfo = `Pentru ${industryName} cu CA de ${revenue.toLocaleString('ro-RO')} lei și target de ${clients} clienți, pachetul ${secondPackage.name} (${(secondPackage.price / 1000).toFixed(0)}.000 lei) include tot ce ai nevoie: brand complet, digital și materiale fizice - ideal pentru bugetul tău.`;
+        whatsappMessage = `Bună! Am calculat bugetul pentru afacerea mea:\n- Industrie: ${industryName}\n- CA An 1: ${revenue.toLocaleString('ro-RO')} lei\n- Target clienți: ${clients}\n- Buget recomandat: ${minBudget.toLocaleString('ro-RO')} - ${maxBudget.toLocaleString('ro-RO')} lei\n\nVreau informații despre Pachetul ${secondPackage.name} (${(secondPackage.price / 1000).toFixed(0)}.000 lei).`;
+      }
     }
     
     // Update lead with recommended package and send email
